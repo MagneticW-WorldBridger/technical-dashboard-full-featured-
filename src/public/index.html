@@ -1,1 +1,4093 @@
-{"error":{"code":"not_found","message":"The requested API endpoint was not found."}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Woodstock Outlet - AI Customer Service</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Removed external css to avoid 404 in Vercel; styles are inlined below -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            /* Woodstock Furniture Colors */
+            --primary-dark: #563232;
+            --primary-red: #84240c;
+            --primary-orange: #da6d42;
+            --primary-light: #ffc18c;
+            --primary-cream: #e7cfb4;
+            
+            /* Modern UI Colors */
+            --bg-primary: #0f1419;
+            --bg-secondary: #1a1f26;
+            --bg-tertiary: #252b33;
+            --text-primary: #ffffff;
+            --text-secondary: #b8bcc8;
+            --text-muted: #6b7280;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --accent-yellow: #f59e0b;
+            
+            /* Glassmorphism */
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--primary-dark) 100%);
+            color: var(--text-primary);
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-orange), var(--primary-light));
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .bg-circle:nth-child(1) {
+            width: 200px;
+            height: 200px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .bg-circle:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 20%;
+            animation-delay: 2s;
+        }
+
+        .bg-circle:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            bottom: 20%;
+            left: 30%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Main Layout */
+        .app-container {
+            display: grid;
+            grid-template-columns: 280px 1fr 320px;
+            grid-template-rows: 70px 1fr;
+            grid-template-areas: 
+                "sidebar header analytics"
+                "sidebar main analytics";
+            height: 100vh;
+            gap: 1px;
+            background: var(--bg-primary);
+        }
+
+        /* Header */
+        .header {
+            grid-area: header;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            position: relative;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary-orange), var(--primary-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, var(--primary-orange), var(--primary-light));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .theme-toggle {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            padding: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary-orange);
+            transform: scale(1.05);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            grid-area: sidebar;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .nav-section {
+            margin-bottom: 2rem;
+        }
+
+        .nav-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 0.25rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-item:hover::before {
+            left: 100%;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: var(--primary-orange);
+            color: white;
+            transform: translateX(8px);
+            box-shadow: 0 8px 32px rgba(218, 109, 66, 0.3);
+        }
+
+        .nav-icon {
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            grid-area: main;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            position: relative;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Chat Interface */
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .chat-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--glass-border);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+        }
+
+        .customer-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .customer-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-orange), var(--primary-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .customer-details h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .customer-details p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-left: auto;
+        }
+
+        .status-online {
+            background: var(--accent-green);
+            color: white;
+        }
+
+        .status-silver {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+        }
+
+        /* Chat Messages */
+        .chat-messages {
+            flex: 1;
+            padding: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-height: calc(100vh - 300px);
+            scrollbar-width: thin;
+            scrollbar-color: var(--glass-border) transparent;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: var(--glass-border);
+            border-radius: 3px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-orange);
+        }
+
+        /* Function Result Components */
+        .function-result {
+            background: var(--bg-secondary);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            margin: 0 0 1rem 0;
+            overflow: hidden;
+            width: 100%;
+            animation: slideIn 0.3s ease;
+        }
+
+        .function-result .result-content { width: 100%; padding: 0 0 1rem 0; }
+        .magento-product-grid { width: 100%; }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-orange), var(--primary-light));
+            color: white;
+            padding: 0.75rem 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .customer-card .customer-info {
+            padding: 1.5rem;
+        }
+
+        .customer-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-orange);
+            margin-bottom: 1rem;
+        }
+
+        .customer-details {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            background: var(--glass-bg);
+            border-radius: 8px;
+        }
+
+        .detail-item i {
+            color: var(--primary-orange);
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Orders Components */
+        .orders-container {
+            padding: 1rem;
+            display: grid;
+            gap: 1rem;
+        }
+
+        .order-item {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            padding: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .order-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .order-id {
+            font-weight: 700;
+            color: var(--primary-orange);
+            font-size: 1.1rem;
+        }
+
+        .order-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-f {
+            background: var(--accent-green);
+            color: white;
+        }
+
+        .status-o {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        .status-p {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+        }
+
+        .order-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .order-amount {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+
+        .order-dates {
+            text-align: right;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .order-dates div {
+            margin-bottom: 0.25rem;
+        }
+
+        .order-dates i {
+            margin-right: 0.5rem;
+            color: var(--primary-orange);
+        }
+
+        /* Order Details Components */
+        .items-container {
+            padding: 1rem;
+        }
+
+        .order-line-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .order-line-item:hover {
+            background: var(--bg-primary);
+            transform: translateX(5px);
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .item-id {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .item-details {
+            text-align: right;
+            display: grid;
+            gap: 0.25rem;
+        }
+
+        .item-qty {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .item-price {
+            font-weight: 700;
+            color: var(--accent-green);
+            font-size: 1.1rem;
+        }
+
+        .order-total {
+            text-align: right;
+            padding: 1rem;
+            border-top: 2px solid var(--primary-orange);
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            color: var(--primary-orange);
+        }
+
+        /* Support Ticket Component */
+        .support-ticket .ticket-info {
+            padding: 1.5rem;
+        }
+
+        .ticket-id {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-orange);
+            margin-bottom: 0.5rem;
+        }
+
+        .ticket-priority {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .priority-high {
+            background: #dc3545;
+            color: white;
+        }
+
+        .priority-medium {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .priority-low {
+            background: var(--accent-green);
+            color: white;
+        }
+
+        .ticket-message {
+            background: var(--glass-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-orange);
+        }
+
+        /* Loyalty Upgrade Component */
+        .loyalty-upgrade .upgrade-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .tier-change {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .old-tier {
+            color: var(--text-secondary);
+            text-decoration: line-through;
+        }
+
+        .new-tier {
+            color: var(--primary-orange);
+        }
+
+        .tier-change i {
+            color: var(--accent-green);
+        }
+
+        .upgrade-message {
+            background: var(--glass-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            font-style: italic;
+        }
+
+        /* Generic Card Component */
+        .generic-card .result-content {
+            padding: 1rem;
+        }
+
+        .generic-card pre {
+            background: var(--bg-primary);
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            margin: 0;
+        }
+
+        /* Error States */
+        .function-result.error {
+            background: #dc3545;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        /* Analytics Card Styles */
+        .analytics-content {
+            padding: 1.5rem;
+        }
+
+        .risk-score {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: var(--glass-bg);
+            border-radius: 8px;
+        }
+
+        .risk-value.risk-low {
+            color: var(--accent-green);
+            font-weight: 700;
+        }
+
+        .risk-value.risk-high {
+            color: #dc3545;
+            font-weight: 700;
+        }
+
+        .categories-grid {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .category-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            background: var(--glass-bg);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-orange);
+        }
+
+        .category-name {
+            font-weight: 600;
+        }
+
+        .category-stats {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .category-count {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .category-amount {
+            color: var(--accent-green);
+            font-weight: 700;
+        }
+
+        /* Cross-Sell Card Styles */
+        .cross-sell-content {
+            padding: 1.5rem;
+        }
+
+        .customer-message {
+            background: var(--glass-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--primary-orange);
+        }
+
+        .customer-message i {
+            color: var(--primary-orange);
+            margin-right: 0.5rem;
+        }
+
+        .opportunities-grid {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .cross-sell-item {
+            padding: 1rem;
+            background: var(--glass-bg);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .cross-sell-item:hover {
+            transform: translateY(-2px);
+            background: var(--bg-primary);
+        }
+
+        .product-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .confidence {
+            color: var(--accent-green);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Recommendations Card Styles */
+        .recommendations-content {
+            padding: 1.5rem;
+        }
+
+        .customer-summary {
+            background: var(--glass-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .customer-tier {
+            color: var(--primary-orange);
+            font-weight: 600;
+            margin: 0.25rem 0;
+        }
+
+        .customer-spending {
+            color: var(--accent-green);
+            font-weight: 700;
+        }
+
+        .favorites-grid {
+            display: grid;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .favorite-category {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
+            background: var(--glass-bg);
+            border-radius: 6px;
+        }
+
+        .recommendations-grid {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .recommendation-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            background: var(--glass-bg);
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-green);
+        }
+
+        .rec-product {
+            font-weight: 600;
+        }
+
+        .rec-confidence {
+            color: var(--accent-green);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Customer Journey Card Styles */
+        .journey-content {
+            padding: 1.5rem;
+        }
+
+        .journey-summary {
+            background: var(--glass-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .journey-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-orange);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .journey-orders-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .journey-order {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            padding: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .journey-order:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .journey-order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .order-timeline {
+            display: grid;
+            gap: 0.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .timeline-item i {
+            color: var(--primary-orange);
+            width: 16px;
+        }
+
+        .order-items-count {
+            text-align: right;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* Customer Analytics Card Styles */
+        .analytics-detailed-content {
+            padding: 1.5rem;
+        }
+
+        .customer-overview {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .overview-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--glass-bg);
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-orange);
+            transition: all 0.3s ease;
+        }
+
+        .overview-item:hover {
+            transform: translateX(5px);
+            background: var(--bg-primary);
+        }
+
+        .overview-item i {
+            color: var(--primary-orange);
+            width: 20px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .overview-label {
+            font-weight: 600;
+            color: var(--text-secondary);
+            min-width: 140px;
+        }
+
+        .overview-value {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .overview-value.highlight {
+            color: var(--accent-green);
+            font-size: 1.2rem;
+        }
+
+        .overview-value.tier-gold {
+            color: #ffd700;
+        }
+
+        .overview-value.tier-silver {
+            color: #c0c0c0;
+        }
+
+        .overview-value.tier-bronze {
+            color: #cd7f32;
+        }
+
+        .overview-value.tier-platinum {
+            color: #e5e4e2;
+        }
+
+        /* Section Headers */
+        .analytics-content h4,
+        .cross-sell-content h4,
+        .recommendations-content h4,
+        .journey-content h4,
+        .analytics-detailed-content h4 {
+            color: var(--primary-orange);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            margin-top: 0;
+        }
+
+        .message {
+            display: flex;
+            gap: 1rem;
+            max-width: 80%;
+            animation: slideIn 0.3s ease;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .message.bot .message-avatar {
+            background: linear-gradient(45deg, var(--primary-orange), var(--primary-light));
+        }
+
+        .message.user .message-avatar {
+            background: var(--accent-blue);
+        }
+
+        .message-content {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 1rem 1.5rem;
+            border-radius: 18px;
+            position: relative;
+            width: 100%;
+        }
+
+        .message.user .message-content {
+            background: var(--primary-orange);
+            color: white;
+        }
+
+        /* Full-width protagonist AI response */
+        .message.bot {
+            max-width: 100% !important;
+            width: 100%;
+            align-self: stretch;
+        }
+
+        .message.bot .message-content {
+            background: transparent;
+            border: none;
+            padding: 0;
+        }
+
+        .message.bot .message-avatar {
+            display: none;
+        }
+
+        .message-time {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        /* Chat Input */
+        .chat-input-container {
+            padding: 1.5rem 2rem;
+            border-top: 1px solid var(--glass-border);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+        }
+
+        .chat-input-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--glass-border);
+            border-radius: 25px;
+            padding: 0.75rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input-wrapper:focus-within {
+            border-color: var(--primary-orange);
+            box-shadow: 0 0 0 3px rgba(218, 109, 66, 0.1);
+        }
+
+        .chat-input {
+            flex: 1;
+            background: none;
+            border: none;
+            outline: none;
+            color: var(--text-primary);
+            font-size: 1rem;
+            padding: 0.5rem 0;
+        }
+
+        .chat-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .chat-send-btn {
+            background: var(--primary-orange);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .chat-send-btn:hover {
+            background: var(--primary-red);
+            transform: scale(1.1);
+        }
+
+        /* Analytics Panel */
+        .analytics-panel {
+            grid-area: analytics;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .analytics-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .metric-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+        }
+
+        .metric-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .metric-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .metric-change {
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .metric-positive {
+            color: var(--accent-green);
+        }
+
+        .metric-negative {
+            color: var(--accent-red);
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            margin-top: 1.5rem;
+        }
+
+        .action-btn {
+            width: 100%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .action-btn:hover {
+            background: var(--primary-orange);
+            color: white;
+            transform: translateX(8px);
+        }
+
+        /* Animations */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 1rem;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--primary-orange);
+            animation: pulse 1.4s infinite;
+        }
+
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .app-container {
+                grid-template-columns: 260px 1fr 280px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .app-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: 70px 1fr;
+                grid-template-areas: 
+                    "header"
+                    "main";
+            }
+            
+            .sidebar, .analytics-panel {
+                display: none;
+            }
+        }
+
+        /* Hidden sections */
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* =====================================================
+           GORGEOUS PRODUCT RENDERER COMPONENTS
+           ===================================================== */
+
+        /* Magento Product Grid */
+        .magento-product-grid {
+            margin: 0.5rem 0 0.25rem 0;
+        }
+
+        .product-grid-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            padding: 0.75rem 0.75rem;
+            background: var(--glass-bg);
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-orange);
+            width: 100%;
+        }
+
+        .product-grid-header h4 {
+            margin: 0;
+            color: var(--primary-orange);
+            font-size: 1.2rem;
+        }
+
+        .results-note {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        /* Horizontal carousel */
+        .product-carousel {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            padding: 0 0.5rem 0.25rem 0.5rem;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            width: 100%;
+        }
+
+        .product-carousel .product-card {
+            flex: 0 0 100%;
+            max-width: 100%;
+            width: 100%;
+            box-sizing: border-box;
+            scroll-snap-align: start;
+        }
+
+        .carousel-controls {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .carousel-btn {
+            width: 36px;
+            height: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 1px solid var(--glass-border);
+            background: var(--glass-bg);
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .carousel-btn:hover {
+            background: var(--primary-orange);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .product-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            transform: translateZ(0);
+            will-change: transform, box-shadow;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            border-color: var(--primary-orange);
+        }
+
+        .product-image {
+            position: relative;
+            height: clamp(240px, 45vh, 520px);
+            overflow: hidden;
+            background: #fff;
+            pointer-events: none;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+            background: #fff;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-card:hover {
+            animation: subtle-float 1.2s ease-in-out infinite alternate;
+        }
+
+        @keyframes subtle-float {
+            from { transform: translateY(0); }
+            to { transform: translateY(-4px); }
+        }
+
+        .product-placeholder {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, var(--bg-secondary), var(--glass-bg));
+            color: var(--text-muted);
+            font-size: 2rem;
+        }
+
+        .product-info {
+            padding: 0.75rem 0.75rem 0.5rem 0.75rem;
+        }
+
+        .product-brand {
+            color: var(--primary-orange);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0 0 0.5rem 0;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            line-clamp: 2;
+            box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .product-sku {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+
+        .product-tags { margin-top: 0.5rem; display: flex; gap: 0.4rem; flex-wrap: wrap; }
+        .product-tag { background: var(--bg-secondary); border: 1px solid var(--glass-border); color: var(--text-secondary); padding: 0.2rem 0.5rem; border-radius: 999px; font-size: 0.75rem; }
+
+        .product-actions {
+            padding: 0 0.75rem 0.75rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            position: relative;
+            z-index: 2;
+            pointer-events: auto;
+        }
+
+        .product-btn {
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+        .product-btn.link { background: transparent; color: var(--text-primary); text-decoration: underline; }
+
+        .product-btn.primary {
+            background: var(--primary-orange);
+            color: white;
+        }
+
+        .product-btn.primary:hover {
+            background: var(--primary-red);
+            transform: translateY(-2px);
+        }
+
+        .product-btn.secondary {
+            background: var(--glass-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--glass-border);
+        }
+
+        .product-btn.secondary:hover {
+            background: var(--bg-primary);
+            border-color: var(--primary-orange);
+        }
+
+        .product-btn.large {
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+        }
+
+        /* Product Details */
+        .product-details {
+            margin: 1rem 0;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .product-details-header {
+            padding: 1.5rem;
+            background: linear-gradient(45deg, var(--primary-orange), var(--primary-light));
+            color: white;
+        }
+
+        .product-details-header h3 {
+            margin: 0;
+            font-size: 1.3rem;
+        }
+
+        .product-details-content {
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+        }
+
+        .product-images {
+            position: sticky;
+            top: 2rem;
+        }
+
+        .product-image-gallery .main-image {
+            width: 100%;
+            height: 250px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            background: var(--bg-secondary);
+        }
+
+        .product-image-gallery .main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-thumbnails {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+        }
+
+        .image-thumbnails img {
+            width: 100%;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .image-thumbnails img:hover {
+            border-color: var(--primary-orange);
+        }
+
+        .product-image-placeholder {
+            height: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            color: var(--text-muted);
+        }
+
+        .product-image-placeholder i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-brand-tag {
+            display: inline-block;
+            background: var(--primary-orange);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .product-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0 0 1rem 0;
+            line-height: 1.2;
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .product-sku-badge {
+            background: var(--glass-bg);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .product-price-main {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+
+        .product-description,
+        .product-features,
+        .product-dimensions {
+            margin-bottom: 2rem;
+        }
+
+        .product-description h5,
+        .product-features h5,
+        .product-dimensions h5 {
+            color: var(--primary-orange);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0 0 1rem 0;
+        }
+
+        .description-content {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .features-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .features-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            color: var(--text-primary);
+        }
+
+        .features-list li i {
+            color: var(--accent-green);
+            font-size: 0.9rem;
+        }
+
+        .dimensions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 1rem;
+        }
+
+        .dimension-item {
+            text-align: center;
+            padding: 1rem;
+            background: var(--glass-bg);
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .dimension-label {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .dimension-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .product-actions-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* Customer Journey Components */
+        .customer-journey {
+            margin: 1rem 0;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .journey-header {
+            padding: 1.5rem;
+            background: linear-gradient(45deg, var(--accent-blue), #4a90e2);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .journey-header h3 {
+            margin: 0;
+            font-size: 1.3rem;
+        }
+
+        .journey-stats {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .journey-stat {
+            text-align: center;
+        }
+
+        .journey-stat .stat-value {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .journey-stat .stat-label {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .journey-timeline {
+            padding: 2rem;
+        }
+
+        .journey-order {
+            background: var(--bg-secondary);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .journey-order:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .journey-order-header {
+            padding: 1.5rem;
+            background: var(--glass-bg);
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .order-timeline-dot {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-orange);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .order-main-info h4 {
+            margin: 0 0 0.5rem 0;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+        }
+
+        .order-meta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .order-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .order-status {
+            background: var(--accent-green);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .order-total {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+
+        .journey-products {
+            padding: 0 1.5rem 1.5rem;
+            display: grid;
+            gap: 1rem;
+        }
+
+        .journey-product {
+            background: white;
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            padding: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .journey-product.enhanced {
+            border-color: var(--primary-orange);
+            box-shadow: 0 2px 8px rgba(218, 109, 66, 0.1);
+        }
+
+        .journey-product:hover {
+            transform: translateX(8px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .product-basic-info {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 1rem;
+            align-items: start;
+        }
+
+        .product-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-orange);
+            color: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-details-mini h5 {
+            margin: 0 0 0.5rem 0;
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+
+        .product-meta-mini {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.75rem;
+        }
+
+        .product-meta-mini span {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .product-price-mini {
+            color: var(--accent-green) !important;
+            font-weight: 600;
+        }
+
+        .magento-enhancements {
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .enhancement-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary-orange), var(--primary-light));
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-brand-mini {
+            display: inline-block;
+            background: var(--glass-bg);
+            padding: 0.25rem 0.5rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: var(--text-primary);
+            margin-right: 0.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .features-mini {
+            margin: 0.5rem 0;
+        }
+
+        .feature-tag {
+            display: inline-block;
+            background: var(--accent-green);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            margin-right: 0.25rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .dimensions-mini {
+            margin: 0.5rem 0;
+        }
+
+        .dimension-mini {
+            display: inline-block;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            margin-right: 0.75rem;
+        }
+
+        .images-indicator {
+            color: var(--primary-orange);
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .enhancement-note {
+            color: var(--text-muted);
+            font-style: italic;
+            font-size: 0.8rem;
+        }
+
+        /* Personalized Recommendations */
+        .personalized-recommendations {
+            margin: 1rem 0;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .recommendations-header {
+            padding: 1.5rem;
+            background: linear-gradient(45deg, #9b59b6, #8e44ad);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .recommendations-header h3 {
+            margin: 0;
+            font-size: 1.3rem;
+        }
+
+        .customer-info-mini {
+            text-align: right;
+        }
+
+        .recommendations-count {
+            display: block;
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .purchase-patterns {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .purchase-patterns h4 {
+            margin: 0 0 1rem 0;
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+
+        .patterns-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .pattern-item {
+            background: var(--glass-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid var(--glass-border);
+        }
+
+        .pattern-category {
+            display: block;
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .pattern-spent {
+            color: var(--accent-green);
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .recommendations-grid {
+            padding: 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .recommendation-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .recommendation-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+            border-color: var(--primary-orange);
+        }
+
+        .recommendation-header h5 {
+            margin: 0 0 0.5rem 0;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+        }
+
+        .recommendation-reason {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .recommendation-details {
+            margin-bottom: 1.5rem;
+        }
+
+        .rec-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .rec-category {
+            color: var(--primary-orange);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .rec-brand {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .rec-features {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .rec-feature-tag {
+            background: var(--accent-blue);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 8px;
+            font-size: 0.7rem;
+        }
+
+        .recommendation-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+
+        .rec-btn {
+            padding: 0.75rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .rec-btn.primary {
+            background: var(--primary-orange);
+            color: white;
+        }
+
+        .rec-btn.primary:hover {
+            background: var(--primary-red);
+            transform: translateY(-2px);
+        }
+
+        .rec-btn.secondary {
+            background: var(--glass-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--glass-border);
+        }
+
+        .rec-btn.secondary:hover {
+            background: var(--bg-primary);
+            border-color: var(--primary-orange);
+        }
+
+        /* Empty States */
+        .product-grid-empty,
+        .journey-empty,
+        .recommendations-empty {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-muted);
+        }
+
+        /* Responsive Design for New Components */
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .product-details-content {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .journey-order-header {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+                text-align: center;
+            }
+            
+            .recommendations-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .product-actions {
+                grid-template-columns: 1fr;
+            }
+            
+            .product-actions-detail {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Categories Grid Component */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .category-item {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .category-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-color: var(--primary-orange);
+        }
+
+        .category-item i {
+            color: var(--primary-orange);
+            font-size: 1.2rem;
+        }
+
+        .category-name {
+            flex: 1;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .category-count {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            background: var(--bg-secondary);
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+        }
+
+        .category-item.more {
+            background: var(--primary-orange);
+            color: white;
+            font-weight: 600;
+            justify-content: center;
+        }
+
+        .category-item.more:hover {
+            background: var(--primary-red);
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="bg-circle"></div>
+        <div class="bg-circle"></div>
+        <div class="bg-circle"></div>
+    </div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-couch"></i>
+                </div>
+                <span>Woodstock AI</span>
+            </div>
+            <div class="header-controls">
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="status-badge status-online">Online</div>
+            </div>
+        </header>
+
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="nav-section">
+                <div class="nav-title">Customer Service</div>
+                <div class="nav-item active" onclick="showSection('chat')">
+                    <i class="nav-icon fas fa-comments"></i>
+                    <span>Live Chat</span>
+                </div>
+                <div class="nav-item" onclick="showSection('support')">
+                    <i class="nav-icon fas fa-headset"></i>
+                    <span>Support Tickets</span>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-title">System</div>
+                <div class="nav-item" onclick="showSection('functions')">
+                    <i class="nav-icon fas fa-cogs"></i>
+                    <span>Functions</span>
+                </div>
+                <div class="nav-item" onclick="showSection('api')">
+                    <i class="nav-icon fas fa-plug"></i>
+                    <span>API Testing</span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Chat Interface Section -->
+            <div id="chat" class="section active">
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <div class="customer-info">
+                            <div class="customer-avatar">JD</div>
+                            <div class="customer-details">
+                                <h3 id="customerName">Select a customer...</h3>
+                                <p id="customerEmail">Enter phone or email to start</p>
+                            </div>
+                            <div class="status-badge status-silver" id="customerTier">GUEST</div>
+                        </div>
+                    </div>
+
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message bot" id="defaultWelcomeMessage">
+                            <div class="message-avatar">AI</div>
+                            <div class="message-content">
+                                <p>👋 Hello! I'm the Woodstock Outlet AI assistant. I can help you with:</p>
+                                <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                                    <li>Order status and tracking</li>
+                                    <li>Product recommendations</li>
+                                    <li>Support escalation</li>
+                                    <li>Loyalty program benefits</li>
+                                </ul>
+                                <p style="margin-top: 0.5rem;">Enter a customer's phone number or email to get started!</p>
+                                <div class="message-time">Just now</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chat-input-container">
+                        <div class="chat-input-wrapper">
+                            <input 
+                                type="text" 
+                                class="chat-input" 
+                                id="chatInput"
+                                placeholder="Type phone number (407-288-6040) or message..."
+                                onkeypress="handleChatInput(event)"
+                            >
+                            <button class="chat-send-btn" onclick="sendMessage()">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Support Tickets Section -->
+            <div id="support" class="section" style="padding: 2rem; overflow-y: auto; height: 100%;">
+                <h1 style="font-size: 1.5rem; margin-bottom: 2rem;">🎫 Support Tickets</h1>
+                <p style="color: var(--text-secondary);">This feature is under development. A dedicated interface for managing and tracking customer support tickets generated by the AI will be available here.</p>
+            </div>
+
+            <!-- Functions Section -->
+            <div id="functions" class="section" style="padding: 2rem; overflow-y: auto; height: 100%;">
+                <h1 style="font-size: 1.5rem; margin-bottom: 1rem;">⚙️ Function Calling System</h1>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">List of all available functions in the system that the AI agent can call.</p>
+                <div id="functions-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;"></div>
+            </div>
+
+            <!-- API Testing Section -->
+            <div id="api" class="section" style="padding: 2rem; overflow-y: auto; height: 100%;">
+                <h1 style="font-size: 1.5rem; margin-bottom: 2rem;">🔌 API Testing</h1>
+                <div id="api-test-results" style="background: var(--bg-secondary); border-radius: 12px; padding: 1.5rem; min-height: 200px; color: var(--text-secondary); font-family: monospace;">
+                    Click a button to test an endpoint...
+                </div>
+            </div>
+        </main>
+
+        <!-- Analytics Panel -->
+        <aside class="analytics-panel">
+            <div class="analytics-title">
+                <i class="fas fa-chart-bar"></i>
+                Customer Insights
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-header">
+                    <span class="metric-label">Total Spent</span>
+                    <div class="metric-icon" style="background: var(--accent-green);">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                </div>
+                <div class="metric-value" id="totalSpent">$0.00</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-header">
+                    <span class="metric-label">Orders</span>
+                    <div class="metric-icon" style="background: var(--accent-blue);">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                </div>
+                <div class="metric-value" id="totalOrders">0</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-header">
+                    <span class="metric-label">Loyalty Tier</span>
+                    <div class="metric-icon" style="background: var(--primary-orange);">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                </div>
+                <div class="metric-value" id="loyaltyTier" style="font-size: 1.2rem;">GUEST</div>
+            </div>
+
+            <div class="quick-actions">
+                <div class="nav-title">Proactive Scenarios</div>
+                <button class="action-btn" onclick="triggerScenario('order-confirmation')">
+                    <i class="fas fa-check-circle"></i>
+                    Order Confirmation
+                </button>
+                <button class="action-btn" onclick="triggerScenario('support-escalation')">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Support Escalation
+                </button>
+                <button class="action-btn" onclick="triggerScenario('loyalty-upgrade')">
+                    <i class="fas fa-star"></i>
+                    Loyalty Upgrade
+                </button>
+                <button class="action-btn" onclick="triggerScenario('product-recommendations')">
+                    <i class="fas fa-lightbulb"></i>
+                    Recommendations
+                </button>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        // Global state
+        let currentCustomer = null;
+        let chatHistory = [];
+        let revenueChart = null;
+        let loyaltyChart = null;
+        let sessionManager = null;
+
+        // Enhanced Session Manager for Contact Identity
+        class ContactAwareSessionManager {
+            constructor() {
+                this.sessionId = this.getOrCreateSessionId();
+                this.browserContext = this.getBrowserContext();
+                console.log('🎯 Session Manager initialized:', this.sessionId);
+            }
+
+            getOrCreateSessionId() {
+                let sessionId = localStorage.getItem('woodstock_webchat_session_id');
+                if (!sessionId) {
+                    sessionId = `webchat_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+                    localStorage.setItem('woodstock_webchat_session_id', sessionId);
+                    console.log('🆕 Created new session:', sessionId);
+                } else {
+                    console.log('🔄 Using existing session:', sessionId);
+                }
+                return sessionId;
+            }
+
+            getBrowserContext() {
+                return {
+                    userAgent: navigator.userAgent,
+                    screenResolution: `${screen.width}x${screen.height}`,
+                    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                    language: navigator.language,
+                    platform: navigator.platform,
+                    cookiesEnabled: navigator.cookieEnabled,
+                    timestamp: new Date().toISOString()
+                };
+            }
+
+            getSessionData() {
+                return {
+                    sessionId: this.sessionId,
+                    browserContext: this.browserContext
+                };
+            }
+
+            clearSession() {
+                localStorage.removeItem('woodstock_webchat_session_id');
+                this.sessionId = this.getOrCreateSessionId();
+                console.log('🧹 Session cleared, new session:', this.sessionId);
+            }
+        }
+
+        // API Base URL
+        const API_BASE = window.location.origin;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Woodstock AI Interface Loaded');
+            
+            // Initialize session manager
+            sessionManager = new ContactAwareSessionManager();
+            
+            checkServerHealth();
+            // Initially load the chat section
+            showSection('chat');
+            populateProactiveActions();
+            
+            // 🔥 PROACTIVE SITE HOOK - Detect search intent from URL
+            checkForProactiveIntent();
+        });
+
+        // 🔥 PROACTIVE SITE HOOK - Detect search intent from URL and start chat
+        function checkForProactiveIntent() {
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // Check for search terms in common URL parameters
+            const searchTerm = urlParams.get('search') || 
+                              urlParams.get('q') || 
+                              urlParams.get('query') || 
+                              urlParams.get('product') ||
+                              urlParams.get('category') ||
+                              urlParams.get('find');
+                              
+            // Check for specific product parameters
+            const productId = urlParams.get('pid') || urlParams.get('product_id');
+            const categoryName = urlParams.get('cat') || urlParams.get('category_name');
+            const brand = urlParams.get('brand');
+            const style = urlParams.get('style');
+            const material = urlParams.get('material');
+            const priceRange = urlParams.get('price') || urlParams.get('budget');
+            
+            // Build proactive message based on detected intent
+            let proactiveMessage = '';
+            
+            if (searchTerm) {
+                proactiveMessage = `I see you're looking for "${searchTerm}". Let me help you find the perfect match!`;
+            } else if (productId) {
+                proactiveMessage = `I noticed you're interested in a specific product (ID: ${productId}). Want me to show you details and similar options?`;
+            } else if (categoryName) {
+                proactiveMessage = `Welcome! I see you're browsing ${categoryName}. What specific features are you looking for?`;
+            } else if (brand || style || material) {
+                const filters = [brand && `${brand} brand`, style && `${style} style`, material && `${material} material`].filter(Boolean);
+                proactiveMessage = `I can help you find furniture with ${filters.join(' and ')}. What type of furniture are you shopping for?`;
+            } else if (priceRange) {
+                proactiveMessage = `I see you're shopping within a ${priceRange} budget. Let me show you our best options in that range!`;
+            }
+            
+            // If we detected intent, start the conversation proactively with REAL RESULTS
+            if (proactiveMessage) {
+                console.log('🎯 Proactive Intent Detected:', proactiveMessage);
+                
+                // Mark this as a proactive session to skip default messages
+                sessionStorage.setItem('isProactiveSession', 'true');
+                
+                // Hide the default welcome message
+                const defaultMsg = document.getElementById('defaultWelcomeMessage');
+                if (defaultMsg) {
+                    defaultMsg.style.display = 'none';
+                }
+                
+                // Add a small delay to let the UI load, then start with FUNCTION CALLING
+                setTimeout(async () => {
+                    // Add the proactive greeting
+                    addBotMessage(`👋 ${proactiveMessage}`);
+                    
+                    // Immediately trigger a search with function calling to WOW them
+                    const searchQuery = searchTerm || categoryName || brand || style || material || 'sofa';
+                    
+                    // Add to chat history for the AI to process
+                    chatHistory.push({ role: 'user', content: `Show me ${searchQuery}` });
+                    chatHistory.push({ role: 'assistant', content: `👋 ${proactiveMessage}` });
+                    
+                    // Show typing indicator
+                    showTypingIndicator();
+                    
+                    // Trigger AI with function calling for immediate product results
+                    setTimeout(async () => {
+                        try {
+                            const sessionData = sessionManager.getSessionData();
+                            
+                            const response = await fetch(`${API_BASE}/api/chat`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ 
+                                    history: [...chatHistory, { role: 'user', content: `Search for ${searchQuery} and show me the best options with images` }],
+                                    sessionId: sessionData.sessionId,
+                                    browserContext: sessionData.browserContext
+                                })
+                            });
+
+                            if (response.ok) {
+                                const reader = response.body.getReader();
+                                const decoder = new TextDecoder();
+                                let botMessage = '';
+
+                                // Create a new bot message container
+                                const messagesContainer = document.getElementById('chatMessages');
+                                const messageDiv = document.createElement('div');
+                                messageDiv.className = 'message bot';
+                                const messageContentP = document.createElement('p');
+                                messageDiv.innerHTML = `
+                                    <div class="message-avatar">🤖</div>
+                                    <div class="message-content">
+                                    </div>
+                                `;
+                                messageDiv.querySelector('.message-content').appendChild(messageContentP);
+                                messagesContainer.appendChild(messageDiv);
+                                
+                                hideTypingIndicator();
+
+                                // Stream the response
+                                while (true) {
+                                    const { value, done } = await reader.read();
+                                    if (done) break;
+                                    const chunk = decoder.decode(value);
+                                    botMessage += chunk;
+                                    
+                                    // Process and render the content
+                                    const processedContent = processMessageContent(botMessage);
+                                    messageContentP.innerHTML = processedContent;
+                                    scrollToBottom();
+                                }
+
+                                // Add the final bot message to history
+                                chatHistory.push({ role: 'assistant', content: botMessage });
+                            }
+                        } catch (error) {
+                            console.error('Proactive search error:', error);
+                            hideTypingIndicator();
+                            addBotMessage('Let me know what specific features you\'re looking for and I\'ll find the perfect match!');
+                        }
+                    }, 800);
+                    
+                    // Scroll to make sure the message is visible
+                    scrollToBottom();
+                    
+                    // Show a subtle notification that we detected their intent
+                    showProactiveHint();
+                }, 1500);
+            }
+        }
+        
+        // Show a subtle hint that we detected their search intent
+        function showProactiveHint() {
+            const hint = document.createElement('div');
+            hint.className = 'proactive-hint';
+            hint.innerHTML = `
+                <div class="hint-content">
+                    <span class="hint-icon">🎯</span>
+                    <span class="hint-text">I detected what you're looking for from your search!</span>
+                </div>
+            `;
+            hint.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 12px 20px;
+                border-radius: 25px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                font-size: 14px;
+                font-weight: 500;
+                z-index: 1000;
+                animation: slideInFade 0.5s ease-out;
+                cursor: pointer;
+            `;
+            
+            // Add animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideInFade {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                .proactive-hint:hover {
+                    transform: scale(1.05);
+                    transition: transform 0.2s ease;
+                }
+            `;
+            document.head.appendChild(style);
+            
+            document.body.appendChild(hint);
+            
+            // Auto-remove after 4 seconds or on click
+            const removeHint = () => {
+                hint.style.animation = 'slideInFade 0.3s ease-out reverse';
+                setTimeout(() => hint.remove(), 300);
+            };
+            
+            hint.addEventListener('click', removeHint);
+            setTimeout(removeHint, 4000);
+        }
+
+        // Check server health
+        async function checkServerHealth() {
+            try {
+                const response = await fetch(`${API_BASE}/health`);
+                const data = await response.json();
+                console.log('✅ Server Health:', data);
+            } catch (error) {
+                console.error('❌ Server Health Check Failed:', error);
+                addBotMessage('⚠️ Server connection failed. Please check if the backend is running.');
+            }
+        }
+
+        // Navigation
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.style.display = 'none';
+            });
+
+            // Deactivate all nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Show selected section
+            const activeSection = document.getElementById(sectionId);
+            if (activeSection) {
+                activeSection.style.display = 'block';
+                if (activeSection.classList.contains('active')) {
+                   activeSection.classList.remove('active');
+                }
+                setTimeout(() => activeSection.classList.add('active'), 10);
+            }
+
+            // Activate selected nav item
+            const activeNavItem = document.querySelector(`.nav-item[onclick="showSection('${sectionId}')"]`);
+            if (activeNavItem) {
+                activeNavItem.classList.add('active');
+            }
+
+            // Load data for the section
+            switch (sectionId) {
+                case 'dashboard':
+                    loadDashboardData();
+                    break;
+                case 'functions':
+                    loadFunctions();
+                    break;
+
+                case 'customers':
+                    loadAllCustomers();
+                    break;
+                case 'orders':
+                    loadAllOrders();
+                    break;
+            }
+        }
+
+        // Chat functionality
+        function handleChatInput(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const messageText = input.value.trim();
+            if (!messageText) return;
+
+            addUserMessage(messageText);
+            input.value = '';
+
+            // Add user message to history
+            chatHistory.push({ role: 'user', content: messageText });
+
+            showTypingIndicator();
+
+            try {
+                const sessionData = sessionManager.getSessionData();
+                
+                const response = await fetch(`${API_BASE}/api/chat`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        history: chatHistory,
+                        sessionId: sessionData.sessionId,
+                        browserContext: sessionData.browserContext
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Server error: ${response.statusText}`);
+                }
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let botMessage = '';
+
+                // Create a new bot message container
+                const messagesContainer = document.getElementById('chatMessages');
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message bot';
+                const messageContentP = document.createElement('p');
+                messageDiv.innerHTML = `
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content">
+                    </div>
+                `;
+                messageDiv.querySelector('.message-content').appendChild(messageContentP);
+                messagesContainer.appendChild(messageDiv);
+                
+                hideTypingIndicator();
+
+                // Stream the response
+                while (true) {
+                    const { value, done } = await reader.read();
+                    if (done) break;
+                    const chunk = decoder.decode(value);
+                    botMessage += chunk;
+                    
+                    // Process and render the content
+                    const processedContent = processMessageContent(botMessage);
+                    messageContentP.innerHTML = processedContent;
+                    scrollToBottom();
+                }
+
+                // Add the final bot message to history
+                chatHistory.push({ role: 'assistant', content: botMessage });
+
+            } catch (error) {
+                console.error('Chat processing error:', error);
+                addBotMessage('❌ Sorry, I encountered an error. Please check the server logs.');
+                hideTypingIndicator();
+            }
+        }
+
+        function addUserMessage(message) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message user';
+            messageDiv.innerHTML = `
+                <div class="message-avatar">👤</div>
+                <div class="message-content">
+                    <p>${message}</p>
+                    <div class="message-time">${getCurrentTime()}</div>
+                </div>
+            `;
+            messagesContainer.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        function addBotMessage(message) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message bot';
+            
+            // First process message content for function results and components
+            const processedContent = processMessageContent(message);
+            
+            // Check if message contains product data (legacy support)
+            const productData = extractProductData(message);
+            
+            if (productData) {
+                // Render products beautifully
+                messageDiv.innerHTML = `
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content">
+                        <p>Here are the products I found:</p>
+                        ${renderProductsFromData(productData)}
+                        <div class="message-time">${getCurrentTime()}</div>
+                    </div>
+                `;
+            } else {
+                // Use processed content with gorgeous components
+                messageDiv.innerHTML = `
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content">
+                        <div>${processedContent}</div>
+                        <div class="message-time">${getCurrentTime()}</div>
+                    </div>
+                `;
+            }
+            
+            messagesContainer.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        function extractProductData(message) {
+            try {
+                // First try to parse the entire message as JSON
+                let data;
+                try {
+                    data = JSON.parse(message);
+                } catch (e) {
+                    // If that fails, look for JSON within the message
+                    const jsonMatch = message.match(/\{[\s\S]*"(function|data)"[\s\S]*\}/);
+                    if (!jsonMatch) return null;
+                    data = JSON.parse(jsonMatch[0]);
+                }
+                
+                // Check if it's a Magento product response
+                if (data.function && data.function.includes('Magento') && data.status === 'success') {
+                    console.log('🎯 Detected Magento product data:', data.data);
+                    return data.data;
+                }
+                
+                return null;
+            } catch (e) {
+                console.log('❌ Error parsing product data:', e);
+                return null;
+            }
+        }
+
+        function renderProductsFromData(data) {
+            if (!productRenderer) {
+                return '<p>Product data found but renderer not available.</p>';
+            }
+            
+            // Handle different response types
+            if (data.items && Array.isArray(data.items)) {
+                // Search results (multiple products)
+                return productRenderer.renderProductGrid(data.items);
+            } else if (data.sku && data.name) {
+                // Single product
+                return productRenderer.renderProductDetails(data);
+            } else {
+                return '<p>Product data format not recognized.</p>';
+            }
+        }
+
+        function showTypingIndicator() {
+            const messagesContainer = document.getElementById('chatMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message bot typing-message';
+            typingDiv.innerHTML = `
+                <div class="message-avatar">🤖</div>
+                <div class="message-content">
+                    <div class="typing-indicator">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                </div>
+            `;
+            messagesContainer.appendChild(typingDiv);
+            scrollToBottom();
+        }
+
+        function hideTypingIndicator() {
+            const typingMessage = document.querySelector('.typing-message');
+            if (typingMessage) {
+                typingMessage.remove();
+            }
+        }
+
+        function scrollToBottom() {
+            const messagesContainer = document.getElementById('chatMessages');
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function getCurrentTime() {
+            return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+
+        // Customer loading
+        async function loadCustomer(identifier) {
+            try {
+                const endpoint = isEmail(identifier) 
+                    ? `/api/customer/email/${encodeURIComponent(identifier)}`
+                    : `/api/customer/phone/${identifier}`;
+
+                const response = await fetch(`${API_BASE}${endpoint}`);
+                const data = await response.json();
+
+                if (data.data && data.data.entry && data.data.entry.length > 0) {
+                    const customer = data.data.entry[0];
+                    currentCustomer = customer;
+                    updateCustomerInfo(customer);
+                    await loadCustomerAnalytics(identifier);
+                    addBotMessage(`✅ Found customer: ${customer.firstname} ${customer.lastname}! How can I help you today?`);
+                } else {
+                    addBotMessage(`❌ Customer not found for ${identifier}. Please check the phone number or email.`);
+                }
+            } catch (error) {
+                console.error('Customer loading error:', error);
+                addBotMessage('❌ Error loading customer information.');
+            }
+        }
+
+        function updateCustomerInfo(customer) {
+            document.getElementById('customerName').textContent = `${customer.firstname} ${customer.lastname}`;
+            document.getElementById('customerEmail').textContent = customer.email;
+            
+            // Update avatar
+            const avatar = document.querySelector('.customer-avatar');
+            avatar.textContent = `${customer.firstname[0]}${customer.lastname[0]}`;
+        }
+
+        async function loadCustomerAnalytics(identifier) {
+            try {
+                const response = await fetch(`${API_BASE}/api/analytics/customer/${identifier}`);
+                const data = await response.json();
+
+                if (data.data && data.data.customer) {
+                    const analytics = data.data.customer;
+                    updateAnalyticsPanel(analytics);
+                }
+            } catch (error) {
+                console.error('Analytics loading error:', error);
+            }
+        }
+
+        function updateAnalyticsPanel(analytics) {
+            document.getElementById('totalSpent').textContent = `$${analytics.total_spent || '0.00'}`;
+            document.getElementById('totalOrders').textContent = analytics.total_orders || '0';
+            document.getElementById('loyaltyTier').textContent = analytics.loyalty_tier || 'GUEST';
+            document.getElementById('customerTier').textContent = analytics.loyalty_tier || 'GUEST';
+        }
+
+        // Message processing
+        async function processMessage(message) {
+            if (!currentCustomer) {
+                addBotMessage('👋 Please enter a customer phone number or email first to get started!');
+                return;
+            }
+
+            const lowerMessage = message.toLowerCase();
+
+            // Check for support issues
+            if (lowerMessage.includes('broken') || lowerMessage.includes('problem') || lowerMessage.includes('issue')) {
+                await triggerScenario('support-escalation', message);
+            }
+            // Check for order inquiries
+            else if (lowerMessage.includes('order') || lowerMessage.includes('delivery') || lowerMessage.includes('shipping')) {
+                await triggerScenario('order-confirmation');
+            }
+            // Check for recommendations
+            else if (lowerMessage.includes('recommend') || lowerMessage.includes('suggest') || lowerMessage.includes('what else')) {
+                await triggerScenario('product-recommendations');
+            }
+            // Default response
+            else {
+                addBotMessage(`I understand you said: "${message}". I can help you with order status, product recommendations, or support issues. What would you like to know?`);
+            }
+        }
+
+        // Scenario triggers
+        async function triggerScenario(scenario, customMessage = null) {
+            if (!currentCustomer) {
+                addBotMessage('❌ Please load a customer first.');
+                return;
+            }
+
+            showTypingIndicator();
+
+            try {
+                let endpoint, payload;
+
+                switch (scenario) {
+                    case 'order-confirmation':
+                        endpoint = '/api/proactive/order-confirmation';
+                        payload = {
+                            identifier: currentCustomer.phonenumber,
+                            type: 'phone'
+                        };
+                        break;
+
+                    case 'support-escalation':
+                        endpoint = '/api/proactive/support-escalation';
+                        payload = {
+                            identifier: currentCustomer.phonenumber,
+                            issueDescription: customMessage || 'General support inquiry',
+                            type: 'phone'
+                        };
+                        break;
+
+                    case 'loyalty-upgrade':
+                        endpoint = '/api/proactive/loyalty-upgrade';
+                        payload = {
+                            identifier: currentCustomer.phonenumber,
+                            type: 'phone'
+                        };
+                        break;
+
+                    case 'product-recommendations':
+                        endpoint = '/api/proactive/product-recommendations';
+                        payload = {
+                            identifier: currentCustomer.phonenumber,
+                            type: 'phone'
+                        };
+                        break;
+
+                    default:
+                        addBotMessage('❌ Unknown scenario.');
+                        return;
+                }
+
+                const response = await fetch(`${API_BASE}${endpoint}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+
+                if (data.data && data.data.message) {
+                    addBotMessage(data.data.message);
+                } else {
+                    addBotMessage('✅ Scenario executed successfully.');
+                }
+
+            } catch (error) {
+                console.error('Scenario execution error:', error);
+                addBotMessage('❌ Error executing scenario.');
+            } finally {
+                hideTypingIndicator();
+            }
+        }
+
+        // Populate Proactive Actions
+        function populateProactiveActions() {
+            // Los botones ya están en el HTML del panel derecho, no necesitamos poblarlos dinámicamente
+            console.log('✅ Proactive actions already in sidebar');
+        }
+
+        // Process message content for dynamic HTML rendering (with robust logs for Vercel)
+        function processMessageContent(content) {
+            try { console.log('[FE] processMessageContent length', content?.length); } catch {}
+            // Handle function results
+            const functionResultRegex = /\*\*Function Result \(([^)]+)\):\*\*\s*\n([\s\S]*?)(?=\n\n|\*\*Function|$)/g;
+            
+            let processedContent = content;
+            let match;
+            
+            while ((match = functionResultRegex.exec(content)) !== null) {
+                const functionName = match[1];
+                const jsonContent = match[2].trim();
+                
+                try {
+                    console.log('[FE] parser function-result matched:', functionName);
+                    const jsonData = JSON.parse(jsonContent);
+                    const htmlComponent = createFunctionResultComponent(functionName, jsonData);
+                    processedContent = processedContent.replace(match[0], htmlComponent);
+                    console.log('[FE] parser JSON parsed OK for', functionName);
+                } catch (e) {
+                    // If JSON parsing fails, keep original content
+                    console.warn('[FE] JSON parsing failed for function result:', e);
+                }
+            }
+            
+            // Convert line breaks ONLY if not HTML (avoid breaking injected components)
+            if (!/<[a-z][\s\S]*>/i.test(processedContent)) {
+            processedContent = processedContent.replace(/\n/g, '<br>');
+            }
+            
+            // RAW fallback logger
+            if (processedContent === content && typeof content === 'string') {
+                console.warn('[FE] WARN raw stream (no wrapper). First 120 chars:', content.slice(0,120));
+            }
+            
+            return processedContent;
+        }
+
+        // Ensure ProductRenderer is defined (safety net for early use)
+        function ensureProductRenderer(){
+            try {
+                if(!window.productRenderer){
+                    window.API_BASE = window.API_BASE || '';
+                    class ProductRenderer{constructor(){this.__isFallback=true;try{console.log('🎨 ProductRenderer initialized (fallback)');}catch{}}
+                      renderProductGrid(p){return `<div class=\"product-grid-empty\">Renderer not loaded</div>`}
+                    }
+                    window.productRenderer = new ProductRenderer();
+                }
+            } catch {}
+        }
+
+        // Create HTML components for different function results
+        function createFunctionResultComponent(functionName, data) {
+            ensureProductRenderer();
+            switch (functionName) {
+                case 'getCustomerByPhone':
+                case 'getCustomerByEmail':
+                    return createCustomerCard(data);
+                
+                case 'getOrdersByCustomer':
+                    return createOrdersList(data);
+                
+                case 'getDetailsByOrder':
+                    return createOrderDetails(data);
+                
+                case 'analyzeCustomerPatterns':
+                    return createAnalyticsCard(data);
+                
+                case 'handleOrderConfirmationAndCrossSell':
+                    return createCrossSellCard(data);
+                
+                case 'handleSupportEscalation':
+                    return createSupportTicketCard(data);
+                
+                case 'handleLoyaltyUpgrade':
+                    return createLoyaltyUpgradeCard(data);
+                
+                case 'handleProductRecommendations':
+                    return createRecommendationsCard(data);
+                
+                case 'getCustomerJourney':
+                    return createCustomerJourneyCard(data);
+                
+                case 'getCustomerAnalytics':
+                    return createCustomerAnalyticsCard(data);
+                
+                // New Composite Functions with Magento
+                case 'getCustomerProductJourney':
+                    return createEnhancedCustomerJourneyCard(data);
+                
+                case 'getPersonalizedProductRecommendations':
+                    return createPersonalizedRecommendationsCard(data);
+                
+                // Magento Functions
+                case 'searchMagentoProducts':
+                    return createMagentoProductGridCard(data);
+                
+                case 'getMagentoProductByLoftID':
+                case 'getMagentoProductBySKU':
+                    return createMagentoProductDetailsCard(data);
+                
+                case 'getMagentoCategories':
+                    return createMagentoCategoriesCard(data);
+                
+                default:
+                    return createGenericCard(functionName, data);
+            }
+        }
+
+        // Customer Card Component
+        function createCustomerCard(data) {
+            if (!data.data || !data.data.entry || data.data.entry.length === 0) {
+                return `<div class="function-result error">❌ Customer not found</div>`;
+            }
+            
+            const customer = data.data.entry[0];
+            return `
+                <div class="function-result customer-card">
+                    <div class="card-header">
+                        <i class="fas fa-user"></i>
+                        <span>Customer Found</span>
+                    </div>
+                    <div class="customer-info">
+                        <div class="customer-name">${customer.firstname} ${customer.lastname}</div>
+                        <div class="customer-details">
+                            <div class="detail-item">
+                                <i class="fas fa-phone"></i>
+                                <span>${customer.phonenumber}</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>${customer.email}</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>${customer.address1}, ${customer.city}, ${customer.state} ${customer.zipcode}</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-id-card"></i>
+                                <span>ID: ${customer.customerid}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Orders List Component
+        function createOrdersList(data) {
+            if (!data.data || !data.data.entry || data.data.entry.length === 0) {
+                return `<div class="function-result error">❌ No orders found</div>`;
+            }
+            
+            const orders = data.data.entry;
+            const ordersHtml = orders.map(order => `
+                <div class="order-item">
+                    <div class="order-header">
+                        <span class="order-id">#${order.orderid}</span>
+                        <span class="order-status status-${order.status.toLowerCase()}">${getOrderStatusText(order.status)}</span>
+                    </div>
+                    <div class="order-details">
+                        <div class="order-amount">$${parseFloat(order.sum).toFixed(2)}</div>
+                        <div class="order-dates">
+                            <div><i class="fas fa-calendar"></i> Ordered: ${formatDate(order.orderdate)}</div>
+                            <div><i class="fas fa-truck"></i> Delivered: ${formatDate(order.deliverydate)}</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            return `
+                <div class="function-result orders-list">
+                    <div class="card-header">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Order History (${orders.length})</span>
+                    </div>
+                    <div class="orders-container">
+                        ${ordersHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Order Details Component
+        function createOrderDetails(data) {
+            if (!data.data || !data.data.entry || data.data.entry.length === 0) {
+                return `<div class="function-result error">❌ No order details found</div>`;
+            }
+            
+            const items = data.data.entry;
+            const itemsHtml = items.map(item => `
+                <div class="order-line-item">
+                    <div class="item-info">
+                        <div class="item-name">${item.description}</div>
+                        <div class="item-id">Product ID: ${item.productid}</div>
+                    </div>
+                    <div class="item-details">
+                        <div class="item-qty">Qty: ${parseFloat(item.qtyordered)}</div>
+                        <div class="item-price">$${parseFloat(item.itemprice).toFixed(2)}</div>
+                    </div>
+                </div>
+            `).join('');
+            
+            const total = items.reduce((sum, item) => sum + (parseFloat(item.itemprice) * parseFloat(item.qtyordered)), 0);
+            
+            return `
+                <div class="function-result order-details">
+                    <div class="card-header">
+                        <i class="fas fa-list"></i>
+                        <span>Order Details</span>
+                    </div>
+                    <div class="items-container">
+                        ${itemsHtml}
+                        <div class="order-total">
+                            <strong>Total: $${total.toFixed(2)}</strong>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Support Ticket Component
+        function createSupportTicketCard(data) {
+            const ticket = data.data.ticket;
+            return `
+                <div class="function-result support-ticket">
+                    <div class="card-header">
+                        <i class="fas fa-headset"></i>
+                        <span>Support Ticket Created</span>
+                    </div>
+                    <div class="ticket-info">
+                        <div class="ticket-id">Ticket #${ticket.ticketId}</div>
+                        <div class="ticket-priority priority-${ticket.priority.toLowerCase()}">${ticket.priority} Priority</div>
+                        <div class="ticket-message">${data.data.message}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Loyalty Upgrade Component
+        function createLoyaltyUpgradeCard(data) {
+            try {
+                const loyaltyData = data.data;
+                
+                // Validate required properties
+                if (!loyaltyData) {
+                    throw new Error('No loyalty data found');
+                }
+                
+                const status = loyaltyData.status || 'unknown';
+                const message = loyaltyData.message || 'No message available';
+                
+                return `
+                    <div class="function-result loyalty-upgrade">
+                        <div class="card-header">
+                            <i class="fas fa-crown"></i>
+                            <span>Loyalty Program</span>
+                        </div>
+                        <div class="upgrade-info">
+                            <div class="loyalty-status">
+                                <i class="fas fa-info-circle"></i>
+                                <span class="status-text">${status === 'no_loyalty_data' ? 'No loyalty data available' : status}</span>
+                            </div>
+                            <div class="loyalty-message">
+                                <i class="fas fa-check-circle"></i>
+                                <span>${message}</span>
+                            </div>
+                            <div class="loyalty-note">
+                                <i class="fas fa-lightbulb"></i>
+                                <span>Contact our team to set up your loyalty account and start earning rewards!</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } catch (error) {
+                console.error('❌ Error in createLoyaltyUpgradeCard:', error);
+                return `
+                    <div class="function-result error">
+                        <div class="card-header">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Loyalty Program Error</span>
+                        </div>
+                        <div class="error-content">
+                            <span>Error: ${error.message}</span>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Enhanced Customer Journey with Magento Component
+        function createEnhancedCustomerJourneyCard(data) {
+            if (!data.data || data.status === 'error') {
+                return `<div class="function-result error">❌ ${data.message || 'Customer journey not available'}</div>`;
+            }
+            
+            return `
+                <div class="function-result enhanced-journey-card">
+                    <div class="card-header">
+                        <i class="fas fa-route"></i>
+                        <span>Enhanced Customer Journey with Product Details</span>
+                    </div>
+                    <div class="result-content">
+                        ${productRenderer.renderCustomerProductJourney(data.data)}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Personalized Recommendations Component
+        function createPersonalizedRecommendationsCard(data) {
+            if (!data.data || data.status === 'error') {
+                return `<div class="function-result error">❌ ${data.message || 'Recommendations not available'}</div>`;
+            }
+            
+            return `
+                <div class="function-result recommendations-card">
+                    <div class="card-header">
+                        <i class="fas fa-magic"></i>
+                        <span>Personalized Product Recommendations</span>
+                    </div>
+                    <div class="result-content">
+                        ${productRenderer.renderPersonalizedRecommendations(data.data)}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Magento Product Grid Component
+        function createMagentoProductGridCard(data) {
+            if (!data.data || !data.data.items || data.status === 'error') {
+                return `<div class="function-result error">❌ ${data.message || 'No products found'}</div>`;
+            }
+            
+            return `
+                <div class="function-result magento-grid-card">
+                    <div class="card-header">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Magento Product Search Results</span>
+                    </div>
+                    ${productRenderer.renderProductGrid(data.data.items,{currentPage:(data.currentPage||1),pageSize:(data.pageSize||20),total:(data.data.total_count || ((data.data.items && data.data.items.length) || 0)),query:(data.query||''),categoryId:(data.categoryId||null)})}
+                </div>
+            `;
+        }
+
+        // Magento Product Details Component
+        function createMagentoProductDetailsCard(data) {
+            if (!data.data || data.status === 'error') {
+                return `<div class="function-result error">❌ ${data.message || 'Product not found'}</div>`;
+            }
+            
+            return `
+                <div class="function-result magento-details-card">
+                    <div class="card-header">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Magento Product Details</span>
+                    </div>
+                    <div class="result-content">
+                        ${productRenderer.renderProductDetails(data.data)}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Magento Categories Component
+        function createMagentoCategoriesCard(data) {
+            if (!data.data || !data.data.children_data || data.status === 'error') {
+                return `<div class="function-result error">❌ ${data.message || 'Categories not available'}</div>`;
+            }
+            
+            const categories = data.data.children_data;
+            const categoriesHtml = categories.slice(0, 10).map(cat => `
+                <div class="category-item" onclick="productRenderer.searchByCategory(${cat.id})">
+                    <i class="fas fa-folder"></i>
+                    <span class="category-name">${cat.name}</span>
+                    <span class="category-count">${cat.product_count || 0} products</span>
+                </div>
+            `).join('');
+            
+            return `
+                <div class="function-result categories-card">
+                    <div class="card-header">
+                        <i class="fas fa-tags"></i>
+                        <span>Magento Categories (${categories.length} total)</span>
+                    </div>
+                    <div class="result-content">
+                        <div class="categories-grid">
+                            ${categoriesHtml}
+                            ${categories.length > 10 ? `<div class="category-item more">+ ${categories.length - 10} more categories</div>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Generic Card Component
+        function createGenericCard(functionName, data) {
+            return `
+                <div class="function-result generic-card">
+                    <div class="card-header">
+                        <i class="fas fa-cog"></i>
+                        <span>${functionName}</span>
+                    </div>
+                    <div class="result-content">
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Helper functions
+        function getOrderStatusText(status) {
+            const statusMap = {
+                'F': 'Delivered',
+                'O': 'Processing',
+                'P': 'Pending',
+                'C': 'Cancelled'
+            };
+            return statusMap[status] || status;
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric' 
+            });
+        }
+
+        // Analytics Card Component
+        function createAnalyticsCard(data) {
+            const analytics = data.data;
+            const categories = analytics.categories;
+            
+            const categoriesHtml = categories.map(cat => `
+                <div class="category-item">
+                    <div class="category-name">${cat.category}</div>
+                    <div class="category-stats">
+                        <span class="category-count">${cat.purchase_count} items</span>
+                        <span class="category-amount">$${parseFloat(cat.total_spent).toFixed(2)}</span>
+                    </div>
+                </div>
+            `).join('');
+
+            return `
+                <div class="function-result analytics-card">
+                    <div class="card-header">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Purchase Analytics</span>
+                    </div>
+                    <div class="analytics-content">
+                        <div class="risk-score">
+                            <span class="risk-label">Risk Score:</span>
+                            <span class="risk-value risk-${analytics.riskScore === 0 ? 'low' : 'high'}">${analytics.riskScore}</span>
+                        </div>
+                        <div class="categories-section">
+                            <h4>Purchase Categories</h4>
+                            <div class="categories-grid">
+                                ${categoriesHtml}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Cross-Sell Card Component
+        function createCrossSellCard(data) {
+            const crossSell = data.data;
+            const opportunitiesHtml = crossSell.crossSellOpportunities.slice(0, 3).map(opp => `
+                <div class="cross-sell-item">
+                    <div class="product-info">
+                        <div class="product-name">${opp.companion_product_name}</div>
+                        <div class="confidence">${parseFloat(opp.confidence_percentage).toFixed(0)}% match</div>
+                    </div>
+                </div>
+            `).join('');
+
+            return `
+                <div class="function-result cross-sell-card">
+                    <div class="card-header">
+                        <i class="fas fa-shopping-plus"></i>
+                        <span>Cross-Sell Opportunity</span>
+                    </div>
+                    <div class="cross-sell-content">
+                        <div class="customer-message">
+                            <i class="fas fa-quote-left"></i>
+                            <span>${crossSell.message}</span>
+                        </div>
+                        <div class="opportunities-section">
+                            <h4>Recommended Products</h4>
+                            <div class="opportunities-grid">
+                                ${opportunitiesHtml}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Recommendations Card Component
+        function createRecommendationsCard(data) {
+            if (data.data.status === "customer_not_found") {
+                return `<div class="function-result error">❌ ${data.data.message}</div>`;
+            }
+
+            const recs = data.data;
+            const categoriesHtml = recs.favoriteCategories.slice(0, 3).map(cat => `
+                <div class="favorite-category">
+                    <span class="category-name">${cat.category}</span>
+                    <span class="category-spent">$${parseFloat(cat.total_spent).toFixed(2)}</span>
+                </div>
+            `).join('');
+
+            const recommendationsHtml = recs.recommendations.slice(0, 3).map(rec => `
+                <div class="recommendation-item">
+                    <div class="rec-product">${rec.companion_product_name}</div>
+                    <div class="rec-confidence">${parseFloat(rec.confidence_percentage).toFixed(0)}% match</div>
+                </div>
+            `).join('');
+
+            return `
+                <div class="function-result recommendations-card">
+                    <div class="card-header">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>Product Recommendations</span>
+                    </div>
+                    <div class="recommendations-content">
+                        <div class="customer-summary">
+                            <div class="customer-name">${recs.customer.firstname} ${recs.customer.lastname}</div>
+                            <div class="customer-tier">Tier: ${recs.customer.loyalty_tier}</div>
+                            <div class="customer-spending">Total Spent: $${parseFloat(recs.customer.total_spent).toFixed(2)}</div>
+                        </div>
+                        <div class="favorites-section">
+                            <h4>Favorite Categories</h4>
+                            <div class="favorites-grid">
+                                ${categoriesHtml}
+                            </div>
+                        </div>
+                        <div class="recommendations-section">
+                            <h4>Recommended for You</h4>
+                            <div class="recommendations-grid">
+                                ${recommendationsHtml}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Customer Journey Card Component
+        function createCustomerJourneyCard(data) {
+            const journey = data.data;
+            const ordersHtml = journey.orders.map(order => `
+                <div class="journey-order">
+                    <div class="journey-order-header">
+                        <span class="order-id">#${order.orderid}</span>
+                        <span class="order-amount">$${parseFloat(order.sum).toFixed(2)}</span>
+                    </div>
+                    <div class="order-timeline">
+                        <div class="timeline-item">
+                            <i class="fas fa-calendar"></i>
+                            <span>Ordered: ${formatDate(order.orderdate)}</span>
+                        </div>
+                        <div class="timeline-item">
+                            <i class="fas fa-truck"></i>
+                            <span>Delivered: ${formatDate(order.deliverydate)}</span>
+                        </div>
+                    </div>
+                    <div class="order-items-count">${order.details.length} items</div>
+                </div>
+            `).join('');
+
+            return `
+                <div class="function-result customer-journey-card">
+                    <div class="card-header">
+                        <i class="fas fa-route"></i>
+                        <span>Customer Journey</span>
+                    </div>
+                    <div class="journey-content">
+                        <div class="journey-summary">
+                            <div class="customer-name">${journey.customer.firstname} ${journey.customer.lastname}</div>
+                            <div class="journey-stats">
+                                <div class="stat-item">
+                                    <span class="stat-value">${journey.totalOrders}</span>
+                                    <span class="stat-label">Orders</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">$${parseFloat(journey.totalSpent).toFixed(2)}</span>
+                                    <span class="stat-label">Total Spent</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="journey-orders">
+                            <h4>Order History</h4>
+                            <div class="journey-orders-list">
+                                ${ordersHtml}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Customer Analytics Card Component
+        function createCustomerAnalyticsCard(data) {
+            const analytics = data.data;
+            const customer = analytics.customer;
+            const orders = analytics.orders;
+            const favoriteCategories = analytics.favoriteCategories;
+            
+            const ordersHtml = orders.map(order => `
+                <div class="order-item">
+                    <div class="order-header">
+                        <span class="order-id">#${order.orderid}</span>
+                        <span class="order-status status-${order.status.toLowerCase()}">${getOrderStatusText(order.status)}</span>
+                    </div>
+                    <div class="order-details">
+                        <div class="order-amount">$${parseFloat(order.sum).toFixed(2)}</div>
+                        <div class="order-dates">
+                            <div><i class="fas fa-calendar"></i> Ordered: ${formatDate(order.orderdate)}</div>
+                            <div><i class="fas fa-truck"></i> Delivered: ${formatDate(order.deliverydate)}</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            const categoriesHtml = favoriteCategories.map(cat => `
+                <div class="category-item">
+                    <div class="category-name">${cat.category}</div>
+                    <div class="category-stats">
+                        <span class="category-count">${cat.purchase_count} items</span>
+                        <span class="category-amount">$${parseFloat(cat.total_spent).toFixed(2)}</span>
+                    </div>
+                </div>
+            `).join('');
+            
+            return `
+                <div class="function-result customer-analytics-card">
+                    <div class="card-header">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Customer Analytics</span>
+                    </div>
+                    <div class="analytics-detailed-content">
+                        <div class="customer-overview">
+                            <div class="overview-item">
+                                <i class="fas fa-user"></i>
+                                <span class="overview-label">Customer:</span>
+                                <span class="overview-value">${customer.firstname} ${customer.lastname}</span>
+                            </div>
+                            <div class="overview-item">
+                                <i class="fas fa-id-card"></i>
+                                <span class="overview-label">Customer ID:</span>
+                                <span class="overview-value">${customer.customerid}</span>
+                            </div>
+                            <div class="overview-item">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span class="overview-label">Total Orders:</span>
+                                <span class="overview-value">${customer.total_orders}</span>
+                            </div>
+                            <div class="overview-item">
+                                <i class="fas fa-dollar-sign"></i>
+                                <span class="overview-label">Total Spent:</span>
+                                <span class="overview-value highlight">$${parseFloat(customer.total_spent).toFixed(2)}</span>
+                            </div>
+                            <div class="overview-item">
+                                <i class="fas fa-crown"></i>
+                                <span class="overview-label">Loyalty Tier:</span>
+                                <span class="overview-value tier-${customer.loyalty_tier.toLowerCase()}">${customer.loyalty_tier}</span>
+                            </div>
+                            <div class="overview-item">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span class="overview-label">Days Since Last Order:</span>
+                                <span class="overview-value">${customer.days_since_last_order || 'Recent'}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="orders-section">
+                            <h4>Recent Orders</h4>
+                            <div class="orders-container">
+                                ${ordersHtml}
+                            </div>
+                        </div>
+                        
+                        <div class="categories-section">
+                            <h4>Favorite Categories</h4>
+                            <div class="categories-grid">
+                                ${categoriesHtml}
+                            </div>
+                        </div>
+                        
+                        <div class="risk-score">
+                            <span class="risk-label">Risk Score:</span>
+                            <span class="risk-value risk-${analytics.riskScore === 0 ? 'low' : 'high'}">${analytics.riskScore}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Load Dashboard Data
+        async function loadDashboardData() {
+            // This is a placeholder. In a real app, you'd fetch aggregated data.
+            const fakeData = {
+                revenue: [1200, 1900, 3000, 5000, 2300, 3100, 4000],
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                loyalty: {
+                    BRONZE: 500,
+                    SILVER: 350,
+                    GOLD: 100,
+                    PLATINUM: 50
+                }
+            };
+            
+            renderRevenueChart(fakeData.labels, fakeData.revenue);
+            renderLoyaltyChart(Object.keys(fakeData.loyalty), Object.values(fakeData.loyalty));
+        }
+
+        function renderRevenueChart(labels, data) {
+            const ctx = document.getElementById('revenueChart').getContext('2d');
+            if (revenueChart) {
+                revenueChart.destroy();
+            }
+            revenueChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Weekly Revenue',
+                        data: data,
+                        borderColor: 'rgba(218, 109, 66, 1)',
+                        backgroundColor: 'rgba(218, 109, 66, 0.2)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { labels: { color: 'white' } }
+                    },
+                    scales: {
+                        x: { ticks: { color: 'white' } },
+                        y: { ticks: { color: 'white' } }
+                    }
+                }
+            });
+        }
+        
+        function renderLoyaltyChart(labels, data) {
+            const ctx = document.getElementById('loyaltyChart').getContext('2d');
+            if (loyaltyChart) {
+                loyaltyChart.destroy();
+            }
+            loyaltyChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Loyalty Tiers',
+                        data: data,
+                        backgroundColor: [
+                            '#cd7f32', // Bronze
+                            '#c0c0c0', // Silver
+                            '#ffd700', // Gold
+                            '#e5e4e2'  // Platinum
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'top', labels: { color: 'white' } }
+                    }
+                }
+            });
+        }
+
+        // Load Functions
+        async function loadFunctions() {
+            try {
+                const response = await fetch(`${API_BASE}/api/functions`);
+                const data = await response.json();
+                const container = document.getElementById('functions-list');
+                container.innerHTML = data.functions.map(func => `
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <span class="metric-label" style="font-weight: bold; color: var(--primary-light);">${func.name}</span>
+                            <div class="metric-icon" style="background: var(--primary-dark);"><i class="fas fa-code"></i></div>
+                        </div>
+                        <p style="color: var(--text-secondary);">${func.description}</p>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Failed to load functions', error);
+            }
+        }
+        
+        // Load All Customers
+        async function loadAllCustomers() {
+             const container = document.getElementById('customers-list');
+             container.innerHTML = '<p style="color: var(--text-muted);">Loading customers...</p>';
+             try {
+                const response = await fetch(`${API_BASE}/api/customers`);
+                const result = await response.json();
+                if(result.status === 'success' && result.data) {
+                    container.innerHTML = result.data.map(c => `
+                        <div class="metric-card" style="cursor: pointer; display: flex; justify-content: space-between; align-items: center;" onclick="loadCustomerAndSwitch('${c.phonenumber}')">
+                            <div>
+                                <p style="font-weight: 600;">${c.firstname} ${c.lastname}</p>
+                                <p style="color: var(--text-secondary); font-size: 0.9rem;">${c.email}</p>
+                            </div>
+                            <div class="status-badge" style="background-color: var(--primary-orange); color: white;">${c.loyalty_tier || 'N/A'}</div>
+                        </div>
+                    `).join('');
+                } else {
+                    container.innerHTML = '<p style="color: var(--accent-red);">No customers found or failed to load.</p>';
+                }
+             } catch(e) {
+                container.innerHTML = '<p style="color: var(--accent-red);">Failed to load customers.</p>';
+             }
+        }
+
+        // Load All Orders
+        async function loadAllOrders() {
+            const container = document.getElementById('orders-list');
+            container.innerHTML = '<p style="color: var(--text-muted);">Loading orders...</p>';
+            try {
+                const response = await fetch(`${API_BASE}/api/orders`);
+                const result = await response.json();
+                if(result.status === 'success') {
+                    container.innerHTML = result.data.map(o => `
+                        <div class="metric-card">
+                            <p>Order #${o.orderid} - ${o.firstname} ${o.lastname}</p>
+                            <p style="color: var(--text-muted);">Status: ${o.status} | Total: $${o.total_amount}</p>
+                        </div>
+                    `).join('');
+                }
+             } catch(e) {
+                container.innerHTML = '<p style="color: var(--accent-red);">Failed to load orders.</p>';
+             }
+        }
+
+        function loadCustomerAndSwitch(phone) {
+            loadCustomer(phone);
+            showSection('chat');
+        }
+
+        // Utility functions
+        function isPhoneNumber(str) {
+            return /^\d{3}-\d{3}-\d{4}$/.test(str) || /^\d{10}$/.test(str.replace(/\D/g, ''));
+        }
+
+        function isEmail(str) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str);
+        }
+
+        function toggleTheme() {
+            // Theme toggle functionality
+            console.log('Theme toggle clicked');
+        }
+
+        // Add some demo data on load (only for non-proactive sessions)
+        setTimeout(() => {
+            // Skip default messages if this is a proactive session
+            if (sessionStorage.getItem('isProactiveSession') === 'true') {
+                console.log('🎯 Skipping default messages - proactive session detected');
+                return;
+            }
+            
+            addBotMessage('💡 Try entering: 407-288-6040 to see a demo customer!');
+        }, 2000);
+    </script>
+    
+    <!-- Product Renderer (inlined for Vercel MIME safety) -->
+    <script>
+      try { console.log('[FE] inline product-renderer start'); } catch {}
+      (function(){
+        if (window.productRenderer && !window.productRenderer.__isFallback) { return; }
+        window.API_BASE = window.API_BASE || '';
+        class ProductRenderer{constructor(){try{console.log('🎨 ProductRenderer initialized');}catch{}}
+          searchByCategory(id){try{addBotMessage(`Searching category ${id}...`);}catch{};fetch(`${API_BASE}/api/functions/execute`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({functionName:'searchMagentoProducts',parameters:{query:'',pageSize:20,categoryId:id}})}).then(r=>r.json()).then(res=>{const wrapped=`**Function Result (searchMagentoProducts):**\n${JSON.stringify(res,null,2)}`;try{addBotMessage(wrapped);}catch(e){console.warn('addBotMessage missing',e);}}).catch(err=>{console.warn('category search error',err);try{addBotMessage(`❌ Failed to search category ${id}.`);}catch{}})}
+          renderProductGrid(p,meta){if(!p||!p.length){return '<div class="product-grid-empty"><i class="fas fa-search" style="font-size:3rem;color:var(--text-muted);margin-bottom:1rem;"></i><p style="color:var(--text-muted);">No products found</p></div>';}const uid='mg-'+Date.now()+'-'+Math.random().toString(36).slice(2);try{window._magentoMeta=window._magentoMeta||{};window._magentoMeta[uid]=Object.assign({},meta||{});}catch{}const cards=p.map(x=>this.renderProductCard(x)).join('');const total=(meta&&meta.total!=null)?Number(meta.total):p.length;const controls=this.renderPager(Object.assign({uid},meta));return `<div class="magento-product-grid" data-uid="${uid}"><div class="product-grid-header"><h4><i class="fas fa-shopping-cart"></i> Found ${total} Products</h4></div><div class="product-carousel">${cards}</div>${controls}</div>`}
+          renderPager(meta){if(!meta){return '';}const uid=meta.uid;const currentPage=(meta.currentPage||1);const pageSize=(meta.pageSize||20);const totalRaw=(meta.total!=null?meta.total:(meta.total_count!=null?meta.total_count:meta.totalCount));const total=Number(totalRaw||0);const totalPages=Math.max(1,Math.ceil(total/pageSize));const prevDisabled=(currentPage<=1)?'disabled':'';const nextDisabled=(currentPage>=totalPages)?'disabled':'';return `<div class="pager"><button class="pager-btn" ${prevDisabled} onclick="productRenderer.changePage(${Math.max(1,currentPage-1)}, '${uid}')"><i class="fas fa-arrow-left"></i> Prev</button><span class="pager-info">Page ${currentPage} / ${totalPages}</span><button class="pager-btn" ${nextDisabled} onclick="productRenderer.changePage(${Math.min(totalPages,currentPage+1)}, '${uid}')">Next <i class="fas fa-arrow-right"></i></button></div>`}
+          changePage(page, uid){try{addBotMessage(`Loading page ${page}...`);}catch{};const metaStore=(window._magentoMeta||{});const meta=metaStore[uid]||{};const body={functionName:'searchMagentoProducts',parameters:{query:(meta.query||''),categoryId:(meta.categoryId!=null?meta.categoryId:null),pageSize:(meta.pageSize||20),currentPage:page}};fetch(`${API_BASE}/api/functions/execute`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).then(r=>r.json()).then(res=>{try{metaStore[uid]=Object.assign({},meta,{currentPage:page});}catch{}const wrapped=`**Function Result (searchMagentoProducts):**\n${JSON.stringify(res,null,2)}`;try{addBotMessage(wrapped);}catch(e){console.warn('addBotMessage missing',e);}}).catch(err=>{console.warn('pager error',err);try{addBotMessage('❌ Failed to change page.');}catch{}})}
+          renderProductCard(pr){const price=pr.price?`$${parseFloat(pr.price).toLocaleString()}`:'Price on request';const name=pr.name||'Product Name Not Available';const sku=pr.sku||'SKU N/A';const img=this.getProductImageUrl(pr);const imgs=this.getProductImages(pr);const urlKeyVal=this.getAttr(pr,'url_key')||'';const urlPathVal=this.getAttr(pr,'url_path')||'';const hasUrlKey=!!urlKeyVal;const url=hasUrlKey?this.buildExternalLink(pr):'';const stock=this.getStockStatus(pr);const descHtml=this.getAttr(pr,'short_description')||this.getAttr(pr,'description')||'';const descTxt=this.truncateText(this.stripHtml(descHtml),120);const imgCount=imgs.length>1?`<div class="image-count"><i class="fas fa-images"></i> ${imgs.length}</div>`:'';return `<div class="product-card" data-sku="${sku}"><div class="product-image">${img?`<img src="${img}" alt="${name}" onerror="this.style.display='none'">`:''}${imgCount}<div class="product-placeholder" ${img?'style="display:none;"':''}><i class="fas fa-couch"></i></div><div class="product-badges">${stock}</div></div><div class="product-info"><h5 class="product-name">${name}</h5><div class="product-sku">SKU: ${sku}</div><div class="product-price">${price}</div>${descTxt?`<div class="product-desc-snippet">${descTxt}</div>`:''}</div><div class="product-actions"><button class="product-btn primary" onclick="productRenderer.showProductDetails('${sku}')"><i class="fas fa-eye"></i> View Details</button><button class="product-btn secondary" onclick="productRenderer.addToCart('${sku}')"><i class="fas fa-plus"></i> Add to Cart</button>${hasUrlKey&&url?`<a class="product-btn link" href="${url}" target="_blank" rel="noopener" onclick="return productRenderer.openResolvedLink(this, '${name.replace(/'/g,"&#39;")}', '${sku}', '${urlKeyVal.replace(/'/g,"&#39;")}', '${urlPathVal.replace(/'/g,"&#39;")}')"><i class="fas fa-external-link-alt"></i> View on site</a>`:''}</div></div>`}
+          renderProductDetails(pr){const price=pr.price?`$${parseFloat(pr.price).toLocaleString()}`:'Price on request';const name=pr.name||'Product Name Not Available';const sku=pr.sku||'SKU N/A';const imgs=this.getProductImages(pr);const brandRaw=this.getAttr(pr,'manufacturer')||this.getAttr(pr,'brand');const colorRaw=this.getAttr(pr,'color')||this.getAttr(pr,'finish');const brandLabel=this.getLabel(pr,'brand')||brandRaw;const colorLabel=this.getLabel(pr,'color')||colorRaw;const material=this.getAttr(pr,'material');const width=this.getAttr(pr,'width');const depth=this.getAttr(pr,'depth');const height=this.getAttr(pr,'height');const urlKeyVal=this.getAttr(pr,'url_key')||'';const urlPathVal=this.getAttr(pr,'url_path')||'';const hasUrlKey=!!urlKeyVal;const safeUrl=hasUrlKey?this.buildExternalLink(pr):'';const searchUrl=`https://www.woodstockoutlet.com/catalogsearch/result/?q=${encodeURIComponent(name||sku)}`;const shortDesc=this.getAttr(pr,'short_description')||'';const longDescHtml=this.getAttr(pr,'description')||'';return `<div class="product-details" data-sku="${sku}"><div class="product-details-header"><h3><i class="fas fa-info-circle"></i> Product Details</h3></div><div class="product-details-content"><div class="product-images">${this.renderProductImages(imgs,name)}</div><div class="product-main-info"><h4 class="product-title">${name}</h4><div class="product-meta"><span class="product-sku-badge">SKU: ${sku}</span><span class="product-price-main">${price}</span></div>${brandLabel?`<div class="product-attr"><span>Brand:</span> ${brandLabel}</div>`:''}${colorLabel?`<div class="product-attr"><span>Color:</span> ${colorLabel}</div>`:''}${material?`<div class="product-attr"><span>Material:</span> ${material}</div>`:''}${(width||depth||height)?`<div class="product-attr"><span>Dimensions:</span> ${[width,depth,height].filter(Boolean).join(' x ')}</div>`:''}${shortDesc?`<div class="product-desc">${shortDesc}</div>`:''}${longDescHtml?`<div class="product-desc-long">${longDescHtml}</div>`:''}<div class="product-links">${hasUrlKey&&safeUrl?`<a class="product-btn link" href="${safeUrl}" target="_blank" rel="noopener" onclick="return productRenderer.openResolvedLink(this, '${name.replace(/'/g,"&#39;")}', '${sku}', '${urlKeyVal.replace(/'/g,"&#39;")}', '${urlPathVal.replace(/'/g,"&#39;")}')"><i class="fas fa-external-link-alt"></i> View on site</a>`:`<a class="product-btn link" href="${searchUrl}" target="_blank" rel="noopener"><i class="fas fa-search"></i> Search on site</a>`}</div></div></div></div>`}
+          async resolveBestUrl(params){try{const usp=new URLSearchParams(params);const r=await fetch(`${API_BASE}/api/magento/resolve-url?${usp.toString()}`);const j=await r.json();if(j&&j.bestUrl){return j.bestUrl;}return null;}catch{return null}}
+          openResolvedLink(el,name,sku,url_key,url_path){(async()=>{try{const best=await this.resolveBestUrl({url_key,url_path,name,sku});const finalUrl=this.normalizeExternalUrl(best||el.href);window.open(finalUrl,'_blank','noopener,noreferrer');}catch{window.open(this.normalizeExternalUrl(el.href),'_blank','noopener,noreferrer');}})();return false}
+          renderProductImages(imgs,alt){if(!imgs||!imgs.length){return `<div class="product-image-placeholder"><i class="fas fa-couch"></i><span>No images available</span></div>`}return `<div class="product-image-gallery"><div class="main-image"><img src="${imgs[0]}" alt="${alt}"></div>${imgs.length>1?`<div class="image-thumbnails">${imgs.slice(1,4).map((im,i)=>`<img src="${im}" alt="${alt} ${i+2}" onclick="productRenderer.switchMainImage(this.src)">`).join('')}</div>`:''}</div>`}
+          getProductImageUrl(pr){if(pr.media_gallery_entries&&pr.media_gallery_entries.length>0){const f=pr.media_gallery_entries[0];return `https://www.woodstockoutlet.com/media/catalog/product${f.file}`;}return null}
+          getProductImages(pr){if(pr.media_gallery_entries&&pr.media_gallery_entries.length>0){return pr.media_gallery_entries.map(e=>`https://www.woodstockoutlet.com/media/catalog/product${e.file}`);}return []}
+          async ensureProductMedia(pr){try{if(pr.media_gallery_entries&&pr.media_gallery_entries.length){return pr;}const sku=pr.sku;const res=await fetch(`${API_BASE}/api/functions/execute`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({functionName:'getMagentoProductMedia',parameters:{sku}})});const json=await res.json();if(json&&json.status==='success'&&Array.isArray(json.data)){pr.media_gallery_entries=json.data.map(x=>({file:x.file,position:x.position||0}));}return pr;}catch{return pr;}}
+          async fetchAttributeOptions(code){this._attrCache=this._attrCache||{};if(this._attrCache[code]){return this._attrCache[code];}const res=await fetch(`${API_BASE}/api/functions/execute`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({functionName:'getMagentoAttributeOptions',parameters:{code}})});const json=await res.json();const map={};if(json&&json.status==='success'&&Array.isArray(json.data)){json.data.forEach(o=>{if(o&&o.value!=null){map[String(o.value)]=o.label;}});}this._attrCache[code]=map;return map}
+          getLabel(pr,code){try{if(pr&&pr._labels&&pr._labels[code]){return pr._labels[code];}const raw=this.getAttr(pr,code);const cache=this._attrCache&&this._attrCache[code];if(cache&&raw!=null&&cache[String(raw)]){return cache[String(raw)];}return null;}catch{return null}}
+          getStockStatus(pr){try{const st=pr.extension_attributes&&pr.extension_attributes.stock_item;if(!st){return '';}const badge=st.is_in_stock?`<span class=\"stock in\"><i class=\"fas fa-check\"></i> In Stock</span>`:`<span class=\"stock out\"><i class=\"fas fa-times\"></i> Out of Stock</span>`;return badge;}catch{return ''}}
+          getAttr(pr, code) {
+            const a = pr && pr.custom_attributes ? pr.custom_attributes : [];
+            const m = a.find(x => x.attribute_code === code);
+            return m ? m.value : null;
+          }
+          buildExternalLink(pr){
+            const urlKey=this.getAttr(pr,'url_key');
+            const urlPath=this.getAttr(pr,'url_path');
+            const ensureHtml=(p)=>{
+              let s=String(p||'').trim().replace(/^\/+/, '').replace(/"|'/g,'');
+              // strip trailing .html if duplicated then add one
+              s=s.replace(/\.html$/i,'');
+              return s.endsWith('.html')?s:`${s}.html`;
+            };
+            let candidate='';
+            if(urlKey){
+              candidate=`https://www.woodstockoutlet.com/${ensureHtml(urlKey)}`;
+            } else if(urlPath){
+              candidate=`https://www.woodstockoutlet.com/${ensureHtml(urlPath)}`;
+            } else {
+              const term=pr.name||pr.sku||'';
+              if(!term){return ''}
+              candidate=`https://www.woodstockoutlet.com/catalogsearch/result/?q=${encodeURIComponent(term)}`;
+            }
+            return this.normalizeExternalUrl(candidate);
+          }
+          stripHtml(s){try{const d=document.createElement('div');d.innerHTML=String(s);return d.textContent||d.innerText||'';}catch{return String(s||'');}}
+          truncateText(t,n){const s=String(t||'').trim();if(s.length<=n)return s;return s.slice(0,n-1)+'…';}
+          normalizeExternalUrl(u) {
+            try {
+              let s = String(u || '').trim();
+              // strip any quotes or encoded quotes accidentally included
+              s = s.replace(/%22/gi, '');
+              s = s.replace(/^['"]+|['"]+$/g, '');
+              // remove trailing quotes or slashes artifacts like .html/"
+              s = s.replace(/["']+$/g, '');
+              // construct absolute URL against canonical host
+              const url = new URL(s, 'https://www.woodstockoutlet.com/');
+              if (url.protocol === 'http:') url.protocol = 'https:';
+              // normalize host to www
+              if (url.hostname === 'woodstockoutlet.com') url.hostname = 'www.woodstockoutlet.com';
+              return url.toString();
+            } catch (e) {
+              return 'https://www.woodstockoutlet.com/';
+            }
+          }
+          openExternal(u) {
+            const url = this.normalizeExternalUrl(u);
+            try {
+              window.open(url, '_blank', 'noopener,noreferrer');
+            } catch (e) {
+              console.warn('openExternal failed', e);
+            }
+          }
+          async showProductDetails(sku) {
+            try { console.log('🔍 Showing details for SKU:', sku); } catch (e) {}
+            try { addBotMessage(`Fetching detailed information for product ${sku}...`); } catch (e) {}
+            try {
+              const r = await fetch(`${API_BASE}/api/functions/execute`, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ functionName:'getMagentoProductBySKU', parameters:{ sku } })});
+              const res = await r.json();
+              if(res && res.status==='success' && res.data){
+                const pr = res.data;
+                // Ensure media gallery
+                await this.ensureProductMedia(pr);
+                // Resolve attribute labels (brand/color)
+                pr._labels = pr._labels || {};
+                try { const brandMap = await this.fetchAttributeOptions('brand'); const rawB = this.getAttr(pr,'brand'); if(rawB!=null && brandMap[String(rawB)]) pr._labels.brand = brandMap[String(rawB)]; } catch {}
+                try { const colorMap = await this.fetchAttributeOptions('color'); const rawC = this.getAttr(pr,'color'); if(rawC!=null && colorMap[String(rawC)]) pr._labels.color = colorMap[String(rawC)]; } catch {}
+                const wrapped = `**Function Result (getMagentoProductBySKU):**\n${JSON.stringify(res, null, 2)}`;
+                try { addBotMessage(wrapped); } catch (e) { console.warn('addBotMessage missing', e); }
+              } else {
+                try { addBotMessage('❌ Failed to load details.'); } catch {}
+              }
+            } catch (err) {
+              console.warn('[FE] details fetch error', err);
+              try { addBotMessage(`❌ Failed to load details for ${sku}.`); } catch (e) {}
+            }
+          }
+          addToCart(sku) {
+            try { addBotMessage(`Added product ${sku} to cart! 🛒`); } catch (e) {}
+          }
+          requestQuote(sku) {
+            try { addBotMessage(`Quote request sent for product ${sku}!`); } catch (e) {}
+          }
+          switchMainImage(src) {
+            const img = document.querySelector('.main-image img');
+            if (img) { img.src = src; }
+          }
+        }
+        window.productRenderer=new ProductRenderer();
+      })();
+      try { console.log('[FE] inline product-renderer ready'); } catch {}
+    </script>
+</body>
+</html> 

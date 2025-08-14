@@ -1,1 +1,26 @@
-{"error":{"code":"not_found","message":"The requested API endpoint was not found."}}
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "api/facebook-webhook.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/facebook-webhook",
+      "dest": "/api/facebook-webhook.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/server.js"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
+} 

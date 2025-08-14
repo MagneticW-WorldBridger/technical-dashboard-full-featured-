@@ -1,1 +1,386 @@
-{"error":{"code":"not_found","message":"The requested API endpoint was not found."}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Business Integration | Woodstock AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #fd5949 0%, #d6249f 50%, #285AEB 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+
+        .instagram-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .step {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .step-number {
+            width: 30px;
+            height: 30px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        .step-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .step-desc {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .oauth-button {
+            width: 100%;
+            background: linear-gradient(135deg, #fd5949 0%, #d6249f 50%, #285AEB 100%);
+            color: white;
+            border: none;
+            padding: 18px 30px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .oauth-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .requirements {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .requirements h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .requirements ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .requirements li {
+            margin-bottom: 8px;
+            padding-left: 25px;
+            position: relative;
+            color: #555;
+        }
+
+        .requirements li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 20px 30px;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin: 10px;
+            }
+            
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="instagram-icon">📸</div>
+            <h1>Connect Instagram Business</h1>
+            <p>Integrate your Instagram Business Account with Woodstock AI for automated customer service and engagement</p>
+        </div>
+
+        <div class="content">
+            <div class="warning">
+                <strong>⚠️ Business Account Required:</strong> You must have an Instagram Business or Creator account connected to a Facebook Page to proceed.
+            </div>
+
+            <div class="success" id="successMessage">
+                <strong>✅ Connection Successful!</strong> Your Instagram Business Account has been connected. You'll be redirected to your dashboard shortly.
+            </div>
+
+            <div class="requirements">
+                <h3>Requirements Checklist:</h3>
+                <ul>
+                    <li>Instagram Business or Creator Account</li>
+                    <li>Connected Facebook Page (as Page Admin)</li>
+                    <li>Instagram messaging enabled in settings</li>
+                    <li>Business email verification completed</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <div style="display: flex; align-items: flex-start;">
+                    <div class="step-number">1</div>
+                    <div>
+                        <div class="step-title">Prepare Your Account</div>
+                        <div class="step-desc">Ensure your Instagram is set to Business/Creator and connected to a Facebook Page you manage.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div style="display: flex; align-items: flex-start;">
+                    <div class="step-number">2</div>
+                    <div>
+                        <div class="step-title">Grant Permissions</div>
+                        <div class="step-desc">You'll be asked to grant permissions for messaging, content publishing, and profile access.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div style="display: flex; align-items: flex-start;">
+                    <div class="step-number">3</div>
+                    <div>
+                        <div class="step-title">Complete Integration</div>
+                        <div class="step-desc">Once connected, you'll have access to AI-powered customer service for your Instagram DMs.</div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="#" id="oauthButton" class="oauth-button">
+                🚀 Connect Instagram Business Account
+            </a>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <small style="color: #888;">
+                    Secure OAuth 2.0 authentication via Facebook/Meta<br>
+                    No passwords stored • Revocable anytime
+                </small>
+            </div>
+        </div>
+
+        <div class="footer">
+            Powered by Woodstock AI • SOC2 Type II Compliant • Enterprise Security
+        </div>
+    </div>
+
+    <script>
+        // Instagram OAuth Configuration
+        const INSTAGRAM_CONFIG = { appId: '', redirectUri: '', scope: '', responseType: 'code', state: generateRandomState() };
+
+        async function loadOAuthConfig() {
+            try {
+                const r = await fetch('/api/instagram/oauth/config');
+                const cfg = await r.json();
+                INSTAGRAM_CONFIG.appId = cfg.appId;
+                INSTAGRAM_CONFIG.redirectUri = cfg.redirectUri;
+                INSTAGRAM_CONFIG.scope = cfg.scope;
+            } catch (e) {
+                console.error('Failed to load OAuth config', e);
+            }
+        }
+
+        function generateRandomState() {
+            return Math.random().toString(36).substring(2, 15) + 
+                   Math.random().toString(36).substring(2, 15);
+        }
+
+        function generateOAuthURL() {
+            const params = new URLSearchParams({
+                client_id: INSTAGRAM_CONFIG.appId,
+                redirect_uri: INSTAGRAM_CONFIG.redirectUri,
+                scope: INSTAGRAM_CONFIG.scope,
+                response_type: INSTAGRAM_CONFIG.responseType,
+                state: INSTAGRAM_CONFIG.state
+            });
+
+            return `https://www.facebook.com/v18.0/dialog/oauth?${params.toString()}`;
+        }
+
+        document.getElementById('oauthButton').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Store state in sessionStorage for validation
+            sessionStorage.setItem('oauth_state', INSTAGRAM_CONFIG.state);
+            
+            // Redirect to Facebook OAuth
+            window.location.href = generateOAuthURL();
+        });
+
+        // Initialize after loading config
+        (async function initOAuth() {
+            await loadOAuthConfig();
+            const urlParams = new URLSearchParams(window.location.search);
+            const code = urlParams.get('code');
+            const state = urlParams.get('state');
+            const error = urlParams.get('error');
+            if (error) {
+                alert('OAuth Error: ' + (urlParams.get('error_description') || error));
+                return;
+            }
+            if (code && state) {
+                const storedState = sessionStorage.getItem('oauth_state');
+                if (state === storedState) {
+                    await handleOAuthSuccess(code);
+                } else {
+                    alert('Invalid state parameter. Possible CSRF attack.');
+                }
+            }
+        })();
+
+        async function handleOAuthSuccess(authCode) {
+            try {
+                document.getElementById('successMessage').style.display = 'block';
+                document.getElementById('oauthButton').innerHTML = '⏳ Processing...';
+                document.getElementById('oauthButton').style.opacity = '0.6';
+
+                // Fallback redirect URI if config hasn't populated for any reason
+                if (!INSTAGRAM_CONFIG.redirectUri) {
+                    INSTAGRAM_CONFIG.redirectUri = window.location.origin + '/oauth-callback.html';
+                }
+
+                // Exchange code for access token via our backend
+                const response = await fetch('/api/instagram/oauth/exchange', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        code: authCode,
+                        redirect_uri: INSTAGRAM_CONFIG.redirectUri
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // Redirect to dashboard after 3 seconds
+                    setTimeout(() => {
+                        window.location.href = '/dashboard?connected=instagram';
+                    }, 3000);
+                } else {
+                    throw new Error(result.error || 'Failed to exchange token');
+                }
+
+            } catch (error) {
+                console.error('OAuth exchange error:', error);
+                alert('Failed to complete integration: ' + error.message);
+                document.getElementById('oauthButton').innerHTML = '🚀 Connect Instagram Business Account';
+                document.getElementById('oauthButton').style.opacity = '1';
+                document.getElementById('successMessage').style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
+

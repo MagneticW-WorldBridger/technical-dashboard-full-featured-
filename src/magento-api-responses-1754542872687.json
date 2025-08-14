@@ -1,1 +1,4346 @@
-{"error":{"code":"not_found","message":"The requested API endpoint was not found."}}
+{
+  "timestamp": "2025-08-07T05:01:10.505Z",
+  "responses": [
+    {
+      "type": "single_product_by_sku",
+      "function": "getMagentoProductBySKU",
+      "parameters": {
+        "sku": "124985831"
+      },
+      "response": {
+        "function": "getMagentoProductBySKU",
+        "status": "success",
+        "data": {
+          "id": 9566,
+          "sku": "124985831",
+          "name": "Lindsey Farm Weathered White Backless Bench",
+          "attribute_set_id": 25,
+          "price": 159.99,
+          "status": 1,
+          "visibility": 4,
+          "type_id": "simple",
+          "created_at": "2023-12-20 23:12:25",
+          "updated_at": "2025-08-06 20:00:42",
+          "weight": 34,
+          "extension_attributes": {
+            "website_ids": [
+              1
+            ],
+            "category_links": [
+              {
+                "position": 0,
+                "category_id": "2934"
+              }
+            ],
+            "stock_item": {
+              "item_id": 19897,
+              "product_id": 9566,
+              "stock_id": 1,
+              "qty": 0,
+              "is_in_stock": true,
+              "is_qty_decimal": false,
+              "show_default_notification_message": false,
+              "use_config_min_qty": true,
+              "min_qty": 0,
+              "use_config_min_sale_qty": 1,
+              "min_sale_qty": 1,
+              "use_config_max_sale_qty": true,
+              "max_sale_qty": 10000,
+              "use_config_backorders": true,
+              "backorders": 1,
+              "use_config_notify_stock_qty": true,
+              "notify_stock_qty": 1,
+              "use_config_qty_increments": true,
+              "qty_increments": 0,
+              "use_config_enable_qty_inc": true,
+              "enable_qty_increments": false,
+              "use_config_manage_stock": true,
+              "manage_stock": false,
+              "low_stock_date": "2025-08-06 20:00:42",
+              "is_decimal_divided": false,
+              "stock_status_changed_auto": 0
+            }
+          },
+          "product_links": [],
+          "options": [],
+          "media_gallery_entries": [
+            {
+              "id": 29578,
+              "media_type": "image",
+              "label": null,
+              "position": 0,
+              "disabled": false,
+              "types": [
+                "small_image",
+                "thumbnail",
+                "swatch_image"
+              ],
+              "file": "/l/i/liberty-lindsey-farm-weathered-white-backless-bench-62WH-C9000B-right1.jpg"
+            },
+            {
+              "id": 29579,
+              "media_type": "image",
+              "label": null,
+              "position": 1,
+              "disabled": false,
+              "types": [],
+              "file": "/l/i/liberty-lindsey-farm-weathered-white-backless-bench-62WH-C9000B-front.jpg"
+            },
+            {
+              "id": 29580,
+              "media_type": "image",
+              "label": null,
+              "position": 2,
+              "disabled": false,
+              "types": [],
+              "file": "/l/i/liberty-lindsey-farm-weathered-white-backless-bench-62WH-C9000B-rightside.jpg"
+            },
+            {
+              "id": 29581,
+              "media_type": "image",
+              "label": null,
+              "position": 3,
+              "disabled": false,
+              "types": [],
+              "file": "/l/i/liberty-lindsey-farm-weathered-white-backless-bench-62WH-C9000B-top.jpg"
+            },
+            {
+              "id": 29582,
+              "media_type": "image",
+              "label": null,
+              "position": 4,
+              "disabled": false,
+              "types": [],
+              "file": "/l/i/liberty-lindsey-farm-weathered-white-backless-bench-62WH-C9000B-room.jpg"
+            }
+          ],
+          "tier_prices": [],
+          "custom_attributes": [
+            {
+              "attribute_code": "description",
+              "value": "Sit in comfort and style with the Lindsey Farm backless bench. Crafted of rubberwood solids, nylon chair glides to protect your flooring, and a wooden seat bench. This piece has an alternate finish and offers a look that compliments today's homes with style uncompromised and comfort abound."
+            },
+            {
+              "attribute_code": "image",
+              "value": "no_selection"
+            },
+            {
+              "attribute_code": "meta_title",
+              "value": "Lindsey Farm Weathered White Backless Bench 62WH-C9000B by Liberty"
+            },
+            {
+              "attribute_code": "material",
+              "value": "2266"
+            },
+            {
+              "attribute_code": "width",
+              "value": "48"
+            },
+            {
+              "attribute_code": "small_image",
+              "value": "/l/i/liberty-lindsey-farm-weathered-white-backless-bench-62WH-C9000B-right1.jpg"
+            },
+            {
+              "attribute_code": "meta_keyword",
+              "value": "Lindsey, Farm, Weathered, White, Backless, Bench, 62WH-C9000B, Liberty, rubberwood solids, standstone finish, "
+            },
+            {
+              "attribute_code": "options_container",
+              "value": "container2"
+            },
+            {
+              "attribute_code": "depth",
+              "value": "14"
+            },
+            {
+              "attribute_code": "thumbnail",
+              "value": "/l/i/liberty-lindsey-farm-weathered-white-backless-bench-62WH-C9000B-right1.jpg"
+            },
+            {
+              "attribute_code": "meta_description",
+              "value": "Shop the Lindsey Farm Weathered White Backless Bench by Liberty at Woodstock Furniture & Mattress Outlet"
+            },
+            {
+              "attribute_code": "height",
+              "value": "18"
+            },
+            {
+              "attribute_code": "url_key",
+              "value": "lindsey-farm-weathered-white-backless-bench"
+            },
+            {
+              "attribute_code": "color_family",
+              "value": "1888,1720"
+            },
+            {
+              "attribute_code": "dim_depth",
+              "value": "14.000000"
+            },
+            {
+              "attribute_code": "product_collection",
+              "value": "2353"
+            },
+            {
+              "attribute_code": "tax_class_id",
+              "value": "2"
+            },
+            {
+              "attribute_code": "swatch_image",
+              "value": "/l/i/liberty-lindsey-farm-weathered-white-backless-bench-62WH-C9000B-right1.jpg"
+            },
+            {
+              "attribute_code": "dim_height",
+              "value": "18.000000"
+            },
+            {
+              "attribute_code": "featured",
+              "value": "1"
+            },
+            {
+              "attribute_code": "msrp_display_actual_price_type",
+              "value": "0"
+            },
+            {
+              "attribute_code": "style",
+              "value": "1793"
+            },
+            {
+              "attribute_code": "dim_width",
+              "value": "48.000000"
+            },
+            {
+              "attribute_code": "features",
+              "value": "1065"
+            },
+            {
+              "attribute_code": "package_width",
+              "value": "18"
+            },
+            {
+              "attribute_code": "package_depth",
+              "value": "52.75"
+            },
+            {
+              "attribute_code": "finish_family",
+              "value": "994"
+            },
+            {
+              "attribute_code": "package_height",
+              "value": "7"
+            },
+            {
+              "attribute_code": "brand_ids",
+              "value": [
+                "197"
+              ]
+            },
+            {
+              "attribute_code": "required_options",
+              "value": "0"
+            },
+            {
+              "attribute_code": "brand",
+              "value": "1212"
+            },
+            {
+              "attribute_code": "has_options",
+              "value": "0"
+            },
+            {
+              "attribute_code": "category_ids",
+              "value": [
+                "2934"
+              ]
+            },
+            {
+              "attribute_code": "wondersign_price",
+              "value": "159.990000"
+            },
+            {
+              "attribute_code": "special_order",
+              "value": "1"
+            },
+            {
+              "attribute_code": "enable_call_or_text_for_price",
+              "value": "0"
+            },
+            {
+              "attribute_code": "imap",
+              "value": "0"
+            },
+            {
+              "attribute_code": "manufacturer_sku",
+              "value": "62WH-C9000B"
+            },
+            {
+              "attribute_code": "pim_unique_id",
+              "value": "124985831"
+            },
+            {
+              "attribute_code": "loft_id",
+              "value": "124985831"
+            },
+            {
+              "attribute_code": "loft_item_type",
+              "value": "17095"
+            },
+            {
+              "attribute_code": "product_sort_order",
+              "value": "5000.000000"
+            },
+            {
+              "attribute_code": "inriver_date_import",
+              "value": "2024-05-01 00:00:00"
+            },
+            {
+              "attribute_code": "wfo_in_stock",
+              "value": "0"
+            }
+          ]
+        },
+        "message": "Product details retrieved for SKU: 124985831"
+      }
+    },
+    {
+      "type": "product_search_chairs",
+      "function": "searchMagentoProducts",
+      "parameters": {
+        "query": "chairs",
+        "pageSize": 5
+      },
+      "response": {
+        "function": "searchMagentoProducts",
+        "status": "success",
+        "data": {
+          "items": [
+            {
+              "id": 12619,
+              "sku": "3FB4F574-54C8-499B-7ACA-DF6DD0316A7E",
+              "name": "Stanah Chairside End Table",
+              "attribute_set_id": 23,
+              "price": 234.95,
+              "status": 2,
+              "visibility": 4,
+              "type_id": "simple",
+              "created_at": "2024-06-26 04:07:29",
+              "updated_at": "2025-03-18 05:14:23",
+              "weight": 47,
+              "extension_attributes": {
+                "website_ids": [
+                  1
+                ],
+                "category_links": [
+                  {
+                    "position": 0,
+                    "category_id": "2869"
+                  }
+                ]
+              },
+              "product_links": [],
+              "options": [],
+              "media_gallery_entries": [
+                {
+                  "id": 48210,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 0,
+                  "disabled": false,
+                  "types": [
+                    "small_image",
+                    "thumbnail",
+                    "swatch_image"
+                  ],
+                  "file": "/a/s/ashley-stanah-chair-side-table-t892-7-img1.jpeg"
+                },
+                {
+                  "id": 48211,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 1,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/a/s/ashley-stanah-chair-side-table-t892-7-img2.jpeg"
+                },
+                {
+                  "id": 48212,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 2,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/a/s/ashley-stanah-chair-side-table-t892-7-img3.jpeg"
+                },
+                {
+                  "id": 48213,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 3,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/a/s/ashley-stanah-chair-side-table-t892-7-img4.jpeg"
+                },
+                {
+                  "id": 48214,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 4,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/a/s/ashley-stanah-chair-side-table-t892-7-img6.jpeg"
+                },
+                {
+                  "id": 48215,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 5,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/a/s/ashley-stanah-chair-side-table-t892-7-img7.jpeg"
+                },
+                {
+                  "id": 48216,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 6,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/a/s/ashley-stanah-chair-side-table-t892-7-img8.jpeg"
+                },
+                {
+                  "id": 48217,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 7,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/a/s/ashley-stanah-chair-side-table-t892-7-img9.jpeg"
+                },
+                {
+                  "id": 48218,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 8,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/a/s/ashley-stanah-chair-side-table-t892-7-img10.jpeg"
+                },
+                {
+                  "id": 48219,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 9,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/7/9/793964cf-c9f8-4b5f-b182-b6cdef6b74c9.jpeg"
+                },
+                {
+                  "id": 48220,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 10,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/0/8/088ac678-e510-4e95-ace2-e001ab3ab153.jpeg"
+                }
+              ],
+              "tier_prices": [],
+              "custom_attributes": [
+                {
+                  "attribute_code": "description",
+                  "value": "<p>The Stanah Chairside Table from <a href=\"https://www.woodstockoutlet.com/blog/ashley-furniture-near-me\" target=\"_blank\">Ashley Furniture</a> combines earthy, rustic character with clean, contemporary lines. Its simple, blocky profile is enriched by a two-tone brown finish and heavily textured distressing, creating a distinctly unique aesthetic. Crafted from veneers, wood, and engineered wood, this piece blends high design with high tech, featuring subtly placed electrical outlets and USB charging stations for added convenience. This seamless integration of style and functionality makes the Stanah Chairside Table a perfect addition to any modern or rustic living space.</p><p>FEATURES:</p><ul><li>Made of <a href=\"https://www.woodstockoutlet.com/blog/misconceptions-about-wood-veneers\" target=\"_blank\">veneers</a>, wood and engineered wood</li><li>Two-tone brown/dark brown finish</li><li>Heavily textured distressing</li><li>Smooth-gliding drawer</li><li>Hammered-style metal pull</li><li>2 electrical outlets and USB charging stations</li><li>Power cord included; UL Listed</li><li>Assembly required</li></ul><p><br></p>"
+                },
+                {
+                  "attribute_code": "image",
+                  "value": "no_selection"
+                },
+                {
+                  "attribute_code": "meta_title",
+                  "value": "Stanah Chairside End Table by Ashley Furniture T892-7\n"
+                },
+                {
+                  "attribute_code": "material",
+                  "value": "2266"
+                },
+                {
+                  "attribute_code": "width",
+                  "value": "15.75"
+                },
+                {
+                  "attribute_code": "small_image",
+                  "value": "/a/s/ashley-stanah-chair-side-table-t892-7-img1.jpeg"
+                },
+                {
+                  "attribute_code": "meta_keyword",
+                  "value": "stanah,chairside table,end table,side table,accent table,occasional table,rustic,small,two tone,brown,usb,ashley,T892-7"
+                },
+                {
+                  "attribute_code": "options_container",
+                  "value": "container2"
+                },
+                {
+                  "attribute_code": "finish_family",
+                  "value": "993"
+                },
+                {
+                  "attribute_code": "depth",
+                  "value": "23.88"
+                },
+                {
+                  "attribute_code": "thumbnail",
+                  "value": "/a/s/ashley-stanah-chair-side-table-t892-7-img1.jpeg"
+                },
+                {
+                  "attribute_code": "meta_description",
+                  "value": "Shop the Stanah Chairside End Table by Ashley Furniture at Woodstock Furniture & Mattress Outlet"
+                },
+                {
+                  "attribute_code": "height",
+                  "value": "25"
+                },
+                {
+                  "attribute_code": "product_collection",
+                  "value": "4676"
+                },
+                {
+                  "attribute_code": "url_key",
+                  "value": "stanah-chairside-end-table"
+                },
+                {
+                  "attribute_code": "style",
+                  "value": "1791"
+                },
+                {
+                  "attribute_code": "dim_depth",
+                  "value": "23.880000"
+                },
+                {
+                  "attribute_code": "tax_class_id",
+                  "value": "2"
+                },
+                {
+                  "attribute_code": "swatch_image",
+                  "value": "/a/s/ashley-stanah-chair-side-table-t892-7-img1.jpeg"
+                },
+                {
+                  "attribute_code": "features",
+                  "value": "12287,1804"
+                },
+                {
+                  "attribute_code": "dim_height",
+                  "value": "25.000000"
+                },
+                {
+                  "attribute_code": "featured",
+                  "value": "1"
+                },
+                {
+                  "attribute_code": "msrp_display_actual_price_type",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "shape",
+                  "value": "12479"
+                },
+                {
+                  "attribute_code": "color_family",
+                  "value": "1720"
+                },
+                {
+                  "attribute_code": "dim_width",
+                  "value": "15.750000"
+                },
+                {
+                  "attribute_code": "package_width",
+                  "value": "18.5"
+                },
+                {
+                  "attribute_code": "package_depth",
+                  "value": "26.38"
+                },
+                {
+                  "attribute_code": "package_height",
+                  "value": "17.5"
+                },
+                {
+                  "attribute_code": "package_weight",
+                  "value": "47"
+                },
+                {
+                  "attribute_code": "required_options",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "brand",
+                  "value": "1229"
+                },
+                {
+                  "attribute_code": "has_options",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "category_ids",
+                  "value": [
+                    "2869"
+                  ]
+                },
+                {
+                  "attribute_code": "enable_call_or_text_for_price",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "manufacturer_sku",
+                  "value": "T892-7"
+                },
+                {
+                  "attribute_code": "pim_unique_id",
+                  "value": "3FB4F574-54C8-499B-7ACA-DF6DD0316A7E"
+                },
+                {
+                  "attribute_code": "loft_id",
+                  "value": "761836308"
+                },
+                {
+                  "attribute_code": "product_sort_order",
+                  "value": "1000.000000"
+                },
+                {
+                  "attribute_code": "inriver_date_import",
+                  "value": "2024-07-22 00:00:00"
+                }
+              ]
+            },
+            {
+              "id": 8626,
+              "sku": "598712308",
+              "name": "Ocean Isle Chairside Table",
+              "attribute_set_id": 23,
+              "price": 323.08,
+              "status": 2,
+              "visibility": 4,
+              "type_id": "simple",
+              "created_at": "2023-10-16 23:05:34",
+              "updated_at": "2025-04-05 05:15:34",
+              "weight": 55,
+              "extension_attributes": {
+                "website_ids": [
+                  1
+                ],
+                "category_links": [
+                  {
+                    "position": 0,
+                    "category_id": "2869"
+                  }
+                ]
+              },
+              "product_links": [],
+              "options": [],
+              "media_gallery_entries": [
+                {
+                  "id": 44715,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 0,
+                  "disabled": false,
+                  "types": [
+                    "small_image",
+                    "thumbnail",
+                    "swatch_image"
+                  ],
+                  "file": "/l/i/liberty-ocean-isle-chairside-table-303G-OT1021-img1.jpg"
+                },
+                {
+                  "id": 44716,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 1,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/i/liberty-ocean-isle-chairside-table-303G-OT1021-img2.jpg"
+                },
+                {
+                  "id": 44717,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 2,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/i/liberty-ocean-isle-chairside-table-303G-OT1021-img3.jpg"
+                },
+                {
+                  "id": 44718,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 3,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/i/liberty-ocean-isle-chairside-table-3034-OT1021-img4.jpg"
+                },
+                {
+                  "id": 44719,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 4,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/i/liberty-ocean-isle-chairside-table-303G-OT1021-img5.jpg"
+                },
+                {
+                  "id": 44720,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 5,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/i/liberty-ocean-isle-chairside-table-303G-OT1021-img6.jpg"
+                },
+                {
+                  "id": 44721,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 6,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/i/liberty-ocean-isle-chairside-table-303G-OT1021-img7.jpg"
+                },
+                {
+                  "id": 44722,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 7,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/i/liberty-ocean-isle-chairside-table-303G-OT1021-img8.jpg"
+                },
+                {
+                  "id": 44723,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 8,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/i/liberty-ocean-isle-chairside-table-303G-OT1021-img9.jpg"
+                },
+                {
+                  "id": 44724,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 9,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/i/liberty-ocean-isle-chairside-table-303G-OT1021-img10.jpg"
+                },
+                {
+                  "id": 44725,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 10,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/i/liberty-ocean-isle-chairside-table-303G-OT1021-img12.jpg"
+                },
+                {
+                  "id": 44726,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 11,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/i/liberty-ocean-isle-chairside-table-303G-OT1021-img13.jpg"
+                },
+                {
+                  "id": 44727,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 12,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/i/liberty-ocean-isle-chairside-table-303G-OT1021-img14.jpg"
+                }
+              ],
+              "tier_prices": [],
+              "custom_attributes": [
+                {
+                  "attribute_code": "description",
+                  "value": "<p>Create a relaxed interior look that works for coastal styles, country, and cottage interiors with the Ocean Isle chair side table. Crafted of rubberwood solids and New Zealand pine <a href=\"https://www.woodstockoutlet.com/blog/misconceptions-about-wood-veneers\" target=\"_blank\"><strong>veneers</strong></a>, this piece features a slate finish with weathered pine, louvered accents on the door, a rear magazine rack enhancing storage, natural pine top, one adjustable shelf behind the door, and is accented by satin nickel drop ring hardware.</p><p>FEATURES:</p><ul><li>Slate Gray Base with Pine Top</li><li>Nickel Finish Hardware</li><li>Chair Side Features Magazine Storage</li><li>Chair Side Has Shuttered Door</li><li>Satin Nickel Ring Hardware</li><li>One Adj Shelf</li><li>Alternate Finish: 303W Antique White</li></ul>"
+                },
+                {
+                  "attribute_code": "image",
+                  "value": "no_selection"
+                },
+                {
+                  "attribute_code": "meta_title",
+                  "value": "Liberty Furniture Ocean Isle Chair Side Table 303G-OT1021"
+                },
+                {
+                  "attribute_code": "material",
+                  "value": "2266"
+                },
+                {
+                  "attribute_code": "width",
+                  "value": "16"
+                },
+                {
+                  "attribute_code": "small_image",
+                  "value": "/l/i/liberty-ocean-isle-chairside-table-303G-OT1021-img1.jpg"
+                },
+                {
+                  "attribute_code": "meta_keyword",
+                  "value": "liberty,furniture,table,303g-ot1021,ocean isle,chairside table,side table,end table,living room table,grey,gray,two tone"
+                },
+                {
+                  "attribute_code": "options_container",
+                  "value": "container2"
+                },
+                {
+                  "attribute_code": "finish_family",
+                  "value": "993"
+                },
+                {
+                  "attribute_code": "depth",
+                  "value": "28"
+                },
+                {
+                  "attribute_code": "thumbnail",
+                  "value": "/l/i/liberty-ocean-isle-chairside-table-303G-OT1021-img1.jpg"
+                },
+                {
+                  "attribute_code": "meta_description",
+                  "value": "Shop the Liberty Furniture Ocean Isle Chair Side Table 303G-OT1021 at Woodstock Furniture & Mattress Outlet."
+                },
+                {
+                  "attribute_code": "height",
+                  "value": "23.25"
+                },
+                {
+                  "attribute_code": "product_collection",
+                  "value": "2257"
+                },
+                {
+                  "attribute_code": "url_key",
+                  "value": "ocean-isle-chairside-table"
+                },
+                {
+                  "attribute_code": "number_of_shelves",
+                  "value": "1163"
+                },
+                {
+                  "attribute_code": "style",
+                  "value": "1792"
+                },
+                {
+                  "attribute_code": "tax_class_id",
+                  "value": "2"
+                },
+                {
+                  "attribute_code": "swatch_image",
+                  "value": "/l/i/liberty-ocean-isle-chairside-table-303G-OT1021-img1.jpg"
+                },
+                {
+                  "attribute_code": "features",
+                  "value": "1040"
+                },
+                {
+                  "attribute_code": "featured",
+                  "value": "1"
+                },
+                {
+                  "attribute_code": "msrp_display_actual_price_type",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "shape",
+                  "value": "12479"
+                },
+                {
+                  "attribute_code": "color_family",
+                  "value": "1889,1720"
+                },
+                {
+                  "attribute_code": "package_width",
+                  "value": "18.5"
+                },
+                {
+                  "attribute_code": "package_depth",
+                  "value": "30.7"
+                },
+                {
+                  "attribute_code": "package_height",
+                  "value": "24.41"
+                },
+                {
+                  "attribute_code": "required_options",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "brand",
+                  "value": "1212"
+                },
+                {
+                  "attribute_code": "has_options",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "category_ids",
+                  "value": [
+                    "2869"
+                  ]
+                },
+                {
+                  "attribute_code": "special_order",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "enable_call_or_text_for_price",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "imap",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "manufacturer_sku",
+                  "value": "303G-OT1021"
+                },
+                {
+                  "attribute_code": "pim_unique_id",
+                  "value": "598712308"
+                },
+                {
+                  "attribute_code": "loft_id",
+                  "value": "598712308"
+                },
+                {
+                  "attribute_code": "product_sort_order",
+                  "value": "1000.000000"
+                },
+                {
+                  "attribute_code": "inriver_date_import",
+                  "value": "2024-05-01 00:00:00"
+                }
+              ]
+            },
+            {
+              "id": 7793,
+              "sku": "650180168",
+              "name": "Ally 6 Piece Dining Set w/ Table, 4 Chairs & Bench",
+              "attribute_set_id": 25,
+              "price": 798.22,
+              "status": 2,
+              "visibility": 4,
+              "type_id": "simple",
+              "created_at": "2023-08-07 23:09:40",
+              "updated_at": "2025-01-24 23:44:47",
+              "extension_attributes": {
+                "website_ids": [
+                  1
+                ],
+                "category_links": [
+                  {
+                    "position": 0,
+                    "category_id": "2931"
+                  }
+                ]
+              },
+              "product_links": [],
+              "options": [],
+              "media_gallery_entries": [
+                {
+                  "id": 16602,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 0,
+                  "disabled": false,
+                  "types": [
+                    "small_image",
+                    "thumbnail",
+                    "swatch_image"
+                  ],
+                  "file": "/a/l/ally-5-pc-dining-set-table-chairs-bench.jpg"
+                },
+                {
+                  "id": 16605,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 1,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/a/l/ally-ladder-back-dining-chair.jpg"
+                },
+                {
+                  "id": 16608,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 2,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/a/l/ally-cushioned-dining-bench.jpg"
+                },
+                {
+                  "id": 16611,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 3,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/a/l/ally-5-pc-dining-set-table-chairs-bench-room-display.jpg"
+                }
+              ],
+              "tier_prices": [],
+              "custom_attributes": [
+                {
+                  "attribute_code": "description",
+                  "value": "<p>The comfortable, contemporary design of this dining set welcomes everyone to your home. The tabletop features a beautiful fancy face veneer layup, a double-top design, and a locking leaf when extra guests are coming. The top is supported by sturdy, chamfered legs all in a rich, brown espresso finish. The chairs feature a contemporary ladder back design with a polyurethane upholstered seat for added comfort and cleanability, and the matching backless bench features a dark brown polyurethane upholstered seat and allows for flexibility when seating your guests.</p><p>DIMENSIONS:</p><ul><li>Table: 60\"-78\"W x 42\"D x 30\"H</li><li>Chair: 22\"W x 19\"D x 40\"H</li><li>Bench: 48\"W x 15\"D x 19.5\"H</li></ul>"
+                },
+                {
+                  "attribute_code": "image",
+                  "value": "no_selection"
+                },
+                {
+                  "attribute_code": "meta_title",
+                  "value": "Ally 6 Piece Dining Set w/ Table, 4 Chairs & Bench AS700-5PCSET"
+                },
+                {
+                  "attribute_code": "material",
+                  "value": "2266"
+                },
+                {
+                  "attribute_code": "width",
+                  "value": "78"
+                },
+                {
+                  "attribute_code": "small_image",
+                  "value": "/a/l/ally-5-pc-dining-set-table-chairs-bench.jpg"
+                },
+                {
+                  "attribute_code": "meta_keyword",
+                  "value": "Ally,dining set,table,dining bench,side chairs,dining room, charcoal,contemporary,upholstered dining chairs,gray,dining set,closeout"
+                },
+                {
+                  "attribute_code": "options_container",
+                  "value": "container2"
+                },
+                {
+                  "attribute_code": "total_width_with_without_leave",
+                  "value": "60"
+                },
+                {
+                  "attribute_code": "depth",
+                  "value": "42"
+                },
+                {
+                  "attribute_code": "thumbnail",
+                  "value": "/a/l/ally-5-pc-dining-set-table-chairs-bench.jpg"
+                },
+                {
+                  "attribute_code": "meta_description",
+                  "value": "Shop the Ally 6pc. Dining Set w/ Table, 4 Chairs & Bench at Woodstock Furniture & Mattress Outlet"
+                },
+                {
+                  "attribute_code": "number_of_leaves",
+                  "value": "1"
+                },
+                {
+                  "attribute_code": "height",
+                  "value": "30"
+                },
+                {
+                  "attribute_code": "url_key",
+                  "value": "ally-6-piece-dining-set-w-table-4-chairs-bench"
+                },
+                {
+                  "attribute_code": "color_family",
+                  "value": "1720"
+                },
+                {
+                  "attribute_code": "product_collection",
+                  "value": "2389"
+                },
+                {
+                  "attribute_code": "tax_class_id",
+                  "value": "2"
+                },
+                {
+                  "attribute_code": "swatch_image",
+                  "value": "/a/l/ally-5-pc-dining-set-table-chairs-bench.jpg"
+                },
+                {
+                  "attribute_code": "seating_capacity",
+                  "value": "1147"
+                },
+                {
+                  "attribute_code": "featured",
+                  "value": "1"
+                },
+                {
+                  "attribute_code": "msrp_display_actual_price_type",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "dining_height",
+                  "value": "1859"
+                },
+                {
+                  "attribute_code": "style",
+                  "value": "1790"
+                },
+                {
+                  "attribute_code": "features",
+                  "value": "1846"
+                },
+                {
+                  "attribute_code": "shape",
+                  "value": "12479"
+                },
+                {
+                  "attribute_code": "finish_family",
+                  "value": "992"
+                },
+                {
+                  "attribute_code": "leaves_width",
+                  "value": "18"
+                },
+                {
+                  "attribute_code": "required_options",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "brand",
+                  "value": "2065"
+                },
+                {
+                  "attribute_code": "dining_chair_type",
+                  "value": "1735"
+                },
+                {
+                  "attribute_code": "has_options",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "category_ids",
+                  "value": [
+                    "2931"
+                  ]
+                },
+                {
+                  "attribute_code": "enable_call_or_text_for_price",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "pim_unique_id",
+                  "value": "650180168"
+                },
+                {
+                  "attribute_code": "loft_id",
+                  "value": "650180168"
+                },
+                {
+                  "attribute_code": "product_sort_order",
+                  "value": "1000.000000"
+                },
+                {
+                  "attribute_code": "inriver_date_import",
+                  "value": "2024-05-01 00:00:00"
+                },
+                {
+                  "attribute_code": "itemlocation",
+                  "value": "12493,12496"
+                }
+              ]
+            },
+            {
+              "id": 13596,
+              "sku": "424380346",
+              "name": "Belhaven Grey 9 Piece Dining Set w/Table & 8 Chairs ",
+              "attribute_set_id": 25,
+              "price": 1498,
+              "status": 2,
+              "visibility": 4,
+              "type_id": "simple",
+              "created_at": "2024-10-02 04:10:49",
+              "updated_at": "2025-03-08 05:40:33",
+              "extension_attributes": {
+                "website_ids": [
+                  1
+                ],
+                "category_links": [
+                  {
+                    "position": 0,
+                    "category_id": "2931"
+                  }
+                ]
+              },
+              "product_links": [],
+              "options": [],
+              "media_gallery_entries": [
+                {
+                  "id": 57909,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 0,
+                  "disabled": false,
+                  "types": [
+                    "small_image",
+                    "thumbnail",
+                    "swatch_image"
+                  ],
+                  "file": "/l/e/legacy-belhaven-grey-9pc-dining-table-chairs-set-img1.jpg"
+                },
+                {
+                  "id": 57910,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 1,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/e/legacy-belhaven-grey-9pc-dining-table-chairs-set-img3.jpg"
+                },
+                {
+                  "id": 57911,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 2,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/e/legacy-belhaven-grey-9pc-dining-table-chairs-set-img4_1.jpg"
+                },
+                {
+                  "id": 57912,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 3,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/e/legacy-belhaven-grey-9pc-dining-table-chairs-set-img5_1.jpg"
+                },
+                {
+                  "id": 57913,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 4,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/e/legacy-belhaven-grey-9pc-dining-table-chairs-set-img2.jpg"
+                },
+                {
+                  "id": 57914,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 5,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/e/legacy-belhaven-grey-9pc-dining-table-chairs-set-img6_1.jpg"
+                },
+                {
+                  "id": 57915,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 6,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/e/legacy-belhaven-grey-9pc-dining-table-chairs-set-img7_1.jpg"
+                },
+                {
+                  "id": 57916,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 7,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/e/legacy-belhaven-grey-9pc-dining-table-chairs-set-img8_1.jpg"
+                },
+                {
+                  "id": 57917,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 8,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/e/legacy-belhaven-grey-9pc-dining-table-chairs-set-img9_1.jpg"
+                },
+                {
+                  "id": 57918,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 9,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/e/legacy-belhaven-grey-9pc-dining-table-chairs-set-img10.jpg"
+                }
+              ],
+              "tier_prices": [],
+              "custom_attributes": [
+                {
+                  "attribute_code": "description",
+                  "value": "<p>The Belhaven Grey 9 Piece Dining Set is a stunning combination of coastal, cottage, and modern farmhouse design elements, making it a versatile centerpiece for any dining space. Crafted from Rubberwood Solids and Flat Cut Oak Veneers, the set features a weathered plank finish with wire brushing, distressing, and worn edges, giving it an authentic, timeworn appeal. The extension trestle table includes two 18-inch leaves, making it ideal for hosting dinner parties or holiday gatherings, comfortably seating up to 10 people. The trestle base adds a classic farmhouse touch, while the six Windsor style spindle-back side chairs and two armchairs, finished in black, introduce a stylish contrast and high-design aesthetic. With its timeless appeal and functionality, this dining set effortlessly elevates the look of any dining room.</p><p><br></p><p>9 PIECE DINING SET INCLUDES:</p><p>Extension Trestle Dining Table w/2 18\" Extension Leaves</p><p>(6) Windsor Side Chairs</p><p>(2) Windsor Arm Chairs</p><p><br></p><p>FEATURES:</p><ul><li>Constructed of Rubberwood/Oak <a href=\"https://www.woodstockoutlet.com/blog/misconceptions-about-wood-veneers\" target=\"_blank\">Veneers</a></li><li>Table Finish: Weathered Plank/Grey</li><li>Chair Finish: Black</li><li>Seating Capacity: up to 10</li><li><span style=\"color: rgb(0, 0, 0);\">2 - 18\" Leaves: 1 Leaf expands table from 86\"-104\"; Both Leaves expand table to 122\"!</span></li></ul>"
+                },
+                {
+                  "attribute_code": "image",
+                  "value": "no_selection"
+                },
+                {
+                  "attribute_code": "meta_title",
+                  "value": "Belhaven Grey 9 Piece Dining Set w/Extension Table & 8 Chairs"
+                },
+                {
+                  "attribute_code": "material",
+                  "value": "2266"
+                },
+                {
+                  "attribute_code": "width",
+                  "value": "122"
+                },
+                {
+                  "attribute_code": "small_image",
+                  "value": "/l/e/legacy-belhaven-grey-9pc-dining-table-chairs-set-img1.jpg"
+                },
+                {
+                  "attribute_code": "meta_keyword",
+                  "value": "belhaven,grey,dining set,extension dining table,trestle table,farmhouse table,rectangular,large dining tables,dining group,table for 8,closeout,affordable,discounted,dining room furniture,black,windsor,dining chair,side,arm,traditional"
+                },
+                {
+                  "attribute_code": "options_container",
+                  "value": "container2"
+                },
+                {
+                  "attribute_code": "total_width_with_without_leave",
+                  "value": "86"
+                },
+                {
+                  "attribute_code": "depth",
+                  "value": "46"
+                },
+                {
+                  "attribute_code": "thumbnail",
+                  "value": "/l/e/legacy-belhaven-grey-9pc-dining-table-chairs-set-img1.jpg"
+                },
+                {
+                  "attribute_code": "meta_description",
+                  "value": "Shop the Belhaven Grey 9 Piece Dining Set w/Extension Table & 8 Chairs at Woodstock Furniture & Mattress Outlet"
+                },
+                {
+                  "attribute_code": "number_of_leaves",
+                  "value": "2"
+                },
+                {
+                  "attribute_code": "height",
+                  "value": "30"
+                },
+                {
+                  "attribute_code": "url_key",
+                  "value": "belhaven-grey-9-piece-dining-set-with-table-8-chairs"
+                },
+                {
+                  "attribute_code": "color_family",
+                  "value": "1717,1889"
+                },
+                {
+                  "attribute_code": "product_collection",
+                  "value": "2471"
+                },
+                {
+                  "attribute_code": "tax_class_id",
+                  "value": "2"
+                },
+                {
+                  "attribute_code": "swatch_image",
+                  "value": "/l/e/legacy-belhaven-grey-9pc-dining-table-chairs-set-img1.jpg"
+                },
+                {
+                  "attribute_code": "seating_capacity",
+                  "value": "1151"
+                },
+                {
+                  "attribute_code": "featured",
+                  "value": "1"
+                },
+                {
+                  "attribute_code": "msrp_display_actual_price_type",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "dining_height",
+                  "value": "1859"
+                },
+                {
+                  "attribute_code": "style",
+                  "value": "1108"
+                },
+                {
+                  "attribute_code": "features",
+                  "value": "1846"
+                },
+                {
+                  "attribute_code": "shape",
+                  "value": "12479"
+                },
+                {
+                  "attribute_code": "finish_family",
+                  "value": "993"
+                },
+                {
+                  "attribute_code": "leaves_width",
+                  "value": "18"
+                },
+                {
+                  "attribute_code": "required_options",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "brand",
+                  "value": "2065"
+                },
+                {
+                  "attribute_code": "has_options",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "location_string",
+                  "value": "See in Showroom - Acworth<br>See in Showroom - Hiram"
+                },
+                {
+                  "attribute_code": "category_ids",
+                  "value": [
+                    "2931"
+                  ]
+                },
+                {
+                  "attribute_code": "enable_call_or_text_for_price",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "pim_unique_id",
+                  "value": "424380346"
+                },
+                {
+                  "attribute_code": "loft_id",
+                  "value": "424380346"
+                },
+                {
+                  "attribute_code": "product_sort_order",
+                  "value": "1000.000000"
+                },
+                {
+                  "attribute_code": "inriver_date_import",
+                  "value": "2024-10-02 00:00:00"
+                },
+                {
+                  "attribute_code": "itemlocation",
+                  "value": "12493,12494,12495,12496"
+                }
+              ]
+            },
+            {
+              "id": 16074,
+              "sku": "028530033",
+              "name": "Kirkwood Black Rectangle Dining Set With Table and 4 Chairs",
+              "attribute_set_id": 25,
+              "price": 198,
+              "status": 2,
+              "visibility": 4,
+              "type_id": "simple",
+              "created_at": "2025-04-29 05:02:37",
+              "updated_at": "2025-05-18 05:13:56",
+              "weight": 151,
+              "extension_attributes": {
+                "website_ids": [
+                  1
+                ],
+                "category_links": [
+                  {
+                    "position": 0,
+                    "category_id": "2931"
+                  },
+                  {
+                    "position": 0,
+                    "category_id": "3017"
+                  }
+                ]
+              },
+              "product_links": [],
+              "options": [],
+              "media_gallery_entries": [
+                {
+                  "id": 79285,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 0,
+                  "disabled": false,
+                  "types": [
+                    "small_image",
+                    "thumbnail",
+                    "swatch_image"
+                  ],
+                  "file": "/k/i/kirkwood-black-5-piece-dining-set-table-and-4-chairs-5311-img1.jpg"
+                }
+              ],
+              "tier_prices": [],
+              "custom_attributes": [
+                {
+                  "attribute_code": "description",
+                  "value": "<p>Gather around in timeless elegance with the Kirkwood Black Rectangle Dining Set With Table and 4 Chairs—a bold yet welcoming ensemble designed to bring people together, meal after meal. Whether you're enjoying a quiet breakfast or hosting a lively dinner party, this five-piece set creates a space that feels both stylish and personal. Crafted from durable wood in a rich black finish, the rectangular table anchors your dining area with its confident silhouette and clean, modern lines. It offers the perfect balance of form and function—spacious enough to seat four comfortably, yet thoughtfully scaled for cozy dining rooms, apartments, or breakfast nooks. What truly makes the Kirkwood set special is its blend of timeless style and practical comfort. The chairs feature gently curved backs and soft, padded seats upholstered in a linen-inspired neutral fabric, creating a look that’s both refined and approachable. The striking contrast between the sleek black frame and light upholstery adds warmth and visual depth to any space. This dining set is designed to make everyday moments feel special. Its durable construction promises years of reliable use, while the versatile color palette makes styling a breeze. Whether you're serving up a casual weeknight dinner or entertaining weekend guests, the Kirkwood dining set becomes a natural gathering place—a backdrop for connection, laughter, and comfort.</p><p><br></p><p>Features</p><ul><li>5-piece dining set includes 1 rectangular table and 4 matching chairs</li><li>Solid wood construction with a deep black finish</li><li>Padded chair seats upholstered in a neutral, linen-textured fabric</li><li>Clean lines and modern silhouette with timeless appeal</li><li>Scaled to fit small to medium dining spaces</li><li>Easy to pair with a variety of color palettes and décor styles</li><li>Designed for comfort and everyday durability</li></ul><p><br></p>"
+                },
+                {
+                  "attribute_code": "image",
+                  "value": "no_selection"
+                },
+                {
+                  "attribute_code": "meta_title",
+                  "value": "Kirkwood Black Rectangle Dining Set With Table and 4 Chairs 5311DT5"
+                },
+                {
+                  "attribute_code": "gift_message_available",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "material",
+                  "value": "2264,2266"
+                },
+                {
+                  "attribute_code": "width",
+                  "value": "60"
+                },
+                {
+                  "attribute_code": "small_image",
+                  "value": "/k/i/kirkwood-black-5-piece-dining-set-table-and-4-chairs-5311-img1.jpg"
+                },
+                {
+                  "attribute_code": "meta_keyword",
+                  "value": "Kirkwood, Black, Rectangle, Dining, Set, Table 4 Chairs, black dining set, black wood dining table, small space dining set, rectangular dining table set, dining table with upholstered chairs, modern black dining room set, 5-piece dining table set, breakfast nook furniture, apartment dining furniture, Kirkwood dining set, compact dining table and chairs, wood and fabric dining set, black and beige dining room, stylish small dining table, wood back chairs, cushioned seat, hillsdale\r\n\r\n"
+                },
+                {
+                  "attribute_code": "options_container",
+                  "value": "container2"
+                },
+                {
+                  "attribute_code": "depth",
+                  "value": "36"
+                },
+                {
+                  "attribute_code": "thumbnail",
+                  "value": "/k/i/kirkwood-black-5-piece-dining-set-table-and-4-chairs-5311-img1.jpg"
+                },
+                {
+                  "attribute_code": "meta_description",
+                  "value": "Shop the Kirkwood Black Rectangle Dining Set With Table and 4 Chairs 5311DT5 at Woodstock Furniture and Mattress Outlet"
+                },
+                {
+                  "attribute_code": "height",
+                  "value": "30"
+                },
+                {
+                  "attribute_code": "url_key",
+                  "value": "kirkwood-black-rectangle-dining-set-with-table-and-4-chairs"
+                },
+                {
+                  "attribute_code": "color_family",
+                  "value": "1717"
+                },
+                {
+                  "attribute_code": "product_collection",
+                  "value": "5595"
+                },
+                {
+                  "attribute_code": "tax_class_id",
+                  "value": "2"
+                },
+                {
+                  "attribute_code": "swatch_image",
+                  "value": "/k/i/kirkwood-black-5-piece-dining-set-table-and-4-chairs-5311-img1.jpg"
+                },
+                {
+                  "attribute_code": "seating_capacity",
+                  "value": "1147"
+                },
+                {
+                  "attribute_code": "featured",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "msrp_display_actual_price_type",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "dining_height",
+                  "value": "1859"
+                },
+                {
+                  "attribute_code": "sw_featured",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "style",
+                  "value": "1108"
+                },
+                {
+                  "attribute_code": "features",
+                  "value": "1057"
+                },
+                {
+                  "attribute_code": "product_image_size",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "shape",
+                  "value": "12479"
+                },
+                {
+                  "attribute_code": "finish_family",
+                  "value": "992"
+                },
+                {
+                  "attribute_code": "fabric_color",
+                  "value": "Taupe"
+                },
+                {
+                  "attribute_code": "package_weight",
+                  "value": "73"
+                },
+                {
+                  "attribute_code": "required_options",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "brand",
+                  "value": "2065"
+                },
+                {
+                  "attribute_code": "has_options",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "category_ids",
+                  "value": [
+                    "2931",
+                    "3017"
+                  ]
+                },
+                {
+                  "attribute_code": "special_order",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "enable_call_or_text_for_price",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "imap",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "manufacturer_sku",
+                  "value": "5311DT5"
+                },
+                {
+                  "attribute_code": "pim_unique_id",
+                  "value": "028530033"
+                },
+                {
+                  "attribute_code": "loft_id",
+                  "value": "028530033"
+                },
+                {
+                  "attribute_code": "affirm_product_mfp_type",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "product_sort_order",
+                  "value": "1000.000000"
+                },
+                {
+                  "attribute_code": "inriver_date_import",
+                  "value": "2025-04-29 00:00:00"
+                }
+              ]
+            }
+          ],
+          "search_criteria": {
+            "filter_groups": [
+              {
+                "filters": [
+                  {
+                    "field": "pim_unique_id",
+                    "value": null,
+                    "condition_type": "notnull"
+                  }
+                ]
+              },
+              {
+                "filters": [
+                  {
+                    "field": "status",
+                    "value": "2",
+                    "condition_type": "eq"
+                  }
+                ]
+              },
+              {
+                "filters": [
+                  {
+                    "field": "name",
+                    "value": "%chairs%",
+                    "condition_type": "like"
+                  }
+                ]
+              }
+            ],
+            "page_size": 5
+          },
+          "total_count": 43
+        },
+        "message": "Found 43 products matching \"chairs\""
+      }
+    },
+    {
+      "type": "product_search_sofas",
+      "function": "searchMagentoProducts",
+      "parameters": {
+        "query": "sofa",
+        "pageSize": 3
+      },
+      "response": {
+        "function": "searchMagentoProducts",
+        "status": "success",
+        "data": {
+          "items": [
+            {
+              "id": 8232,
+              "sku": "HS170-37-21",
+              "name": "Palmer Walnut Leather Power Reclining Sofa w/Power Headrest & Lumbar",
+              "attribute_set_id": 68,
+              "price": 1998.81,
+              "status": 2,
+              "visibility": 4,
+              "type_id": "simple",
+              "created_at": "2023-09-19 23:10:54",
+              "updated_at": "2025-05-14 05:21:16",
+              "weight": 315,
+              "extension_attributes": {
+                "website_ids": [
+                  1
+                ],
+                "category_links": [
+                  {
+                    "position": 0,
+                    "category_id": "2994"
+                  }
+                ]
+              },
+              "product_links": [],
+              "options": [],
+              "media_gallery_entries": [
+                {
+                  "id": 21098,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 0,
+                  "disabled": false,
+                  "types": [
+                    "small_image",
+                    "thumbnail",
+                    "swatch_image"
+                  ],
+                  "file": "/h/o/homestretch-palmer-power-reclining-sofa-1703721.jpg"
+                }
+              ],
+              "tier_prices": [],
+              "custom_attributes": [
+                {
+                  "attribute_code": "description",
+                  "value": "<p>The Palmer Walnut Leather Power Reclining Sofa by <a href=\"https://www.woodstockoutlet.com/blog/homestretch-furniture-vs-ashley-furniture\" target=\"_blank\">HomeStretch</a> is part of the Comfort Collection featuring a power headrest, power lumbar, and extended footrest. This top-grain <a href=\"https://www.woodstockoutlet.com/blog/what-is-leather-match\" target=\"_blank\">leather/leather match</a> sofa with contrast stitching conveys style and class. With contoured cushions and padded armrests, this versatile leather couch lends a contemporary design to your living room, media room or man cave.</p><p><br></p><p><strong>FEATURES:</strong></p><ul><li>Power Reclining/Power Lumbar/Power Headrest</li><li>Power Extending Footrest</li><li>Leather/Leather Match: Walnut</li></ul><p><br></p><p>HomeStretch manufactures upholstered fabric and leather reclining furniture with superior comfort and durability. Shop this Palmer Walnut Leather Power Reclining Sofa and more stylish couches, loveseats and recliners at a great value with HomeStretch and Woodstock Furniture &amp; Mattress Outlet!</p><p><br></p>"
+                },
+                {
+                  "attribute_code": "image",
+                  "value": "no_selection"
+                },
+                {
+                  "attribute_code": "meta_title",
+                  "value": "Homestretch Palmer Walnut Leather Power Reclining Sofa w/Power Headrest & Lumbar 170-37-21"
+                },
+                {
+                  "attribute_code": "number_of_cushions",
+                  "value": "1286"
+                },
+                {
+                  "attribute_code": "width",
+                  "value": "89"
+                },
+                {
+                  "attribute_code": "small_image",
+                  "value": "/h/o/homestretch-palmer-power-reclining-sofa-1703721.jpg"
+                },
+                {
+                  "attribute_code": "meta_keyword",
+                  "value": "Palmer,leather,power,reclining,sofa,couch,recliner,leather,brown,walnut,headrest,lumbar,170-37-21,homestretch"
+                },
+                {
+                  "attribute_code": "options_container",
+                  "value": "container2"
+                },
+                {
+                  "attribute_code": "material",
+                  "value": "2265"
+                },
+                {
+                  "attribute_code": "depth",
+                  "value": "42"
+                },
+                {
+                  "attribute_code": "thumbnail",
+                  "value": "/h/o/homestretch-palmer-power-reclining-sofa-1703721.jpg"
+                },
+                {
+                  "attribute_code": "meta_description",
+                  "value": "Shop the Palmer Walnut Leather Triple Power Reclining Sofa by HomeStretch at Woodstock Furniture & Mattress Outlet! "
+                },
+                {
+                  "attribute_code": "height",
+                  "value": "42"
+                },
+                {
+                  "attribute_code": "url_key",
+                  "value": "palmer-walnut-leather-power-reclining-sofa-power-headrest-lumbar"
+                },
+                {
+                  "attribute_code": "color_family",
+                  "value": "1720"
+                },
+                {
+                  "attribute_code": "dim_depth",
+                  "value": "42.000000"
+                },
+                {
+                  "attribute_code": "tax_class_id",
+                  "value": "2"
+                },
+                {
+                  "attribute_code": "swatch_image",
+                  "value": "/h/o/homestretch-palmer-power-reclining-sofa-1703721.jpg"
+                },
+                {
+                  "attribute_code": "fabric_cleaning_code",
+                  "value": "X"
+                },
+                {
+                  "attribute_code": "dim_height",
+                  "value": "42.000000"
+                },
+                {
+                  "attribute_code": "featured",
+                  "value": "1"
+                },
+                {
+                  "attribute_code": "msrp_display_actual_price_type",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "product_collection",
+                  "value": "6848"
+                },
+                {
+                  "attribute_code": "dim_width",
+                  "value": "89.000000"
+                },
+                {
+                  "attribute_code": "reclining_type",
+                  "value": "1110"
+                },
+                {
+                  "attribute_code": "style",
+                  "value": "1108"
+                },
+                {
+                  "attribute_code": "features",
+                  "value": "1043,1044"
+                },
+                {
+                  "attribute_code": "required_options",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "brand",
+                  "value": "1199"
+                },
+                {
+                  "attribute_code": "item_covering",
+                  "value": "Walnut"
+                },
+                {
+                  "attribute_code": "has_options",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "category_ids",
+                  "value": [
+                    "2994"
+                  ]
+                },
+                {
+                  "attribute_code": "special_order",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "enable_call_or_text_for_price",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "imap",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "manufacturer_sku",
+                  "value": "170-37-21"
+                },
+                {
+                  "attribute_code": "pim_unique_id",
+                  "value": "HS170-37-21"
+                },
+                {
+                  "attribute_code": "loft_id",
+                  "value": "HS170-37-21"
+                },
+                {
+                  "attribute_code": "product_sort_order",
+                  "value": "900.000000"
+                },
+                {
+                  "attribute_code": "inriver_date_import",
+                  "value": "2024-05-01 00:00:00"
+                }
+              ]
+            },
+            {
+              "id": 8194,
+              "sku": "LIT1669639403177137",
+              "name": "Newport Camel Leather Sofa ",
+              "attribute_set_id": 68,
+              "price": 1598.93,
+              "status": 2,
+              "visibility": 4,
+              "type_id": "simple",
+              "created_at": "2023-09-15 23:10:13",
+              "updated_at": "2025-01-24 23:23:46",
+              "weight": 185,
+              "extension_attributes": {
+                "website_ids": [
+                  1
+                ],
+                "category_links": [
+                  {
+                    "position": 0,
+                    "category_id": "2993"
+                  }
+                ]
+              },
+              "product_links": [],
+              "options": [],
+              "media_gallery_entries": [
+                {
+                  "id": 31988,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 0,
+                  "disabled": false,
+                  "types": [
+                    "small_image",
+                    "thumbnail",
+                    "swatch_image"
+                  ],
+                  "file": "/l/e/leather-italia-camel-leather-sofa-1669-6394-frnt.jpg"
+                },
+                {
+                  "id": 31991,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 1,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/e/leather-italia-camel-leather-sofa-1669-6394-1stang.jpg"
+                },
+                {
+                  "id": 31994,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 2,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/e/leather-italia-camel-leather-sofa-1669-6394-2ndang.jpg"
+                },
+                {
+                  "id": 31998,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 3,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/e/leather-italia-camel-leather-sofa-1669-6394-rsd.jpg"
+                },
+                {
+                  "id": 20840,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 4,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/L/e/Leatheritalia-newport-camel-leather_sofa-1669-front.jpg"
+                },
+                {
+                  "id": 32001,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 5,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/e/leather-italia-camel-leather-sofa-1669-6394-rba.jpg"
+                },
+                {
+                  "id": 32002,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 6,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/e/leather-italia-camel-leather-sofa-1669-6394-back.jpg"
+                },
+                {
+                  "id": 32007,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 7,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/e/leather-italia-camel-leather-sofa-1669-6394-lba.jpg"
+                },
+                {
+                  "id": 32009,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 8,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/e/leather-italia-camel-leather-sofa-1669-6394-lsd.jpg"
+                },
+                {
+                  "id": 32013,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 9,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/e/leather-italia-camel-leather-sofa-1669-6394-lfa1.jpg"
+                },
+                {
+                  "id": 32016,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 10,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/e/leather-italia-camel-leather-sofa-1669-6394-lfa2.jpg"
+                },
+                {
+                  "id": 32020,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 11,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/e/leather-italia-camel-leather-sofa-1669-6394-top.jpg"
+                },
+                {
+                  "id": 32023,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 12,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/e/leather-italia-camel-leather-sofa-1669-6394-dim.jpg"
+                }
+              ],
+              "tier_prices": [],
+              "custom_attributes": [
+                {
+                  "attribute_code": "description",
+                  "value": "<p>The Newport Camel Leather Sofa from Leather Italia is a stunning piece that exudes luxury and sophistication. Part of the Newport collection, it showcases a sleek silhouette with a thin, pinched seam track arm, embodying the essence of mid-century modern design. The richly colored, camel brown semi-aniline dyed leather upholstery is complemented by a wood base, enhancing its elegant aesthetic. Crafted with pure aniline dyed leather, this sofa offers instant comfort as it breathes and quickly adjusts to body temperature. The result is a sumptuously comfortable seating experience that truly epitomizes luxury. Perfect for any living area, the Newport Camel Leather Sofa is a timeless addition that effortlessly elevates the ambiance of any space.</p><p>FEATURES:</p><ul><li>100% <a href=\"https://www.woodstockoutlet.com/blog/aniline-vs-semi-aniline-vs-pigmented-leather\" target=\"_blank\"><strong>Semi-Aniline</strong></a> Leather Covering: Camel</li><li>Track arm with tapered wood legs</li><li>Modern leather will not crack or peel</li><li>It stretches and retains its shape without sagging</li><li>It resists sun and heat damage</li><li>Pirelli Webbing Seat Construction for supreme durability.</li><li>Attached Back Cushions</li><li>Loose Seat Cushions</li></ul><p><br></p><p><br></p><p><br></p>"
+                },
+                {
+                  "attribute_code": "image",
+                  "value": "no_selection"
+                },
+                {
+                  "attribute_code": "meta_title",
+                  "value": "Leather Italia Newport Camel Leather Sofa 1669-6394-03177137"
+                },
+                {
+                  "attribute_code": "number_of_cushions",
+                  "value": "1286"
+                },
+                {
+                  "attribute_code": "width",
+                  "value": "85"
+                },
+                {
+                  "attribute_code": "small_image",
+                  "value": "/l/e/leather-italia-camel-leather-sofa-1669-6394-frnt.jpg"
+                },
+                {
+                  "attribute_code": "meta_keyword",
+                  "value": "newport, leather, camel, sofa, mid-century, modern, leather italia, brownaffordable, chic, contemporary,couch,leather sofa,1669-6394"
+                },
+                {
+                  "attribute_code": "options_container",
+                  "value": "container2"
+                },
+                {
+                  "attribute_code": "material",
+                  "value": "2265"
+                },
+                {
+                  "attribute_code": "depth",
+                  "value": "37"
+                },
+                {
+                  "attribute_code": "thumbnail",
+                  "value": "/l/e/leather-italia-camel-leather-sofa-1669-6394-frnt.jpg"
+                },
+                {
+                  "attribute_code": "meta_description",
+                  "value": "Shop the Newport Camel Leather Sofa and more from Leather Italia, USA at Woodstock Furniture & Mattress Outlet."
+                },
+                {
+                  "attribute_code": "height",
+                  "value": "35"
+                },
+                {
+                  "attribute_code": "url_key",
+                  "value": "newport-camel-leather-sofa"
+                },
+                {
+                  "attribute_code": "color_family",
+                  "value": "1720"
+                },
+                {
+                  "attribute_code": "dim_depth",
+                  "value": "37.000000"
+                },
+                {
+                  "attribute_code": "tax_class_id",
+                  "value": "2"
+                },
+                {
+                  "attribute_code": "swatch_image",
+                  "value": "/l/e/leather-italia-camel-leather-sofa-1669-6394-frnt.jpg"
+                },
+                {
+                  "attribute_code": "dim_height",
+                  "value": "35.000000"
+                },
+                {
+                  "attribute_code": "featured",
+                  "value": "1"
+                },
+                {
+                  "attribute_code": "msrp_display_actual_price_type",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "product_collection",
+                  "value": "1422"
+                },
+                {
+                  "attribute_code": "dim_width",
+                  "value": "85.000000"
+                },
+                {
+                  "attribute_code": "style",
+                  "value": "1790"
+                },
+                {
+                  "attribute_code": "package_width",
+                  "value": "85"
+                },
+                {
+                  "attribute_code": "required_options",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "brand",
+                  "value": "1210"
+                },
+                {
+                  "attribute_code": "item_covering",
+                  "value": "Camel"
+                },
+                {
+                  "attribute_code": "package_depth",
+                  "value": "37"
+                },
+                {
+                  "attribute_code": "has_options",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "package_height",
+                  "value": "35"
+                },
+                {
+                  "attribute_code": "category_ids",
+                  "value": [
+                    "2993"
+                  ]
+                },
+                {
+                  "attribute_code": "enable_call_or_text_for_price",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "manufacturer_sku",
+                  "value": "1669-6394-03177137"
+                },
+                {
+                  "attribute_code": "pim_unique_id",
+                  "value": "LIT1669639403177137"
+                },
+                {
+                  "attribute_code": "loft_id",
+                  "value": "LIT1669639403177137"
+                },
+                {
+                  "attribute_code": "product_sort_order",
+                  "value": "900.000000"
+                },
+                {
+                  "attribute_code": "inriver_date_import",
+                  "value": "2024-05-01 00:00:00"
+                },
+                {
+                  "attribute_code": "itemlocation",
+                  "value": "12493,12494,12495"
+                }
+              ]
+            },
+            {
+              "id": 8382,
+              "sku": "349588934",
+              "name": "Butler Brown Top Grain Leather Sofa",
+              "attribute_set_id": 68,
+              "price": 1967.96,
+              "status": 2,
+              "visibility": 4,
+              "type_id": "simple",
+              "created_at": "2023-09-27 23:02:03",
+              "updated_at": "2025-01-24 23:25:31",
+              "weight": 235,
+              "extension_attributes": {
+                "website_ids": [
+                  1
+                ],
+                "category_links": [
+                  {
+                    "position": 0,
+                    "category_id": "2993"
+                  }
+                ]
+              },
+              "product_links": [],
+              "options": [],
+              "media_gallery_entries": [
+                {
+                  "id": 22721,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 0,
+                  "disabled": false,
+                  "types": [
+                    "small_image",
+                    "thumbnail",
+                    "swatch_image"
+                  ],
+                  "file": "/L/e/Leather-italia-butler-brown-leather-sofa-1669-2239-1st.jpg"
+                },
+                {
+                  "id": 22723,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 1,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/L/e/Leather-italia-butler-brown-leather-sofa-1669-2239-rfa2.jpg"
+                },
+                {
+                  "id": 22725,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 2,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/L/e/Leather-italia-butler-brown-leather-sofa-1669-2239-rsd.jpg"
+                },
+                {
+                  "id": 22727,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 3,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/L/e/Leather-italia-butler-brown-leather-sofa-1669-2239-rba.jpg"
+                },
+                {
+                  "id": 22729,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 4,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/L/e/Leather-italia-butler-brown-leather-sofa-1669-2239-back.jpg"
+                },
+                {
+                  "id": 22731,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 5,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/L/e/Leather-italia-butler-brown-leather-sofa-1669-2239-lba.jpg"
+                },
+                {
+                  "id": 22733,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 6,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/L/e/Leather-italia-butler-brown-leather-sofa-1669-2239-lsd.jpg"
+                },
+                {
+                  "id": 22735,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 7,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/L/e/Leather-italia-butler-brown-leather-sofa-1669-2239-lfa1.jpg"
+                },
+                {
+                  "id": 22737,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 8,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/L/e/Leather-italia-butler-brown-leather-sofa-1669-2239-lfa2.jpg"
+                },
+                {
+                  "id": 22739,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 9,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/L/e/Leather-italia-butler-brown-leather-sofa-1669-2239-frnt.jpg"
+                },
+                {
+                  "id": 22741,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 10,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/L/e/Leather-italia-butler-brown-leather-sofa-1669-2239-dims.jpg"
+                }
+              ],
+              "tier_prices": [],
+              "custom_attributes": [
+                {
+                  "attribute_code": "description",
+                  "value": "<p>The Butler Brown Top Grain Leather Sofa from Leather Italia offers classic design styling, with a touch of modern flair. The beautifully sculpted rolled arms, detailed nail-head trim, ornate wooden feet, and long lasting comfort will make this sofa sure to impress.</p><p>Features:</p><ul><li>Top Grain <a href=\"https://www.woodstockoutlet.com/blog/what-to-expect-from-your-new-leather-furniture\" target=\"_blank\"><strong>Leather</strong></a></li><li>Sculpted rolled arms</li><li>Detailed nail-head trim</li><li>Ornate wooden feet</li><li>Premium kiln dried hardwood laminate</li><li>Pirelli webbing on base for superior strength &amp; durability.</li><li>High resiliency elastic webbing supports back cushions</li><li>Seat &amp; back cushions attached</li><li>Multiple rows of encapsulated coil springs in seat core</li><li>High resiliency polyurethane foam for shaping &amp; support</li><li>Lining cloth on seat platform</li><li>Channel sewn breathable woven bag w/ blown fiber filling</li><li>Fiber wrap for seat comfort &amp; support</li><li>Elastic cloth separates springs from foam</li><li>Part of the Georgetowne Collection</li></ul><p><br></p>"
+                },
+                {
+                  "attribute_code": "image",
+                  "value": "no_selection"
+                },
+                {
+                  "attribute_code": "meta_title",
+                  "value": "Butler Brown Top Grain Leather Sofa by Leather Italia 1669-2239-036618"
+                },
+                {
+                  "attribute_code": "number_of_cushions",
+                  "value": "1286"
+                },
+                {
+                  "attribute_code": "width",
+                  "value": "91"
+                },
+                {
+                  "attribute_code": "small_image",
+                  "value": "/L/e/Leather-italia-butler-brown-leather-sofa-1669-2239-1st.jpg"
+                },
+                {
+                  "attribute_code": "meta_keyword",
+                  "value": "Leather,Italia,Brown,top grain,leather,sofa,couch,leather furniture,traditional,living room,leather sofas,1669-2239,butler,georgetowne"
+                },
+                {
+                  "attribute_code": "options_container",
+                  "value": "container2"
+                },
+                {
+                  "attribute_code": "material",
+                  "value": "2265"
+                },
+                {
+                  "attribute_code": "depth",
+                  "value": "44"
+                },
+                {
+                  "attribute_code": "thumbnail",
+                  "value": "/L/e/Leather-italia-butler-brown-leather-sofa-1669-2239-1st.jpg"
+                },
+                {
+                  "attribute_code": "meta_description",
+                  "value": "Shop the Butler Brown Top Grain Leather Sofa by Leather Italia at Woodstock Furniture & Mattress Outlet"
+                },
+                {
+                  "attribute_code": "height",
+                  "value": "39"
+                },
+                {
+                  "attribute_code": "url_key",
+                  "value": "butler-brown-top-grain-leather-sofa"
+                },
+                {
+                  "attribute_code": "color_family",
+                  "value": "1720"
+                },
+                {
+                  "attribute_code": "dim_depth",
+                  "value": "44.000000"
+                },
+                {
+                  "attribute_code": "tax_class_id",
+                  "value": "2"
+                },
+                {
+                  "attribute_code": "swatch_image",
+                  "value": "/L/e/Leather-italia-butler-brown-leather-sofa-1669-2239-1st.jpg"
+                },
+                {
+                  "attribute_code": "dim_height",
+                  "value": "39.000000"
+                },
+                {
+                  "attribute_code": "featured",
+                  "value": "1"
+                },
+                {
+                  "attribute_code": "msrp_display_actual_price_type",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "product_collection",
+                  "value": "1422"
+                },
+                {
+                  "attribute_code": "dim_width",
+                  "value": "91.000000"
+                },
+                {
+                  "attribute_code": "style",
+                  "value": "1792"
+                },
+                {
+                  "attribute_code": "package_width",
+                  "value": "91"
+                },
+                {
+                  "attribute_code": "required_options",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "brand",
+                  "value": "1210"
+                },
+                {
+                  "attribute_code": "item_covering",
+                  "value": "Brown"
+                },
+                {
+                  "attribute_code": "package_depth",
+                  "value": "44"
+                },
+                {
+                  "attribute_code": "has_options",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "package_height",
+                  "value": "39"
+                },
+                {
+                  "attribute_code": "category_ids",
+                  "value": [
+                    "2993"
+                  ]
+                },
+                {
+                  "attribute_code": "enable_call_or_text_for_price",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "manufacturer_sku",
+                  "value": "1669-2239-036618"
+                },
+                {
+                  "attribute_code": "pim_unique_id",
+                  "value": "349588934"
+                },
+                {
+                  "attribute_code": "loft_id",
+                  "value": "349588934"
+                },
+                {
+                  "attribute_code": "product_sort_order",
+                  "value": "900.000000"
+                },
+                {
+                  "attribute_code": "inriver_date_import",
+                  "value": "2024-05-01 00:00:00"
+                },
+                {
+                  "attribute_code": "itemlocation",
+                  "value": "12493"
+                }
+              ]
+            }
+          ],
+          "search_criteria": {
+            "filter_groups": [
+              {
+                "filters": [
+                  {
+                    "field": "pim_unique_id",
+                    "value": null,
+                    "condition_type": "notnull"
+                  }
+                ]
+              },
+              {
+                "filters": [
+                  {
+                    "field": "status",
+                    "value": "2",
+                    "condition_type": "eq"
+                  }
+                ]
+              },
+              {
+                "filters": [
+                  {
+                    "field": "name",
+                    "value": "%sofa%",
+                    "condition_type": "like"
+                  }
+                ]
+              }
+            ],
+            "page_size": 3
+          },
+          "total_count": 163
+        },
+        "message": "Found 163 products matching \"sofa\""
+      }
+    },
+    {
+      "type": "categories_full",
+      "function": "getMagentoCategories",
+      "parameters": {},
+      "response": {
+        "function": "getMagentoCategories",
+        "status": "success",
+        "data": {
+          "id": 2,
+          "parent_id": 1,
+          "name": "Default Category",
+          "is_active": true,
+          "position": 1,
+          "level": 1,
+          "product_count": 9748,
+          "children_data": [
+            {
+              "id": 2872,
+              "parent_id": 2,
+              "name": "Furniture",
+              "is_active": true,
+              "position": 1,
+              "level": 2,
+              "product_count": 8388,
+              "children_data": [
+                {
+                  "id": 2855,
+                  "parent_id": 2872,
+                  "name": "Living Room",
+                  "is_active": true,
+                  "position": 1,
+                  "level": 3,
+                  "product_count": 3735,
+                  "children_data": [
+                    {
+                      "id": 2863,
+                      "parent_id": 2855,
+                      "name": "Sectionals",
+                      "is_active": true,
+                      "position": 1,
+                      "level": 4,
+                      "product_count": 423,
+                      "children_data": [
+                        {
+                          "id": 2927,
+                          "parent_id": 2863,
+                          "name": "Stationary Sectionals",
+                          "is_active": true,
+                          "position": 1,
+                          "level": 5,
+                          "product_count": 345,
+                          "children_data": []
+                        },
+                        {
+                          "id": 2935,
+                          "parent_id": 2863,
+                          "name": "Reclining Sectionals",
+                          "is_active": true,
+                          "position": 2,
+                          "level": 5,
+                          "product_count": 77,
+                          "children_data": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": 2860,
+                      "parent_id": 2855,
+                      "name": "Tables",
+                      "is_active": true,
+                      "position": 2,
+                      "level": 4,
+                      "product_count": 29,
+                      "children_data": []
+                    },
+                    {
+                      "id": 2891,
+                      "parent_id": 2855,
+                      "name": "Sofas & Loveseats",
+                      "is_active": true,
+                      "position": 3,
+                      "level": 4,
+                      "product_count": 44,
+                      "children_data": []
+                    },
+                    {
+                      "id": 2871,
+                      "parent_id": 2855,
+                      "name": "Living Room Tables",
+                      "is_active": true,
+                      "position": 3,
+                      "level": 4,
+                      "product_count": 856,
+                      "children_data": [
+                        {
+                          "id": 2869,
+                          "parent_id": 2871,
+                          "name": "Side/End Tables",
+                          "is_active": true,
+                          "position": 1,
+                          "level": 5,
+                          "product_count": 417,
+                          "children_data": []
+                        },
+                        {
+                          "id": 2866,
+                          "parent_id": 2871,
+                          "name": "Coffee Tables",
+                          "is_active": true,
+                          "position": 2,
+                          "level": 5,
+                          "product_count": 273,
+                          "children_data": []
+                        },
+                        {
+                          "id": 2870,
+                          "parent_id": 2871,
+                          "name": "Console/Sofa Tables",
+                          "is_active": true,
+                          "position": 6,
+                          "level": 5,
+                          "product_count": 138,
+                          "children_data": []
+                        },
+                        {
+                          "id": 2951,
+                          "parent_id": 2871,
+                          "name": "Table Sets",
+                          "is_active": true,
+                          "position": 7,
+                          "level": 5,
+                          "product_count": 55,
+                          "children_data": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": 2904,
+                      "parent_id": 2855,
+                      "name": "Chairs & Recliners",
+                      "is_active": true,
+                      "position": 3,
+                      "level": 4,
+                      "product_count": 1014,
+                      "children_data": [
+                        {
+                          "id": 2950,
+                          "parent_id": 2904,
+                          "name": "Lift Chairs",
+                          "is_active": true,
+                          "position": 1,
+                          "level": 5,
+                          "product_count": 64,
+                          "children_data": []
+                        },
+                        {
+                          "id": 2944,
+                          "parent_id": 2904,
+                          "name": "Massage Chairs",
+                          "is_active": true,
+                          "position": 2,
+                          "level": 5,
+                          "product_count": 9,
+                          "children_data": []
+                        },
+                        {
+                          "id": 2936,
+                          "parent_id": 2904,
+                          "name": "Recliners",
+                          "is_active": true,
+                          "position": 3,
+                          "level": 5,
+                          "product_count": 454,
+                          "children_data": []
+                        },
+                        {
+                          "id": 2928,
+                          "parent_id": 2904,
+                          "name": "Chairs",
+                          "is_active": true,
+                          "position": 4,
+                          "level": 5,
+                          "product_count": 487,
+                          "children_data": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": 2911,
+                      "parent_id": 2855,
+                      "name": "Ottomans",
+                      "is_active": true,
+                      "position": 4,
+                      "level": 4,
+                      "product_count": 284,
+                      "children_data": []
+                    },
+                    {
+                      "id": 2921,
+                      "parent_id": 2855,
+                      "name": "Accent Pieces",
+                      "is_active": true,
+                      "position": 5,
+                      "level": 4,
+                      "product_count": 338,
+                      "children_data": []
+                    },
+                    {
+                      "id": 2992,
+                      "parent_id": 2855,
+                      "name": "Sofas & Loveseats",
+                      "is_active": true,
+                      "position": 6,
+                      "level": 4,
+                      "product_count": 852,
+                      "children_data": [
+                        {
+                          "id": 2997,
+                          "parent_id": 2992,
+                          "name": "Reclining Loveseats",
+                          "is_active": true,
+                          "position": 1,
+                          "level": 5,
+                          "product_count": 167,
+                          "children_data": []
+                        },
+                        {
+                          "id": 2996,
+                          "parent_id": 2992,
+                          "name": "Sleepers",
+                          "is_active": true,
+                          "position": 2,
+                          "level": 5,
+                          "product_count": 93,
+                          "children_data": []
+                        },
+                        {
+                          "id": 2995,
+                          "parent_id": 2992,
+                          "name": "Loveseats",
+                          "is_active": true,
+                          "position": 3,
+                          "level": 5,
+                          "product_count": 162,
+                          "children_data": []
+                        },
+                        {
+                          "id": 2994,
+                          "parent_id": 2992,
+                          "name": "Reclining Sofas",
+                          "is_active": true,
+                          "position": 4,
+                          "level": 5,
+                          "product_count": 158,
+                          "children_data": []
+                        },
+                        {
+                          "id": 2993,
+                          "parent_id": 2992,
+                          "name": "Sofas",
+                          "is_active": true,
+                          "position": 5,
+                          "level": 5,
+                          "product_count": 275,
+                          "children_data": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": 3000,
+                      "parent_id": 2855,
+                      "name": "Reclining Furniture Battery Packs",
+                      "is_active": true,
+                      "position": 7,
+                      "level": 4,
+                      "product_count": 3,
+                      "children_data": []
+                    },
+                    {
+                      "id": 3006,
+                      "parent_id": 2855,
+                      "name": "Chaises",
+                      "is_active": true,
+                      "position": 8,
+                      "level": 4,
+                      "product_count": 10,
+                      "children_data": []
+                    }
+                  ]
+                },
+                {
+                  "id": 2856,
+                  "parent_id": 2872,
+                  "name": "Dining Room",
+                  "is_active": true,
+                  "position": 2,
+                  "level": 3,
+                  "product_count": 1284,
+                  "children_data": [
+                    {
+                      "id": 2893,
+                      "parent_id": 2856,
+                      "name": "Dining Sets",
+                      "is_active": true,
+                      "position": 1,
+                      "level": 4,
+                      "product_count": 230,
+                      "children_data": [
+                        {
+                          "id": 2939,
+                          "parent_id": 2893,
+                          "name": "Counter & Bar Height",
+                          "is_active": true,
+                          "position": 1,
+                          "level": 5,
+                          "product_count": 64,
+                          "children_data": []
+                        },
+                        {
+                          "id": 2931,
+                          "parent_id": 2893,
+                          "name": "Regular Height",
+                          "is_active": true,
+                          "position": 2,
+                          "level": 5,
+                          "product_count": 166,
+                          "children_data": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": 2978,
+                      "parent_id": 2856,
+                      "name": "Bars",
+                      "is_active": true,
+                      "position": 1,
+                      "level": 4,
+                      "product_count": 17,
+                      "children_data": []
+                    },
+                    {
+                      "id": 2977,
+                      "parent_id": 2856,
+                      "name": "Buffets & China Cabinets",
+                      "is_active": true,
+                      "position": 1,
+                      "level": 4,
+                      "product_count": 187,
+                      "children_data": []
+                    },
+                    {
+                      "id": 2898,
+                      "parent_id": 2856,
+                      "name": "Dining Tables",
+                      "is_active": true,
+                      "position": 2,
+                      "level": 4,
+                      "product_count": 235,
+                      "children_data": [
+                        {
+                          "id": 2940,
+                          "parent_id": 2898,
+                          "name": "Counter & Bar Height",
+                          "is_active": true,
+                          "position": 1,
+                          "level": 5,
+                          "product_count": 66,
+                          "children_data": []
+                        },
+                        {
+                          "id": 2932,
+                          "parent_id": 2898,
+                          "name": "Regular Height",
+                          "is_active": true,
+                          "position": 2,
+                          "level": 5,
+                          "product_count": 169,
+                          "children_data": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": 2905,
+                      "parent_id": 2856,
+                      "name": "Dining Chairs",
+                      "is_active": true,
+                      "position": 3,
+                      "level": 4,
+                      "product_count": 218,
+                      "children_data": []
+                    },
+                    {
+                      "id": 2912,
+                      "parent_id": 2856,
+                      "name": "Stools",
+                      "is_active": true,
+                      "position": 4,
+                      "level": 4,
+                      "product_count": 230,
+                      "children_data": [
+                        {
+                          "id": 2941,
+                          "parent_id": 2912,
+                          "name": "Counter Stools",
+                          "is_active": true,
+                          "position": 1,
+                          "level": 5,
+                          "product_count": 218,
+                          "children_data": []
+                        },
+                        {
+                          "id": 2933,
+                          "parent_id": 2912,
+                          "name": "Barstools",
+                          "is_active": true,
+                          "position": 2,
+                          "level": 5,
+                          "product_count": 65,
+                          "children_data": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": 2917,
+                      "parent_id": 2856,
+                      "name": "Dining Benches",
+                      "is_active": true,
+                      "position": 5,
+                      "level": 4,
+                      "product_count": 55,
+                      "children_data": [
+                        {
+                          "id": 2942,
+                          "parent_id": 2917,
+                          "name": "Counter & Bar Height Dining Benches",
+                          "is_active": true,
+                          "position": 1,
+                          "level": 5,
+                          "product_count": 18,
+                          "children_data": []
+                        },
+                        {
+                          "id": 2934,
+                          "parent_id": 2917,
+                          "name": "Regular Height",
+                          "is_active": true,
+                          "position": 2,
+                          "level": 5,
+                          "product_count": 37,
+                          "children_data": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": 2925,
+                      "parent_id": 2856,
+                      "name": "Servers & Sideboards",
+                      "is_active": true,
+                      "position": 7,
+                      "level": 4,
+                      "product_count": 0,
+                      "children_data": []
+                    },
+                    {
+                      "id": 2926,
+                      "parent_id": 2856,
+                      "name": "Islands & Kitchen Carts",
+                      "is_active": true,
+                      "position": 8,
+                      "level": 4,
+                      "product_count": 113,
+                      "children_data": []
+                    }
+                  ]
+                },
+                {
+                  "id": 2857,
+                  "parent_id": 2872,
+                  "name": "Bedroom",
+                  "is_active": true,
+                  "position": 3,
+                  "level": 3,
+                  "product_count": 2483,
+                  "children_data": [
+                    {
+                      "id": 2858,
+                      "parent_id": 2857,
+                      "name": "Master Bedroom",
+                      "is_active": true,
+                      "position": 1,
+                      "level": 4,
+                      "product_count": 2160,
+                      "children_data": [
+                        {
+                          "id": 2864,
+                          "parent_id": 2858,
+                          "name": "Beds",
+                          "is_active": true,
+                          "position": 2,
+                          "level": 5,
+                          "product_count": 926,
+                          "children_data": []
+                        },
+                        {
+                          "id": 2945,
+                          "parent_id": 2858,
+                          "name": "Nightstands",
+                          "is_active": true,
+                          "position": 3,
+                          "level": 5,
+                          "product_count": 227,
+                          "children_data": []
+                        },
+                        {
+                          "id": 2956,
+                          "parent_id": 2858,
+                          "name": "Armoires & Wardrobes",
+                          "is_active": true,
+                          "position": 3,
+                          "level": 5,
+                          "product_count": 15,
+                          "children_data": []
+                        },
+                        {
+                          "id": 2960,
+                          "parent_id": 2858,
+                          "name": "Vanities & Stools",
+                          "is_active": true,
+                          "position": 4,
+                          "level": 5,
+                          "product_count": 14,
+                          "children_data": []
+                        },
+                        {
+                          "id": 2962,
+                          "parent_id": 2858,
+                          "name": "Bed Benches",
+                          "is_active": true,
+                          "position": 5,
+                          "level": 5,
+                          "product_count": 13,
+                          "children_data": []
+                        },
+                        {
+                          "id": 2968,
+                          "parent_id": 2858,
+                          "name": "Bedroom Sets",
+                          "is_active": true,
+                          "position": 7,
+                          "level": 5,
+                          "product_count": 426,
+                          "children_data": []
+                        },
+                        {
+                          "id": 3003,
+                          "parent_id": 2858,
+                          "name": "Dressers & Chests",
+                          "is_active": true,
+                          "position": 8,
+                          "level": 5,
+                          "product_count": 391,
+                          "children_data": []
+                        },
+                        {
+                          "id": 3005,
+                          "parent_id": 2858,
+                          "name": "Mirrors",
+                          "is_active": true,
+                          "position": 9,
+                          "level": 5,
+                          "product_count": 157,
+                          "children_data": []
+                        },
+                        {
+                          "id": 3012,
+                          "parent_id": 2858,
+                          "name": "Media Chests",
+                          "is_active": true,
+                          "position": 10,
+                          "level": 5,
+                          "product_count": 0,
+                          "children_data": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": 2861,
+                      "parent_id": 2857,
+                      "name": "Kids Bedroom",
+                      "is_active": true,
+                      "position": 2,
+                      "level": 4,
+                      "product_count": 490,
+                      "children_data": [
+                        {
+                          "id": 2865,
+                          "parent_id": 2861,
+                          "name": "Kids Beds",
+                          "is_active": true,
+                          "position": 2,
+                          "level": 5,
+                          "product_count": 275,
+                          "children_data": [
+                            {
+                              "id": 3013,
+                              "parent_id": 2865,
+                              "name": "Kids Beds",
+                              "is_active": true,
+                              "position": 1,
+                              "level": 6,
+                              "product_count": 219,
+                              "children_data": []
+                            },
+                            {
+                              "id": 3014,
+                              "parent_id": 2865,
+                              "name": "Bunk Beds",
+                              "is_active": true,
+                              "position": 2,
+                              "level": 6,
+                              "product_count": 37,
+                              "children_data": []
+                            },
+                            {
+                              "id": 3015,
+                              "parent_id": 2865,
+                              "name": "Daybeds",
+                              "is_active": true,
+                              "position": 3,
+                              "level": 6,
+                              "product_count": 15,
+                              "children_data": []
+                            },
+                            {
+                              "id": 3016,
+                              "parent_id": 2865,
+                              "name": "Trundles and Under-Bed Storage",
+                              "is_active": true,
+                              "position": 4,
+                              "level": 6,
+                              "product_count": 4,
+                              "children_data": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": 2946,
+                          "parent_id": 2861,
+                          "name": "Kids Nightstands",
+                          "is_active": true,
+                          "position": 3,
+                          "level": 5,
+                          "product_count": 28,
+                          "children_data": []
+                        },
+                        {
+                          "id": 2957,
+                          "parent_id": 2861,
+                          "name": "Armoires & Wardrobes",
+                          "is_active": true,
+                          "position": 3,
+                          "level": 5,
+                          "product_count": 0,
+                          "children_data": []
+                        },
+                        {
+                          "id": 2963,
+                          "parent_id": 2861,
+                          "name": "Vanities & Stools",
+                          "is_active": true,
+                          "position": 5,
+                          "level": 5,
+                          "product_count": 14,
+                          "children_data": []
+                        },
+                        {
+                          "id": 2966,
+                          "parent_id": 2861,
+                          "name": "Bedroom Sets",
+                          "is_active": true,
+                          "position": 6,
+                          "level": 5,
+                          "product_count": 93,
+                          "children_data": []
+                        },
+                        {
+                          "id": 3002,
+                          "parent_id": 2861,
+                          "name": "Dressers & Chests",
+                          "is_active": true,
+                          "position": 7,
+                          "level": 5,
+                          "product_count": 58,
+                          "children_data": []
+                        },
+                        {
+                          "id": 3004,
+                          "parent_id": 2861,
+                          "name": "Mirrors",
+                          "is_active": true,
+                          "position": 8,
+                          "level": 5,
+                          "product_count": 17,
+                          "children_data": []
+                        },
+                        {
+                          "id": 3018,
+                          "parent_id": 2861,
+                          "name": "Kids Chairs",
+                          "is_active": true,
+                          "position": 9,
+                          "level": 5,
+                          "product_count": 14,
+                          "children_data": []
+                        },
+                        {
+                          "id": 3020,
+                          "parent_id": 2861,
+                          "name": "Playroom",
+                          "is_active": true,
+                          "position": 10,
+                          "level": 5,
+                          "product_count": 2,
+                          "children_data": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": 3001,
+                      "parent_id": 2857,
+                      "name": "Nursery",
+                      "is_active": true,
+                      "position": 3,
+                      "level": 4,
+                      "product_count": 23,
+                      "children_data": [
+                        {
+                          "id": 3008,
+                          "parent_id": 3001,
+                          "name": "Cribs",
+                          "is_active": true,
+                          "position": 1,
+                          "level": 5,
+                          "product_count": 10,
+                          "children_data": []
+                        },
+                        {
+                          "id": 3009,
+                          "parent_id": 3001,
+                          "name": "Changing Tables",
+                          "is_active": true,
+                          "position": 2,
+                          "level": 5,
+                          "product_count": 11,
+                          "children_data": []
+                        },
+                        {
+                          "id": 3010,
+                          "parent_id": 3001,
+                          "name": "Crib Mattresses",
+                          "is_active": true,
+                          "position": 3,
+                          "level": 5,
+                          "product_count": 2,
+                          "children_data": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": 2884,
+                  "parent_id": 2872,
+                  "name": "Home Office",
+                  "is_active": true,
+                  "position": 4,
+                  "level": 3,
+                  "product_count": 344,
+                  "children_data": [
+                    {
+                      "id": 2923,
+                      "parent_id": 2884,
+                      "name": "Office Sets",
+                      "is_active": true,
+                      "position": 1,
+                      "level": 4,
+                      "product_count": 9,
+                      "children_data": []
+                    },
+                    {
+                      "id": 2918,
+                      "parent_id": 2884,
+                      "name": "Bookcases",
+                      "is_active": true,
+                      "position": 2,
+                      "level": 4,
+                      "product_count": 120,
+                      "children_data": []
+                    },
+                    {
+                      "id": 2913,
+                      "parent_id": 2884,
+                      "name": "File Cabinets",
+                      "is_active": true,
+                      "position": 3,
+                      "level": 4,
+                      "product_count": 26,
+                      "children_data": []
+                    },
+                    {
+                      "id": 2907,
+                      "parent_id": 2884,
+                      "name": "Credenzas & Hutches",
+                      "is_active": true,
+                      "position": 4,
+                      "level": 4,
+                      "product_count": 25,
+                      "children_data": []
+                    },
+                    {
+                      "id": 2900,
+                      "parent_id": 2884,
+                      "name": "Desk Chairs",
+                      "is_active": true,
+                      "position": 5,
+                      "level": 4,
+                      "product_count": 32,
+                      "children_data": []
+                    },
+                    {
+                      "id": 2894,
+                      "parent_id": 2884,
+                      "name": "Desks",
+                      "is_active": true,
+                      "position": 6,
+                      "level": 4,
+                      "product_count": 141,
+                      "children_data": []
+                    }
+                  ]
+                },
+                {
+                  "id": 2882,
+                  "parent_id": 2872,
+                  "name": "Entertainment",
+                  "is_active": true,
+                  "position": 5,
+                  "level": 3,
+                  "product_count": 183,
+                  "children_data": [
+                    {
+                      "id": 2906,
+                      "parent_id": 2882,
+                      "name": "Game Tables",
+                      "is_active": true,
+                      "position": 1,
+                      "level": 4,
+                      "product_count": 1,
+                      "children_data": []
+                    },
+                    {
+                      "id": 2899,
+                      "parent_id": 2882,
+                      "name": "Entertainment Centers",
+                      "is_active": true,
+                      "position": 2,
+                      "level": 4,
+                      "product_count": 28,
+                      "children_data": []
+                    },
+                    {
+                      "id": 2892,
+                      "parent_id": 2882,
+                      "name": "TV Stands",
+                      "is_active": true,
+                      "position": 3,
+                      "level": 4,
+                      "product_count": 154,
+                      "children_data": []
+                    }
+                  ]
+                },
+                {
+                  "id": 2886,
+                  "parent_id": 2872,
+                  "name": "Outdoor",
+                  "is_active": true,
+                  "position": 6,
+                  "level": 3,
+                  "product_count": 388,
+                  "children_data": [
+                    {
+                      "id": 2967,
+                      "parent_id": 2886,
+                      "name": "Adirondack",
+                      "is_active": true,
+                      "position": 1,
+                      "level": 4,
+                      "product_count": 48,
+                      "children_data": []
+                    },
+                    {
+                      "id": 2924,
+                      "parent_id": 2886,
+                      "name": "Umbrellas",
+                      "is_active": true,
+                      "position": 2,
+                      "level": 4,
+                      "product_count": 2,
+                      "children_data": []
+                    },
+                    {
+                      "id": 2919,
+                      "parent_id": 2886,
+                      "name": "Outdoor Occasional Tables",
+                      "is_active": true,
+                      "position": 3,
+                      "level": 4,
+                      "product_count": 90,
+                      "children_data": []
+                    },
+                    {
+                      "id": 2914,
+                      "parent_id": 2886,
+                      "name": "Swings",
+                      "is_active": true,
+                      "position": 4,
+                      "level": 4,
+                      "product_count": 6,
+                      "children_data": []
+                    },
+                    {
+                      "id": 2908,
+                      "parent_id": 2886,
+                      "name": "Fire pits",
+                      "is_active": true,
+                      "position": 5,
+                      "level": 4,
+                      "product_count": 9,
+                      "children_data": []
+                    },
+                    {
+                      "id": 2901,
+                      "parent_id": 2886,
+                      "name": "Outdoor Dining",
+                      "is_active": true,
+                      "position": 6,
+                      "level": 4,
+                      "product_count": 175,
+                      "children_data": [
+                        {
+                          "id": 2948,
+                          "parent_id": 2901,
+                          "name": "Outdoor Dining Chairs",
+                          "is_active": true,
+                          "position": 1,
+                          "level": 5,
+                          "product_count": 57,
+                          "children_data": []
+                        },
+                        {
+                          "id": 2938,
+                          "parent_id": 2901,
+                          "name": "Outdoor Dining Tables",
+                          "is_active": true,
+                          "position": 2,
+                          "level": 5,
+                          "product_count": 41,
+                          "children_data": []
+                        },
+                        {
+                          "id": 2930,
+                          "parent_id": 2901,
+                          "name": "Outdoor Dining Sets",
+                          "is_active": true,
+                          "position": 3,
+                          "level": 5,
+                          "product_count": 72,
+                          "children_data": []
+                        },
+                        {
+                          "id": 2973,
+                          "parent_id": 2901,
+                          "name": "Outdoor Stools",
+                          "is_active": true,
+                          "position": 4,
+                          "level": 5,
+                          "product_count": 5,
+                          "children_data": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": 2895,
+                      "parent_id": 2886,
+                      "name": "Outdoor Seating",
+                      "is_active": true,
+                      "position": 7,
+                      "level": 4,
+                      "product_count": 114,
+                      "children_data": [
+                        {
+                          "id": 2954,
+                          "parent_id": 2895,
+                          "name": "Outdoor Ottomans",
+                          "is_active": true,
+                          "position": 1,
+                          "level": 5,
+                          "product_count": 7,
+                          "children_data": []
+                        },
+                        {
+                          "id": 2947,
+                          "parent_id": 2895,
+                          "name": "Outdoor Chairs",
+                          "is_active": true,
+                          "position": 2,
+                          "level": 5,
+                          "product_count": 56,
+                          "children_data": []
+                        },
+                        {
+                          "id": 2937,
+                          "parent_id": 2895,
+                          "name": "Outdoor Sectionals",
+                          "is_active": true,
+                          "position": 3,
+                          "level": 5,
+                          "product_count": 15,
+                          "children_data": []
+                        },
+                        {
+                          "id": 2929,
+                          "parent_id": 2895,
+                          "name": "Outdoor Sofas & Loveseats",
+                          "is_active": true,
+                          "position": 4,
+                          "level": 5,
+                          "product_count": 36,
+                          "children_data": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 2875,
+              "parent_id": 2,
+              "name": "Rugs",
+              "is_active": true,
+              "position": 1,
+              "level": 2,
+              "product_count": 2,
+              "children_data": []
+            },
+            {
+              "id": 2874,
+              "parent_id": 2,
+              "name": "Home Decor",
+              "is_active": true,
+              "position": 2,
+              "level": 2,
+              "product_count": 282,
+              "children_data": [
+                {
+                  "id": 2890,
+                  "parent_id": 2874,
+                  "name": "Outdoor Accessories",
+                  "is_active": true,
+                  "position": 1,
+                  "level": 3,
+                  "product_count": 0,
+                  "children_data": []
+                },
+                {
+                  "id": 2889,
+                  "parent_id": 2874,
+                  "name": "Holiday",
+                  "is_active": true,
+                  "position": 2,
+                  "level": 3,
+                  "product_count": 0,
+                  "children_data": [
+                    {
+                      "id": 2998,
+                      "parent_id": 2889,
+                      "name": "Christmas",
+                      "is_active": true,
+                      "position": 1,
+                      "level": 4,
+                      "product_count": 0,
+                      "children_data": []
+                    },
+                    {
+                      "id": 2999,
+                      "parent_id": 2889,
+                      "name": "Other Holiday",
+                      "is_active": true,
+                      "position": 2,
+                      "level": 4,
+                      "product_count": 0,
+                      "children_data": []
+                    }
+                  ]
+                },
+                {
+                  "id": 2888,
+                  "parent_id": 2874,
+                  "name": "Bedding",
+                  "is_active": true,
+                  "position": 3,
+                  "level": 3,
+                  "product_count": 0,
+                  "children_data": [
+                    {
+                      "id": 2920,
+                      "parent_id": 2888,
+                      "name": "Shams",
+                      "is_active": true,
+                      "position": 1,
+                      "level": 4,
+                      "product_count": 0,
+                      "children_data": []
+                    },
+                    {
+                      "id": 2916,
+                      "parent_id": 2888,
+                      "name": "Duvets",
+                      "is_active": true,
+                      "position": 2,
+                      "level": 4,
+                      "product_count": 0,
+                      "children_data": []
+                    },
+                    {
+                      "id": 2910,
+                      "parent_id": 2888,
+                      "name": "Throws",
+                      "is_active": true,
+                      "position": 3,
+                      "level": 4,
+                      "product_count": 0,
+                      "children_data": []
+                    },
+                    {
+                      "id": 2903,
+                      "parent_id": 2888,
+                      "name": "Quilts",
+                      "is_active": true,
+                      "position": 4,
+                      "level": 4,
+                      "product_count": 0,
+                      "children_data": []
+                    },
+                    {
+                      "id": 2897,
+                      "parent_id": 2888,
+                      "name": "Comforters",
+                      "is_active": true,
+                      "position": 5,
+                      "level": 4,
+                      "product_count": 0,
+                      "children_data": []
+                    }
+                  ]
+                },
+                {
+                  "id": 2887,
+                  "parent_id": 2874,
+                  "name": "Decorative Pillows",
+                  "is_active": true,
+                  "position": 4,
+                  "level": 3,
+                  "product_count": 0,
+                  "children_data": []
+                },
+                {
+                  "id": 2885,
+                  "parent_id": 2874,
+                  "name": "Tabletop Decor",
+                  "is_active": true,
+                  "position": 5,
+                  "level": 3,
+                  "product_count": 40,
+                  "children_data": []
+                },
+                {
+                  "id": 2883,
+                  "parent_id": 2874,
+                  "name": "Clocks",
+                  "is_active": true,
+                  "position": 6,
+                  "level": 3,
+                  "product_count": 0,
+                  "children_data": []
+                },
+                {
+                  "id": 2881,
+                  "parent_id": 2874,
+                  "name": "Mirrors",
+                  "is_active": true,
+                  "position": 7,
+                  "level": 3,
+                  "product_count": 5,
+                  "children_data": []
+                },
+                {
+                  "id": 2879,
+                  "parent_id": 2874,
+                  "name": "Wall Decor",
+                  "is_active": true,
+                  "position": 8,
+                  "level": 3,
+                  "product_count": 48,
+                  "children_data": []
+                },
+                {
+                  "id": 2877,
+                  "parent_id": 2874,
+                  "name": "Lamps & Lighting",
+                  "is_active": true,
+                  "position": 9,
+                  "level": 3,
+                  "product_count": 189,
+                  "children_data": []
+                }
+              ]
+            },
+            {
+              "id": 3007,
+              "parent_id": 2,
+              "name": "Sleep Center",
+              "is_active": true,
+              "position": 3,
+              "level": 2,
+              "product_count": 1047,
+              "children_data": [
+                {
+                  "id": 2878,
+                  "parent_id": 3007,
+                  "name": "Adjustable Bases & Foundations",
+                  "is_active": true,
+                  "position": 1,
+                  "level": 3,
+                  "product_count": 113,
+                  "children_data": [
+                    {
+                      "id": 2974,
+                      "parent_id": 2878,
+                      "name": "Adjustable Bases",
+                      "is_active": true,
+                      "position": 1,
+                      "level": 4,
+                      "product_count": 58,
+                      "children_data": []
+                    },
+                    {
+                      "id": 2986,
+                      "parent_id": 2878,
+                      "name": "Flat Foundations",
+                      "is_active": true,
+                      "position": 2,
+                      "level": 4,
+                      "product_count": 47,
+                      "children_data": []
+                    },
+                    {
+                      "id": 2981,
+                      "parent_id": 2878,
+                      "name": "Bed Frames",
+                      "is_active": true,
+                      "position": 3,
+                      "level": 4,
+                      "product_count": 8,
+                      "children_data": []
+                    }
+                  ]
+                },
+                {
+                  "id": 2880,
+                  "parent_id": 3007,
+                  "name": "Sleep Accessories",
+                  "is_active": true,
+                  "position": 2,
+                  "level": 3,
+                  "product_count": 66,
+                  "children_data": [
+                    {
+                      "id": 2909,
+                      "parent_id": 2880,
+                      "name": "Pillows",
+                      "is_active": true,
+                      "position": 2,
+                      "level": 4,
+                      "product_count": 40,
+                      "children_data": []
+                    },
+                    {
+                      "id": 2902,
+                      "parent_id": 2880,
+                      "name": "Protectors",
+                      "is_active": true,
+                      "position": 3,
+                      "level": 4,
+                      "product_count": 12,
+                      "children_data": []
+                    },
+                    {
+                      "id": 2896,
+                      "parent_id": 2880,
+                      "name": "Sheets",
+                      "is_active": true,
+                      "position": 4,
+                      "level": 4,
+                      "product_count": 14,
+                      "children_data": []
+                    }
+                  ]
+                },
+                {
+                  "id": 2988,
+                  "parent_id": 3007,
+                  "name": "Mattresses",
+                  "is_active": true,
+                  "position": 3,
+                  "level": 3,
+                  "product_count": 868,
+                  "children_data": [
+                    {
+                      "id": 2975,
+                      "parent_id": 2988,
+                      "name": "Comfort Level",
+                      "is_active": true,
+                      "position": 1,
+                      "level": 4,
+                      "product_count": 750,
+                      "children_data": [
+                        {
+                          "id": 2982,
+                          "parent_id": 2975,
+                          "name": "Medium",
+                          "is_active": true,
+                          "position": 1,
+                          "level": 5,
+                          "product_count": 303,
+                          "children_data": []
+                        },
+                        {
+                          "id": 2984,
+                          "parent_id": 2975,
+                          "name": "Soft",
+                          "is_active": true,
+                          "position": 2,
+                          "level": 5,
+                          "product_count": 226,
+                          "children_data": []
+                        },
+                        {
+                          "id": 2979,
+                          "parent_id": 2975,
+                          "name": "Firm",
+                          "is_active": true,
+                          "position": 3,
+                          "level": 5,
+                          "product_count": 230,
+                          "children_data": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": 2976,
+                      "parent_id": 2988,
+                      "name": "Mattress Type",
+                      "is_active": true,
+                      "position": 2,
+                      "level": 4,
+                      "product_count": 868,
+                      "children_data": [
+                        {
+                          "id": 2985,
+                          "parent_id": 2976,
+                          "name": "Hybrid",
+                          "is_active": true,
+                          "position": 1,
+                          "level": 5,
+                          "product_count": 313,
+                          "children_data": []
+                        },
+                        {
+                          "id": 2980,
+                          "parent_id": 2976,
+                          "name": "Innerspring",
+                          "is_active": true,
+                          "position": 3,
+                          "level": 5,
+                          "product_count": 311,
+                          "children_data": []
+                        },
+                        {
+                          "id": 2990,
+                          "parent_id": 2976,
+                          "name": "Foam",
+                          "is_active": true,
+                          "position": 4,
+                          "level": 5,
+                          "product_count": 257,
+                          "children_data": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": 3033,
+                  "parent_id": 3007,
+                  "name": "Tempur-Pedic Adapt Mattresses",
+                  "is_active": true,
+                  "position": 4,
+                  "level": 3,
+                  "product_count": 0,
+                  "children_data": []
+                },
+                {
+                  "id": 3034,
+                  "parent_id": 3007,
+                  "name": "Tempur-Pedic Breeze Mattresses",
+                  "is_active": true,
+                  "position": 5,
+                  "level": 3,
+                  "product_count": 0,
+                  "children_data": []
+                },
+                {
+                  "id": 3035,
+                  "parent_id": 3007,
+                  "name": "Sealy Posturepedic Elite Mattresses",
+                  "is_active": true,
+                  "position": 6,
+                  "level": 3,
+                  "product_count": 53,
+                  "children_data": []
+                },
+                {
+                  "id": 3036,
+                  "parent_id": 3007,
+                  "name": "Sealy Posturepedic Pro Mattresses",
+                  "is_active": true,
+                  "position": 7,
+                  "level": 3,
+                  "product_count": 26,
+                  "children_data": []
+                },
+                {
+                  "id": 3037,
+                  "parent_id": 3007,
+                  "name": "Sealy Posturepedic Plus Mattresses",
+                  "is_active": true,
+                  "position": 8,
+                  "level": 3,
+                  "product_count": 12,
+                  "children_data": []
+                },
+                {
+                  "id": 3038,
+                  "parent_id": 3007,
+                  "name": "Sealy Posturepedic Mattresses",
+                  "is_active": true,
+                  "position": 9,
+                  "level": 3,
+                  "product_count": 21,
+                  "children_data": []
+                }
+              ]
+            },
+            {
+              "id": 3017,
+              "parent_id": 2,
+              "name": "As Seen On TV",
+              "is_active": true,
+              "position": 4,
+              "level": 2,
+              "product_count": 44,
+              "children_data": []
+            },
+            {
+              "id": 3019,
+              "parent_id": 2,
+              "name": "Cyber Monday Closeouts 2024",
+              "is_active": true,
+              "position": 5,
+              "level": 2,
+              "product_count": 29,
+              "children_data": []
+            }
+          ]
+        },
+        "message": "Product categories retrieved successfully"
+      }
+    },
+    {
+      "type": "product_by_loft_id",
+      "function": "getMagentoProductByLoftID",
+      "parameters": {
+        "loftId": "124985831"
+      },
+      "response": {
+        "function": "getMagentoProductByLoftID",
+        "status": "success",
+        "data": {
+          "items": [
+            {
+              "id": 9566,
+              "sku": "124985831",
+              "name": "Lindsey Farm Weathered White Backless Bench",
+              "attribute_set_id": 25,
+              "price": 159.99,
+              "status": 1,
+              "visibility": 4,
+              "type_id": "simple",
+              "created_at": "2023-12-20 23:12:25",
+              "updated_at": "2025-08-06 20:00:42",
+              "weight": 34,
+              "extension_attributes": {
+                "website_ids": [
+                  1
+                ],
+                "category_links": [
+                  {
+                    "position": 0,
+                    "category_id": "2934"
+                  }
+                ]
+              },
+              "product_links": [],
+              "options": [],
+              "media_gallery_entries": [
+                {
+                  "id": 29578,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 0,
+                  "disabled": false,
+                  "types": [
+                    "small_image",
+                    "thumbnail",
+                    "swatch_image"
+                  ],
+                  "file": "/l/i/liberty-lindsey-farm-weathered-white-backless-bench-62WH-C9000B-right1.jpg"
+                },
+                {
+                  "id": 29579,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 1,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/i/liberty-lindsey-farm-weathered-white-backless-bench-62WH-C9000B-front.jpg"
+                },
+                {
+                  "id": 29580,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 2,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/i/liberty-lindsey-farm-weathered-white-backless-bench-62WH-C9000B-rightside.jpg"
+                },
+                {
+                  "id": 29581,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 3,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/i/liberty-lindsey-farm-weathered-white-backless-bench-62WH-C9000B-top.jpg"
+                },
+                {
+                  "id": 29582,
+                  "media_type": "image",
+                  "label": null,
+                  "position": 4,
+                  "disabled": false,
+                  "types": [],
+                  "file": "/l/i/liberty-lindsey-farm-weathered-white-backless-bench-62WH-C9000B-room.jpg"
+                }
+              ],
+              "tier_prices": [],
+              "custom_attributes": [
+                {
+                  "attribute_code": "description",
+                  "value": "Sit in comfort and style with the Lindsey Farm backless bench. Crafted of rubberwood solids, nylon chair glides to protect your flooring, and a wooden seat bench. This piece has an alternate finish and offers a look that compliments today's homes with style uncompromised and comfort abound."
+                },
+                {
+                  "attribute_code": "image",
+                  "value": "no_selection"
+                },
+                {
+                  "attribute_code": "meta_title",
+                  "value": "Lindsey Farm Weathered White Backless Bench 62WH-C9000B by Liberty"
+                },
+                {
+                  "attribute_code": "material",
+                  "value": "2266"
+                },
+                {
+                  "attribute_code": "width",
+                  "value": "48"
+                },
+                {
+                  "attribute_code": "small_image",
+                  "value": "/l/i/liberty-lindsey-farm-weathered-white-backless-bench-62WH-C9000B-right1.jpg"
+                },
+                {
+                  "attribute_code": "meta_keyword",
+                  "value": "Lindsey, Farm, Weathered, White, Backless, Bench, 62WH-C9000B, Liberty, rubberwood solids, standstone finish, "
+                },
+                {
+                  "attribute_code": "options_container",
+                  "value": "container2"
+                },
+                {
+                  "attribute_code": "depth",
+                  "value": "14"
+                },
+                {
+                  "attribute_code": "thumbnail",
+                  "value": "/l/i/liberty-lindsey-farm-weathered-white-backless-bench-62WH-C9000B-right1.jpg"
+                },
+                {
+                  "attribute_code": "meta_description",
+                  "value": "Shop the Lindsey Farm Weathered White Backless Bench by Liberty at Woodstock Furniture & Mattress Outlet"
+                },
+                {
+                  "attribute_code": "height",
+                  "value": "18"
+                },
+                {
+                  "attribute_code": "url_key",
+                  "value": "lindsey-farm-weathered-white-backless-bench"
+                },
+                {
+                  "attribute_code": "color_family",
+                  "value": "1888,1720"
+                },
+                {
+                  "attribute_code": "dim_depth",
+                  "value": "14.000000"
+                },
+                {
+                  "attribute_code": "product_collection",
+                  "value": "2353"
+                },
+                {
+                  "attribute_code": "tax_class_id",
+                  "value": "2"
+                },
+                {
+                  "attribute_code": "swatch_image",
+                  "value": "/l/i/liberty-lindsey-farm-weathered-white-backless-bench-62WH-C9000B-right1.jpg"
+                },
+                {
+                  "attribute_code": "dim_height",
+                  "value": "18.000000"
+                },
+                {
+                  "attribute_code": "featured",
+                  "value": "1"
+                },
+                {
+                  "attribute_code": "msrp_display_actual_price_type",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "style",
+                  "value": "1793"
+                },
+                {
+                  "attribute_code": "dim_width",
+                  "value": "48.000000"
+                },
+                {
+                  "attribute_code": "features",
+                  "value": "1065"
+                },
+                {
+                  "attribute_code": "package_width",
+                  "value": "18"
+                },
+                {
+                  "attribute_code": "package_depth",
+                  "value": "52.75"
+                },
+                {
+                  "attribute_code": "finish_family",
+                  "value": "994"
+                },
+                {
+                  "attribute_code": "package_height",
+                  "value": "7"
+                },
+                {
+                  "attribute_code": "required_options",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "brand",
+                  "value": "1212"
+                },
+                {
+                  "attribute_code": "has_options",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "category_ids",
+                  "value": [
+                    "2934"
+                  ]
+                },
+                {
+                  "attribute_code": "wondersign_price",
+                  "value": "159.990000"
+                },
+                {
+                  "attribute_code": "special_order",
+                  "value": "1"
+                },
+                {
+                  "attribute_code": "enable_call_or_text_for_price",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "imap",
+                  "value": "0"
+                },
+                {
+                  "attribute_code": "manufacturer_sku",
+                  "value": "62WH-C9000B"
+                },
+                {
+                  "attribute_code": "pim_unique_id",
+                  "value": "124985831"
+                },
+                {
+                  "attribute_code": "loft_id",
+                  "value": "124985831"
+                },
+                {
+                  "attribute_code": "loft_item_type",
+                  "value": "17095"
+                },
+                {
+                  "attribute_code": "product_sort_order",
+                  "value": "5000.000000"
+                },
+                {
+                  "attribute_code": "inriver_date_import",
+                  "value": "2024-05-01 00:00:00"
+                },
+                {
+                  "attribute_code": "wfo_in_stock",
+                  "value": "0"
+                }
+              ]
+            }
+          ],
+          "search_criteria": {
+            "filter_groups": [
+              {
+                "filters": [
+                  {
+                    "field": "pim_unique_id",
+                    "value": null,
+                    "condition_type": "notnull"
+                  }
+                ]
+              },
+              {
+                "filters": [
+                  {
+                    "field": "loft_id",
+                    "value": "124985831",
+                    "condition_type": "eq"
+                  }
+                ]
+              }
+            ]
+          },
+          "total_count": 1
+        },
+        "message": "Product details retrieved for Loft ID: 124985831"
+      }
+    }
+  ]
+}

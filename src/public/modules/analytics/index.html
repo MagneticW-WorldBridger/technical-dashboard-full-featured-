@@ -1,1 +1,45 @@
-{"error":{"code":"not_found","message":"The requested API endpoint was not found."}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Analytics Module • Woodstock Enterprise</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html, body { height: 100%; }
+    .iframe-wrap { height: calc(100vh - 140px); }
+  </style>
+  <script>
+    function getParam(name, fallback = '') {
+      const url = new URL(window.location.href);
+      return url.searchParams.get(name) || fallback;
+    }
+    function init() {
+      const src = getParam('src', '');
+      const iframe = document.getElementById('embed');
+      if (src) { try { iframe.src = src; } catch {} }
+      document.getElementById('currentSrc').textContent = src || '(none set)';
+    }
+    window.addEventListener('DOMContentLoaded', init);
+  </script>
+</head>
+<body class="bg-gray-50">
+  <div class="max-w-7xl mx-auto p-6">
+    <div class="mb-4 flex items-center justify-between">
+      <div>
+        <h1 class="text-2xl font-bold text-gray-900">Analytics</h1>
+        <p class="text-gray-600">Embed dashboards or conversation analytics via the src query param.</p>
+      </div>
+      <div class="text-sm text-gray-500">Current src: <span id="currentSrc" class="font-mono"></span></div>
+    </div>
+    <div class="mb-4 flex gap-2">
+      <a class="px-3 py-2 rounded bg-blue-600 text-white" href="?src=/admin-inbox-v2.html">Demo: Inbox as embed</a>
+    </div>
+    <div class="iframe-wrap rounded border bg-white overflow-hidden">
+      <iframe id="embed" src="about:blank" class="w-full h-full" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+</body>
+</html>
+
+
