@@ -6,16 +6,14 @@ const rateLimit = require('express-rate-limit');
 const winston = require('winston');
 require('dotenv').config();
 const path = require('path'); // Added for static file serving
-const { EventEmitter } = require('events');
-const inboxEvents = new EventEmitter();
 
-// Import services
-const { WoodstockAPIService } = require('./services/woodstock-api');
-const DatabaseService = require('./services/database-service');
-const ProactiveIntelligenceEngine = require('./services/proactive-intelligence');
-const FunctionCallingSystem = require('./services/function-calling');
-const AIAgent = require('./services/ai-agent');
-const ConversationService = require('./services/conversation-service');
+// Import services (correct paths under src/services)
+const { WoodstockAPIService } = require('./src/services/woodstock-api');
+const DatabaseService = require('./src/services/database-service');
+const ProactiveIntelligenceEngine = require('./src/services/proactive-intelligence');
+const FunctionCallingSystem = require('./src/services/function-calling');
+const AIAgent = require('./src/services/ai-agent');
+const ConversationService = require('./src/services/conversation-service');
 
 // Initialize Express app
 const app = express();
@@ -55,12 +53,13 @@ if (process.env.NODE_ENV !== 'production') {
 // STATIC FILE SERVING
 // =====================================================
 
-// Serve static files from public directory
-app.use(express.static('public'));
+// Serve static files from src/public directory
+const PUBLIC_DIR = path.join(__dirname, 'src', 'public');
+app.use(express.static(PUBLIC_DIR));
 
 // Serve the main frontend interface
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(PUBLIC_DIR, 'index.html'));
 });
 
 // =============================================================================
@@ -69,32 +68,32 @@ app.get('/', (req, res) => {
 
 // Main enterprise dashboard
 app.get('/dashboard', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
+  res.sendFile(path.join(PUBLIC_DIR, 'dashboard.html'));
 });
 
 // Module routes
 app.get('/inbox', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'admin-inbox-v2.html'));
+  res.sendFile(path.join(PUBLIC_DIR, 'admin-inbox-v2.html'));
 });
 
 app.get('/voice', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'modules', 'voice', 'index.html'));
+  res.sendFile(path.join(PUBLIC_DIR, 'modules', 'voice', 'index.html'));
 });
 
 app.get('/automation', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'modules', 'automation', 'index.html'));
+  res.sendFile(path.join(PUBLIC_DIR, 'modules', 'automation', 'index.html'));
 });
 
 app.get('/analytics', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'modules', 'analytics', 'index.html'));
+  res.sendFile(path.join(PUBLIC_DIR, 'modules', 'analytics', 'index.html'));
 });
 
 app.get('/pipeline', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'modules', 'pipeline', 'index.html'));
+  res.sendFile(path.join(PUBLIC_DIR, 'modules', 'pipeline', 'index.html'));
 });
 
 app.get('/copilot', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'modules', 'copilot', 'index.html'));
+  res.sendFile(path.join(PUBLIC_DIR, 'modules', 'copilot', 'index.html'));
 });
 
 // =====================================================
@@ -106,9 +105,8 @@ app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'", "https:"],
-      scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.tailwindcss.com"],
-      frameSrc: ["'self'", "https:"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      scriptSrc: ["'self'"],
       imgSrc: ["'self'", "data:", "https:"],
     },
   },
@@ -317,33 +315,12 @@ app.get('/api/customer/phone/:phone', async (req, res) => {
 // API ENDPOINTS - ADMIN INBOX (WEBCHAT DEMO)
 // =====================================================
 
-// List recent conversations (ALL platforms by default, specific platform if requested)
+// List recent conversations (webchat by default)
 app.get('/api/inbox/conversations', async (req, res) => {
   try {
-    const { platform, limit = 25 } = req.query;
-    const maxLimit = Math.min(parseInt(limit, 10) || 25, 200);
-
-    if (platform) {
-      // Specific platform requested
-      const rows = await dbService.getRecentConversations(platform, maxLimit);
-      res.json({ status: 'success', data: rows });
-    } else {
-      // NO platform specified - return ALL platforms merged (PRODUCTION READY)
-      const [webchatRows, instagramRows, facebookRows, fbmRows] = await Promise.all([
-        dbService.getRecentConversations('webchat', maxLimit).catch(() => []),
-        dbService.getRecentConversations('instagram', maxLimit).catch(() => []),
-        dbService.getRecentConversations('facebook', maxLimit).catch(() => []),
-        dbService.getRecentConversations('facebook_messenger', maxLimit).catch(() => [])
-      ]);
-
-      // Merge all platforms and sort by last_message_at
-      const allRows = [...webchatRows, ...instagramRows, ...facebookRows, ...fbmRows]
-        .sort((a, b) => new Date(b.last_message_at) - new Date(a.last_message_at))
-        .slice(0, maxLimit);
-
-      console.log(`📱 Merged conversations: ${webchatRows.length} webchat + ${instagramRows.length} instagram + ${facebookRows.length} facebook + ${fbmRows.length} fb_messenger = ${allRows.length} total`);
-      res.json({ status: 'success', data: allRows });
-    }
+    const { platform = 'webchat', limit = 25 } = req.query;
+    const rows = await dbService.getRecentConversations(platform, Math.min(parseInt(limit, 10) || 25, 200));
+    res.json({ status: 'success', data: rows });
   } catch (error) {
     logger.error('Inbox conversations error:', error);
     res.status(500).json({ status: 'error', error: error.message });
@@ -354,175 +331,11 @@ app.get('/api/inbox/conversations', async (req, res) => {
 app.get('/api/inbox/conversations/:id/messages', async (req, res) => {
   try {
     const { id } = req.params;
-    const { limit = 200, order = 'asc', tail = 'true' } = req.query;
-    const max = Math.min(parseInt(limit, 10) || 200, 500);
-    const rows = await dbService.getMessagesByConversationId(id, max, order, tail);
+    const { limit = 200 } = req.query;
+    const rows = await dbService.getMessagesByConversationId(id, Math.min(parseInt(limit, 10) || 200, 500));
     res.json({ status: 'success', data: rows });
   } catch (error) {
     logger.error('Inbox messages error:', error);
-    res.status(500).json({ status: 'error', error: error.message });
-  }
-});
-
-// Dedup preview for a conversation id
-app.get('/api/inbox/conversations/:id/dedup-preview', async (req, res) => {
-  try {
-    const { id } = req.params;
-    // Look up conversation to identify platform and user identifier
-    const conv = await dbService.getConversationById(id);
-    if (!conv) {
-      return res.status(404).json({ status: 'error', error: 'Conversation not found' });
-    }
-    const { user_identifier: userIdentifier, platform_type: platformType } = conv;
-
-    // Webchat: pull stored potential matches from session table
-    if (platformType === 'webchat') {
-      const session = await dbService.getWebchatSessionById(userIdentifier);
-      const matches = (session && session.potential_matches) || [];
-      return res.json({ status: 'success', data: matches, platform: platformType, userIdentifier });
-    }
-
-    // Other platforms: try deterministic extraction from this conversation's messages
-    const messages = await dbService.getMessagesByConversationId(id, 500);
-    const combined = (messages || []).map(m => String(m.message_content || '')).join('\n');
-
-    const extractEmail = (content) => {
-      const match = content.match(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/);
-      return match ? match[0].toLowerCase() : null;
-    };
-    const extractPhone = (content) => {
-      const match = content.replace(/<[^>]+>/g, '').match(/(\+?1[-.\s]?)?(\(?[0-9]{3}\)?[-.\s]?[0-9]{3}[-.\s]?[0-9]{4})/);
-      if (!match) return null;
-      return match[0].replace(/\D/g, '');
-    };
-
-    const email = extractEmail(combined);
-    const phoneDigits = extractPhone(combined);
-
-    let candidates = [];
-    if (email) {
-      const rows = await dbService.query(`
-        SELECT DISTINCT ON (c.conversation_id)
-          c.conversation_id, c.user_identifier, c.platform_type, c.last_message_at, 1.0 as confidence_score
-        FROM chatbot_conversations c
-        JOIN chatbot_messages m ON m.conversation_id = c.conversation_id
-        WHERE c.conversation_id <> $1 AND LOWER(m.message_content) LIKE LOWER($2)
-        ORDER BY c.conversation_id, c.last_message_at DESC NULLS LAST
-        LIMIT 5
-      `, [id, `%${email}%`]);
-      candidates = candidates.concat(rows || []);
-    }
-    if (phoneDigits) {
-      const rows = await dbService.query(`
-        SELECT DISTINCT ON (c.conversation_id)
-          c.conversation_id, c.user_identifier, c.platform_type, c.last_message_at, 1.0 as confidence_score
-        FROM chatbot_conversations c
-        JOIN chatbot_messages m ON m.conversation_id = c.conversation_id
-        WHERE c.conversation_id <> $1 AND regexp_replace(m.message_content, '[^0-9]', '', 'g') LIKE $2
-        ORDER BY c.conversation_id, c.last_message_at DESC NULLS LAST
-        LIMIT 5
-      `, [id, `%${phoneDigits}%`]);
-      candidates = candidates.concat(rows || []);
-    }
-
-    // De-duplicate candidates by conversation_id
-    const seen = new Set();
-    const unique = [];
-    for (const row of candidates) {
-      if (!seen.has(row.conversation_id)) {
-        seen.add(row.conversation_id);
-        unique.push(row);
-      }
-    }
-
-    return res.json({ status: 'success', data: unique, platform: platformType, userIdentifier, signals: { email, phone: phoneDigits } });
-  } catch (error) {
-    logger.error('Dedup preview error:', error);
-    res.status(500).json({ status: 'error', error: error.message });
-  }
-});
-
-// Link a conversation to a contact via identity
-app.post('/api/inbox/conversations/:id/link-contact', express.json(), async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { identity_type, identity_value, full_name } = req.body || {};
-    if (!identity_type || !identity_value) {
-      return res.status(400).json({ status: 'error', error: 'identity_type and identity_value are required' });
-    }
-    const contact = await dbService.upsertContactWithIdentity(identity_type, String(identity_value), full_name || null, 'inbox_link');
-    await dbService.linkConversationToContact(id, contact.contact_id);
-    res.json({ status: 'success', contact_id: contact.contact_id });
-  } catch (error) {
-    logger.error('Link contact error:', error);
-    res.status(500).json({ status: 'error', error: error.message });
-  }
-});
-
-// Get linked contact for a conversation
-app.get('/api/inbox/conversations/:id/contact', async (req, res) => {
-  try {
-    const { id } = req.params;
-    const linked = await dbService.getLinkedContactForConversation(id);
-    res.json({ status: 'success', contact: linked });
-  } catch (error) {
-    logger.error('Get linked contact error:', error);
-    res.status(500).json({ status: 'error', error: error.message });
-  }
-});
-
-// Enrich platform profile (name/avatar) for a conversation
-app.post('/api/inbox/conversations/:id/profile/enrich', async (req, res) => {
-  try {
-    const { id } = req.params;
-    const conv = await dbService.getConversationById(id);
-    if (!conv) return res.status(404).json({ status: 'error', error: 'Conversation not found' });
-
-    const platform = conv.platform_type;
-    const userId = conv.user_identifier;
-
-    const InstagramBusinessService = require('./services/instagram-api-service');
-    const instagramService = new InstagramBusinessService();
-
-    // Access raw DB helper from service
-    const rawDb = require('./config/database');
-
-    let profile = null;
-    if (platform === 'instagram') {
-      const rows = await rawDb.getMany(`
-        SELECT instagram_business_account_id, (instagram_access_token_encrypted)::text AS token
-        FROM client_integrations
-        WHERE status = 'active' AND instagram_business_account_id IS NOT NULL AND instagram_access_token_encrypted IS NOT NULL
-        ORDER BY last_active DESC NULLS LAST, created_at DESC
-      `);
-      if (!rows || rows.length === 0) throw new Error('No active Instagram client tokens');
-      let lastError = null;
-      for (const r of rows) {
-        try {
-          profile = await instagramService.getUserProfile(userId, r.token);
-          await dbService.upsertPlatformUser('instagram', userId, {
-            display_name: profile.name || null,
-            username: profile.username || null,
-            avatar_url: profile.profile_pic || null
-          });
-          break; // success
-        } catch (e) {
-          lastError = e;
-        }
-      }
-      if (!profile) throw lastError || new Error('Instagram profile lookup failed for all clients');
-    } else if (platform === 'facebook' || platform === 'facebook_messenger') {
-      profile = await instagramService.getFacebookUserProfile(userId, FACEBOOK_PAGE_ACCESS_TOKEN);
-      await dbService.upsertPlatformUser('facebook', userId, {
-        display_name: profile.name || null,
-        username: null,
-        avatar_url: profile.profile_pic || null
-      });
-    }
-
-    res.json({ status: 'success', profile });
-  } catch (error) {
-    console.error('❌ Profile enrich error:', error.message);
     res.status(500).json({ status: 'error', error: error.message });
   }
 });
@@ -947,7 +760,7 @@ app.get('/api/proactive/loyalty-activations', async (req, res) => {
 // =====================================================
 
 // Load contact identity service
-const ContactIdentityService = require('./services/contact-identity-service');
+const ContactIdentityService = require('./src/services/contact-identity-service');
 let contactIdentityService = null;
 
 // Initialize contact identity service with error handling
@@ -974,7 +787,7 @@ app.post('/api/chat', async (req, res) => {
 
     try {
         // Step 1: Initialize contact identity service safely
-        const identityService = await initializeContactIdentityService();
+        const identityService = (process.env.IDENTITY_ENABLED === 'false') ? null : await initializeContactIdentityService();
         
         // Step 2: Handle session management with identity awareness
         let effectiveSessionId = sessionId;
@@ -1075,7 +888,7 @@ app.post('/api/chat', async (req, res) => {
                                 toolCall.function.name, 
                                 JSON.parse(toolCall.function.arguments)
                             );
-                            
+
                             // Store function call for identity enrichment
                             executedFunctions.push({
                                 function_name: toolCall.function.name,
@@ -1097,9 +910,9 @@ app.post('/api/chat', async (req, res) => {
                             });
                             
                             // Always format function results for frontend component rendering
-                                const resultText = `\n\n**Function Result (${toolCall.function.name}):**\n${JSON.stringify(functionResult, null, 2)}\n\n`;
-                                res.write(resultText);
-                                fullResponse += resultText;
+                            const resultText = `\n\n**Function Result (${toolCall.function.name}):**\n${JSON.stringify(functionResult, null, 2)}\n\n`;
+                            res.write(resultText);
+                            fullResponse += resultText;
                         } catch (funcError) {
                             logger.error(`Function execution error: ${toolCall.function.name}`, funcError);
                             const errorText = `\n\n**Function Error (${toolCall.function.name}):** ${funcError.message}\n\n`;
@@ -1127,13 +940,16 @@ app.post('/api/chat', async (req, res) => {
             });
         }
 
-        // Step 5: Save conversation with identity enrichment
+        // Step 5: Save conversation (only append last user and final assistant to reduce DB writes)
         try {
-            await saveConversationHistory(effectiveSessionId, 'webchat', updatedHistory);
-            console.log(`💾 Saved conversation: ${updatedHistory.length} messages`);
+            const trimmed = [];
+            const lastUser = history[history.length - 1];
+            if (lastUser) trimmed.push(lastUser);
+            if (fullResponse.trim()) trimmed.push({ role: 'assistant', content: fullResponse });
+            await saveConversationHistory(effectiveSessionId, 'webchat', trimmed);
 
-            // Step 6: Enrich identity from conversation content
-            if (identityService && (executedFunctions.length > 0 || fullResponse.length > 0)) {
+            // Step 6: Enrich identity from conversation content (optional)
+            if (identityService && process.env.IDENTITY_ENABLED !== 'false' && (executedFunctions.length > 0 || fullResponse.length > 0)) {
                 try {
                     const lastUserMessage = history[history.length - 1]?.content || '';
                     const identityEnrichment = await identityService.enrichIdentityFromConversation(
@@ -1293,130 +1109,6 @@ app.get('/api/webhook/unified', (req, res) => {
   }
 });
 
-// Handle Facebook Messenger messages
-async function handleFacebookMessage(entries, res) {
-  try {
-    for (const entry of entries) {
-      const messaging = entry.messaging || [];
-      for (const event of messaging) {
-        const senderId = event.sender?.id;
-        const message = event.message?.text || '';
-        if (!senderId) continue;
-
-        console.log(`📱 Facebook message from ${senderId}: ${message}`);
-
-        // Get or create conversation - Use 'facebook_messenger' for Messenger 
-        const conversation = await dbService.getOrCreateConversation(senderId, 'facebook_messenger');
-        
-        // Upsert platform user profile 
-        try {
-          const profile = await instagramService.getFacebookUserProfile(senderId, FACEBOOK_PAGE_ACCESS_TOKEN);
-          await dbService.upsertPlatformUser('facebook', senderId, {
-            display_name: profile.name || null,
-            username: null,
-            avatar_url: profile.profile_pic || null
-          });
-        } catch (e) { 
-          console.warn('Profile fetch failed:', e.message);
-          await dbService.upsertPlatformUser('facebook', senderId, {}); 
-        }
-
-        // Get conversation history for Facebook Messenger
-        const conversationHistory = await conversationService.getConversationHistory(senderId, 'facebook_messenger');
-
-        // Add user message to history
-        const updatedHistory = [...conversationHistory, { role: 'user', content: message }];
-
-        // Auto-capture email/phone for lead linking
-        const emailMatch = (message.match(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/) || [])[0];
-        const phoneMatch = (message.replace(/<[^>]+>/g,'').match(/(\+?1[-.\s]?)?(\(?[0-9]{3}\)?[-.\s]?[0-9]{3}[-.\s]?[0-9]{4})/) || [])[0];
-        if (emailMatch || phoneMatch) {
-          try {
-            const identityType = emailMatch ? 'email' : 'phone';
-            const identityValue = (emailMatch || phoneMatch).toString();
-            const linkResult = await functionCalling.executeFunction('linkContactIdentity', {
-              identityType,
-              identityValue,
-              platformType: 'facebook_messenger',
-              platformUserId: senderId
-            });
-            if (linkResult?.status === 'success') {
-              await sendFacebookMessage(senderId, `Thanks! I saved your ${identityType}.`);
-            }
-          } catch (e) {
-            console.warn('Lead capture failed:', e.message);
-          }
-        }
-
-        // Run AI with tools iteratively like Instagram
-        let finalHistory = [...updatedHistory];
-        
-        while (true) {
-          const stream = await aiAgent.run(finalHistory);
-          let fullResponse = '';
-          const pendingToolCalls = new Map();
-
-          for await (const chunk of stream) {
-            const choice = chunk.choices?.[0];
-            if (choice?.delta?.content) {
-              fullResponse += choice.delta.content;
-            }
-            if (choice?.delta?.tool_calls) {
-              for (const toolCall of choice.delta.tool_calls) {
-                if (!pendingToolCalls.has(toolCall.index)) {
-                  pendingToolCalls.set(toolCall.index, { ...toolCall, function: { arguments: '' } });
-                }
-                const pending = pendingToolCalls.get(toolCall.index);
-                if (toolCall.function?.arguments) {
-                  pending.function.arguments += toolCall.function.arguments;
-                }
-              }
-            }
-            if (choice?.finish_reason === 'tool_calls') {
-              // Execute tool calls
-              for (const [, toolCall] of pendingToolCalls) {
-                try {
-                  const functionName = toolCall.function.name;
-                  const args = JSON.parse(toolCall.function.arguments || '{}');
-                  const result = await functionCalling.executeFunction(functionName, args);
-                  
-                  finalHistory.push({ role: 'assistant', content: null, tool_calls: [toolCall] });
-                  finalHistory.push({ role: 'tool', content: JSON.stringify(result), tool_call_id: toolCall.id });
-                } catch (e) {
-                  finalHistory.push({ role: 'assistant', content: null, tool_calls: [toolCall] });
-                  finalHistory.push({ role: 'tool', content: JSON.stringify({ error: e.message }), tool_call_id: toolCall.id });
-                }
-              }
-              break; // Continue to next iteration to get final response
-            }
-          }
-          
-          if (choice?.finish_reason !== 'tool_calls') {
-            // Final response without tool calls
-            finalHistory.push({ role: 'assistant', content: fullResponse });
-            await sendFacebookMessage(senderId, fullResponse);
-            break;
-          }
-        }
-
-        // Save complete conversation history for Facebook Messenger
-        await conversationService.saveConversationHistory(senderId, 'facebook_messenger', finalHistory);
-
-        // Emit live update for inbox
-        inboxEvents.emit('update', { 
-          type: 'conversation_updated', 
-          user_identifier: senderId, 
-          platform_type: 'facebook_messenger', 
-          ts: Date.now() 
-        });
-      }
-    }
-  } catch (error) {
-    console.error('❌ Facebook webhook error:', error);
-    throw error;
-  }
-}
-
 // Instagram + Facebook Unified Webhook Handler
 app.post('/api/webhook/unified', async (req, res) => {
   try {
@@ -1426,24 +1118,16 @@ app.post('/api/webhook/unified', async (req, res) => {
     if (body.object === 'page') {
       // Facebook Messenger
       await handleFacebookMessage(body.entry, res);
-      res.status(200).send('EVENT_RECEIVED');
     } else if (body.object === 'instagram') {
       // Instagram Business
-      const entries = Array.isArray(body.entry) ? body.entry : [];
-      const hasMessaging = entries.some(e => Array.isArray(e.messaging));
-      const hasChanges = entries.some(e => Array.isArray(e.changes));
-      if (hasMessaging) {
-        await handleInstagramMessage(entries, res);
-      }
-      if (hasChanges) {
-        await handleInstagramChanges(entries, res);
-      }
-      res.status(200).send('EVENT_RECEIVED');
+      await handleInstagramMessage(body.entry, res);
     } else {
       console.warn(`❓ Unknown webhook object type: ${body.object}`);
       res.sendStatus(404);
       return;
     }
+    
+    res.status(200).send('EVENT_RECEIVED');
   } catch (error) {
     console.error('❌ Unified webhook error:', error);
     res.sendStatus(500);
@@ -1452,107 +1136,26 @@ app.post('/api/webhook/unified', async (req, res) => {
 
 // Instagram Message Handler
 async function handleInstagramMessage(entries, res) {
-  try {
-    const InstagramBusinessService = require('./services/instagram-api-service');
-    const instagramService = new InstagramBusinessService();
-
-    for (const entry of entries) {
-      const messaging = entry.messaging || [];
-      const instagramAccountId = entry.id;
-      const client = await instagramService.getClientByInstagramId(instagramAccountId);
-      if (!client) continue;
-
-      for (const event of messaging) {
-        const senderId = event.sender?.id;
-        const text = event.message?.text || '';
-        if (!senderId) continue;
-
-        // Try to enrich display profile (best-effort; may fail for IGAA tokens)
-        try {
-          const profile = await instagramService.getUserProfile(senderId, client.access_token);
-          await dbService.upsertPlatformUser('instagram', senderId, {
-            display_name: profile.name || null,
-            username: profile.username || null,
-            avatar_url: profile.profile_pic || null
-          });
-        } catch {}
-
-        // Continue with existing processInstagramMessage
-        await processInstagramMessage(event, client);
-      }
-    }
-    res.sendStatus(200);
-  } catch (error) {
-    console.error('❌ Instagram webhook error:', error);
-    res.sendStatus(500);
-  }
-}
-
-// Handle Instagram Graph change events (comments, mentions, etc.)
-async function handleInstagramChanges(entries, res) {
   const InstagramBusinessService = require('./services/instagram-api-service');
   const instagramService = new InstagramBusinessService();
-
+  
   for (const entry of entries) {
     const instagramAccountId = entry.id;
-    console.log(`🧩 Instagram change for account: ${instagramAccountId}`);
-
+    console.log(`📱 Instagram message for account: ${instagramAccountId}`);
+    
+    // Multi-tenant lookup: Find client by Instagram Business Account ID
     const client = await instagramService.getClientByInstagramId(instagramAccountId);
     if (!client) {
-      console.warn(`❌ No client found for Instagram account (changes): ${instagramAccountId}`);
+      console.warn(`❌ No client found for Instagram account: ${instagramAccountId}`);
       continue;
     }
-
-    if (!Array.isArray(entry.changes)) continue;
-    for (const change of entry.changes) {
-      const { field, value } = change;
-      console.log(`📝 IG change field=${field} value=`, value);
-
-      // Auto-reply to comments that match campaign rules
-      if (field === 'comments' && value && value.id && (value.text || value.message)) {
-        const text = value.text || value.message || '';
-        const campaignRegex = /#rk5pocketjean|@ruralkingdemo/i;
-        if (campaignRegex.test(text)) {
-          try {
-            // DIRECT DM to the commenter (this works with IGAA token!)
-            const commenterId = value.from?.id;
-            if (commenterId) {
-              try {
-                const dmMessage = `🎉 Thanks for sharing your #RK5pocketJean! To complete the process and get your FREE jeans, reply with the word JEANS and we'll send you the review link!`;
-                await instagramService.sendMessage(commenterId, dmMessage, client.access_token);
-                console.log(`✅ Campaign DM sent to commenter ${commenterId}`);
-              } catch (dmErr) {
-                console.error(`❌ Failed to DM commenter ${commenterId}:`, dmErr.message);
-                // If DM fails, log for manual follow-up
-                console.log(`📝 Manual follow-up needed for comment ${value.id} by @${value.from?.username || 'unknown'}`);
-              }
-            }
-          } catch (err) {
-            console.error(`❌ Failed to auto-reply to comment ${value.id}:`, err.message);
-          }
-        }
-      }
-
-      // Mentions: when someone @mentions the business in a caption/comment
-      if (field === 'mentions' && value) {
-        const text = value.text || value.message || '';
-        console.log('🔔 Mention detected:', text);
-        const campaignRegex = /#rk5pocketjean/i;
-
-        if (campaignRegex.test(text)) {
-          // DIRECT DM to the person who mentioned us (this works with IGAA token!)
-          const mentionerId = value.from?.id;
-          if (mentionerId) {
-            try {
-              const dmMessage = `🎉 Thanks for tagging us with #RK5pocketJean! To complete the process and get your FREE jeans, reply with the word JEANS and we'll send you the review link!`;
-              await instagramService.sendMessage(mentionerId, dmMessage, client.access_token);
-              console.log(`✅ Campaign DM sent to mentioner ${mentionerId} for hashtag + @mention`);
-            } catch (dmErr) {
-              console.error(`❌ Failed to DM mentioner ${mentionerId}:`, dmErr.message);
-              console.log(`📝 Manual follow-up needed for mention by @${value.from?.username || 'unknown'}`);
-            }
-          }
-        }
+    
+    console.log(`🔍 Found client: ${client.client_name} (${client.client_id})`);
+    
+    // Process Instagram messaging events
+    if (entry.messaging) {
+      for (const messageEvent of entry.messaging) {
+        await processInstagramMessage(messageEvent, client);
       }
     }
   }
@@ -1582,89 +1185,75 @@ async function processInstagramMessage(messageEvent, client) {
       client_id: client.client_id
     });
     
-    // Helper to strip HTML for Instagram text messages
-    const stripHtml = (html) => {
-      if (!html) return '';
-      return html
-        .replace(/<br\s*\/?>/gi, '\n')
-        .replace(/<li>/gi, '- ')
-        .replace(/<\/(ul|ol)>/gi, '\n')
-        .replace(/<[^>]+>/g, '')
-        .replace(/&nbsp;/g, ' ')
-        .replace(/&amp;/g, '&')
-        .replace(/&lt;/g, '<')
-        .replace(/&gt;/g, '>')
-        .trim();
-    };
-
-    // Execute tool-calls and iterate until model produces a final answer
-    async function runWithTools(history) {
-      while (true) {
-        const stream = await aiAgent.run(history);
-        let fullResponseLocal = '';
-        const pendingToolCallsLocal = new Map();
-
-        for await (const chunk of stream) {
-          const choice = chunk.choices?.[0];
-          if (choice?.delta?.content) {
-            fullResponseLocal += choice.delta.content;
+    // Process message with AI Agent
+    const stream = await aiAgent.run(conversationHistory);
+    
+    let fullResponse = '';
+    const pendingToolCalls = new Map();
+    
+    for await (const chunk of stream) {
+      const choice = chunk.choices?.[0];
+      if (choice?.delta?.content) {
+        const content = choice.delta.content;
+        fullResponse += content;
+      }
+      if (choice?.delta?.tool_calls) {
+        for (const toolCall of choice.delta.tool_calls) {
+          if (!pendingToolCalls.has(toolCall.index)) {
+            pendingToolCalls.set(toolCall.index, { ...toolCall, function: { arguments: '' } });
           }
-          if (choice?.delta?.tool_calls) {
-            for (const toolCall of choice.delta.tool_calls) {
-              if (!pendingToolCallsLocal.has(toolCall.index)) {
-                pendingToolCallsLocal.set(toolCall.index, { ...toolCall, function: { arguments: '' } });
-              }
-              const pending = pendingToolCallsLocal.get(toolCall.index);
-              if (toolCall.function?.arguments) {
-                pending.function.arguments += toolCall.function.arguments;
-              }
-            }
-          }
-          if (choice?.finish_reason === 'tool_calls') {
-            // Execute tool calls and append tool messages to history (OpenAI format)
-            for (const [, toolCall] of pendingToolCallsLocal) {
-              try {
-                const functionName = toolCall.function.name;
-                const args = JSON.parse(toolCall.function.arguments || '{}');
-                console.log(`🔧 Instagram Function call: ${functionName} with args:`, args);
-                const result = await functionCalling.executeFunction(functionName, args);
-
-                history.push({ role: 'assistant', content: null, tool_calls: [toolCall] });
-                history.push({ role: 'tool', content: JSON.stringify(result), tool_call_id: toolCall.id });
-              } catch (err) {
-                console.error('❌ Tool execution failed:', err.message);
-                history.push({ role: 'assistant', content: null, tool_calls: [toolCall] });
-                history.push({ role: 'tool', content: JSON.stringify({ error: err.message }), tool_call_id: toolCall.id });
-              }
-            }
-            // Next iteration will call the model again with tool results
-            fullResponseLocal = '';
-          }
-          if (choice?.finish_reason === 'stop' || choice?.finish_reason === 'length') {
-            // Completed with a final assistant message
+          const pending = pendingToolCalls.get(toolCall.index);
+          if (toolCall.function?.arguments) {
+            pending.function.arguments += toolCall.function.arguments;
           }
         }
-
-        if (fullResponseLocal && fullResponseLocal.trim().length > 0) {
-          return fullResponseLocal;
+      }
+      if (choice?.finish_reason === 'tool_calls') {
+        // Execute tool calls
+        for (const [index, toolCall] of pendingToolCalls) {
+          try {
+            const functionName = toolCall.function.name;
+            const args = JSON.parse(toolCall.function.arguments);
+            
+            console.log(`🔧 Instagram Function call: ${functionName} with args:`, args);
+            
+            const result = await functionCalling.executeFunction(functionName, args);
+            
+            // Add function result to conversation
+            conversationHistory.push({
+              role: 'assistant',
+              content: `Function result: ${JSON.stringify(result)}`
+            });
+            
+            // Send function result via Instagram API
+            const InstagramBusinessService = require('./services/instagram-api-service');
+            const instagramService = new InstagramBusinessService();
+            await instagramService.sendMessage(senderId, `Function executed: ${functionName}`, client.access_token);
+            
+          } catch (error) {
+            console.error(`❌ Instagram function execution error:`, error);
+            const InstagramBusinessService = require('./services/instagram-api-service');
+            const instagramService = new InstagramBusinessService();
+            await instagramService.sendMessage(senderId, 'Sorry, there was an error processing your request.', client.access_token);
+          }
         }
-        // Otherwise loop again because we handled tool calls
+        pendingToolCalls.clear();
       }
     }
-
-    // Run the agent with full tool support and get the final message
-    const finalAssistantMessage = await runWithTools(conversationHistory);
-
+    
     // Add AI response to history
-    conversationHistory.push({ role: 'assistant', content: finalAssistantMessage });
-
+    conversationHistory.push({
+      role: 'assistant',
+      content: fullResponse
+    });
+    
     // Save conversation history with client context
     await saveConversationHistory(senderId, 'instagram', conversationHistory, client.client_id);
-
-    // Send response via Instagram API (strip HTML for now)
+    
+    // Send response via Instagram API
     const InstagramBusinessService = require('./services/instagram-api-service');
     const instagramService = new InstagramBusinessService();
-    await instagramService.sendMessage(senderId, stripHtml(finalAssistantMessage), client.access_token);
+    await instagramService.sendMessage(senderId, fullResponse, client.access_token);
     
   } catch (error) {
     console.error('❌ Instagram message processing error:', error);
@@ -2041,14 +1630,6 @@ async function saveConversationHistory(userId, platform, history) {
     
     if (success) {
       console.log(`💾 Saved ${history.length} messages for ${userId} on ${platform}`);
-      // Emit SSE event
-      inboxEvents.emit('update', {
-        type: 'conversation_updated',
-        user_identifier: userId,
-        platform_type: platform,
-        message_count: history.length,
-        ts: Date.now()
-      });
     } else {
       console.error(`❌ Failed to save conversation for ${userId} on ${platform}`);
     }
@@ -2064,7 +1645,46 @@ async function saveConversationHistory(userId, platform, history) {
 // ERROR HANDLING MIDDLEWARE
 // =====================================================
 
+// 404 handler
+app.use((req, res) => {
+  res.status(404).json({
+    error: 'Not Found',
+    message: `Route ${req.method} ${req.path} not found`,
+    availableEndpoints: [
+      'GET /health',
+      'GET /api/conversation/stats',
+      'GET /api/customer/phone/:phone',
+      'GET /api/customer/email/:email',
+      'GET /api/orders/customer/:custid',
+      'GET /api/orders/:orderid/details',
+      'POST /api/proactive/order-confirmation',
+      'POST /api/proactive/support-escalation',
+      'POST /api/proactive/loyalty-upgrade',
+      'POST /api/proactive/product-recommendations',
+      'GET /api/analytics/customer/:identifier',
+      'GET /api/functions',
+      'POST /api/functions/execute',
+      'POST /api/chat',
+      'GET /facebook-webhook',
+      'POST /facebook-webhook',
+      'GET /api/facebook-webhook',
+      'POST /api/facebook-webhook'
+    ]
+  });
+});
 
+// Global error handler
+app.use((error, req, res, next) => {
+  logger.error('Unhandled error:', error);
+  
+  res.status(500).json({
+    error: 'Internal Server Error',
+    message: process.env.NODE_ENV === 'production' 
+      ? 'An unexpected error occurred' 
+      : error.message,
+    timestamp: new Date().toISOString()
+  });
+});
 
 // =====================================================
 // SERVER STARTUP
@@ -2073,8 +1693,6 @@ async function saveConversationHistory(userId, platform, history) {
 const server = app.listen(PORT, () => {
   console.log(`🚀 Woodstock Outlet Chatbot Server running on port ${PORT}`);
   console.log(`📊 Environment: ${process.env.NODE_ENV}`);
-  console.log(`🔗 Health check: http://localhost:${PORT}/health`);
-  console.log(`📚 API Documentation: http://localhost:${PORT}/api/functions`);
   
   // Log startup information
   logger.info('Server started', {
@@ -2082,178 +1700,6 @@ const server = app.listen(PORT, () => {
     environment: process.env.NODE_ENV,
     timestamp: new Date().toISOString()
   });
-});
-
-// =====================================================
-// INSTAGRAM OAUTH ENDPOINTS
-// =====================================================
-
-// Instagram OAuth Token Exchange
-app.post('/api/instagram/oauth/exchange', async (req, res) => {
-  try {
-    const { code, redirect_uri } = req.body;
-    
-    if (!code || !redirect_uri) {
-      return res.status(400).json({
-        success: false,
-        error: 'Missing required parameters: code and redirect_uri'
-      });
-    }
-
-    console.log('🔐 Processing Instagram OAuth token exchange...');
-
-    // Create local service instance to avoid scope issues
-    const InstagramBusinessService = require('./services/instagram-api-service');
-    const svc = new InstagramBusinessService();
-
-    // Exchange authorization code for access token
-    const tokenData = await svc.exchangeCodeForToken(code, redirect_uri);
-
-    if (!tokenData || !tokenData.access_token) {
-      throw new Error('Failed to get access token from Facebook');
-    }
-
-    console.log('✅ Access token received, getting page info...');
-
-    // Get user's pages
-    const fetch = await svc.getFetch();
-    const pagesResponse = await fetch(`https://graph.facebook.com/v18.0/me/accounts?access_token=${tokenData.access_token}`);
-    const pagesData = await pagesResponse.json();
-
-    if (!pagesData.data || pagesData.data.length === 0) {
-      throw new Error('No Facebook Pages found. Instagram Business Account must be connected to a Facebook Page.');
-    }
-
-    // For each page, check if it has an Instagram Business Account
-    let connectedAccounts = [];
-    
-    for (const page of pagesData.data) {
-      try {
-        const igAccount = await instagramService.getInstagramBusinessAccount(page.id, page.access_token);
-        if (igAccount && igAccount.instagram_business_account) {
-          connectedAccounts.push({
-            page_id: page.id,
-            page_name: page.name,
-            page_access_token: page.access_token,
-            instagram_business_account_id: igAccount.instagram_business_account.id
-          });
-        }
-      } catch (error) {
-        console.log(`ℹ️ Page ${page.name} has no Instagram Business Account`);
-      }
-    }
-
-    if (connectedAccounts.length === 0) {
-      return res.status(400).json({
-        success: false,
-        error: 'No Instagram Business Accounts found. Please ensure your Instagram is set to Business/Creator and connected to a Facebook Page.'
-      });
-    }
-
-    // Store all connected accounts in database
-    let storedClients = [];
-    
-    for (const account of connectedAccounts) {
-      const clientData = await svc.storeClientCredentials({
-        client_name: account.page_name,
-        facebook_page_id: account.page_id,
-        instagram_business_account_id: account.instagram_business_account_id,
-        page_access_token: account.page_access_token,
-        status: 'active'
-      });
-      
-      storedClients.push(clientData);
-      console.log(`✅ Stored client: ${account.page_name} (IG: ${account.instagram_business_account_id})`);
-    }
-
-    res.json({
-      success: true,
-      message: `Successfully connected ${connectedAccounts.length} Instagram Business Account(s)`,
-      accounts: storedClients.map(client => ({
-        client_id: client.client_id,
-        client_name: client.client_name,
-        instagram_account_id: client.instagram_business_account_id
-      }))
-    });
-
-  } catch (error) {
-    console.error('❌ Instagram OAuth exchange error:', error);
-    res.status(500).json({
-      success: false,
-      error: error.message || 'Failed to process OAuth token exchange'
-    });
-  }
-});
-
-// Instagram OAuth Integration Page
-app.get('/oauth-instagram.html', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'oauth-instagram.html'));
-});
-
-// Instagram OAuth Callback Page (server-side redirect to avoid CSP inline script)
-app.get('/oauth-callback.html', (req, res) => {
-  try {
-    const { code, state, error, error_description } = req.query || {};
-    let redirectUrl = '/oauth-instagram.html';
-    const params = new URLSearchParams();
-    if (code && state) {
-      params.set('code', String(code));
-      params.set('state', String(state));
-    } else if (error) {
-      params.set('error', String(error));
-      if (error_description) params.set('error_description', String(error_description));
-    }
-    if ([...params.keys()].length > 0) redirectUrl += `?${params.toString()}`;
-    res.redirect(302, redirectUrl);
-  } catch (e) {
-    res.redirect(302, '/oauth-instagram.html');
-  }
-});
-
-// List Connected Instagram Accounts
-app.get('/api/instagram/accounts', async (req, res) => {
-  try {
-    const result = await dbService.getConnectedInstagramAccounts();
-
-    res.json({
-      success: true,
-      accounts: result
-    });
-  } catch (error) {
-    console.error('❌ Error fetching Instagram accounts:', error);
-    res.status(500).json({
-      success: false,
-      error: 'Failed to fetch connected accounts'
-    });
-  }
-});
-
-// SSE: Inbox live updates stream
-app.get('/api/inbox/stream', (req, res) => {
-  try {
-    res.setHeader('Content-Type', 'text/event-stream');
-    res.setHeader('Cache-Control', 'no-cache');
-    res.setHeader('Connection', 'keep-alive');
-    res.flushHeaders?.();
-
-    const keepAlive = setInterval(() => {
-      res.write(`: ping\n\n`);
-    }, 25000);
-
-    const onEvent = (payload) => {
-      res.write(`data: ${JSON.stringify(payload)}\n\n`);
-    };
-    inboxEvents.on('update', onEvent);
-
-    req.on('close', () => {
-      clearInterval(keepAlive);
-      inboxEvents.off('update', onEvent);
-      try { res.end(); } catch {}
-    });
-  } catch (e) {
-    console.error('❌ SSE error:', e);
-    try { res.end(); } catch {}
-  }
 });
 
 // Graceful shutdown
@@ -2284,75 +1730,6 @@ process.on('unhandledRejection', (reason, promise) => {
   logger.error('Unhandled Rejection:', reason);
   console.error('❌ Unhandled Rejection:', reason);
   process.exit(1);
-});
-
-// ... existing code ...
-app.get('/api/inbox/search', async (req, res) => {
-  try {
-    const { q = '', limit = 50 } = req.query;
-    const keyword = String(q).trim();
-    if (!keyword) return res.json({ status: 'success', data: [] });
-    const max = Math.min(parseInt(limit, 10) || 50, 200);
-
-    // Search by last_message_content first across all platforms (merged)
-    const platforms = ['webchat', 'instagram', 'facebook', 'facebook_messenger'];
-    const results = [];
-    for (const plat of platforms) {
-      const rows = await db.getMany(`
-        SELECT 
-          c.conversation_id,
-          c.user_identifier,
-          c.platform_type,
-          c.conversation_started_at,
-          c.last_message_at,
-          (
-            SELECT message_content 
-            FROM chatbot_messages m 
-            WHERE m.conversation_id = c.conversation_id 
-            ORDER BY m.message_created_at DESC 
-            LIMIT 1
-          ) AS last_message_content
-        FROM chatbot_conversations c
-        WHERE c.platform_type = $1
-          AND EXISTS (
-            SELECT 1 FROM chatbot_messages m2 
-            WHERE m2.conversation_id = c.conversation_id 
-              AND LOWER(m2.message_content) LIKE LOWER($2)
-          )
-        ORDER BY c.last_message_at DESC NULLS LAST, c.conversation_started_at DESC
-        LIMIT $3
-      `, [plat, `%${keyword}%`, max]);
-      results.push(...rows);
-    }
-
-    // Sort merged results by recency and trim to limit
-    results.sort((a, b) => new Date(b.last_message_at || 0) - new Date(a.last_message_at || 0));
-    const data = results.slice(0, max);
-    res.json({ status: 'success', data });
-  } catch (error) {
-    logger.error('Inbox search error:', error);
-    res.status(500).json({ status: 'error', error: error.message });
-  }
-});
-// ... existing code ...
-
-app.get('/api/instagram/oauth/config', (req, res) => {
-  const appId = process.env.INSTAGRAM_APP_ID || process.env.FACEBOOK_APP_ID || '';
-  const proto = req.headers['x-forwarded-proto'] || req.protocol;
-  const host = req.headers['x-forwarded-host'] || req.get('host');
-  const baseUrl = `${proto}://${host}`;
-  const redirectUri = `${baseUrl}/oauth-callback.html`;
-  const scope = [
-    'instagram_basic',
-    'instagram_manage_messages',
-    'instagram_content_publish',
-    'instagram_manage_comments',
-    'instagram_manage_insights',
-    'pages_messaging',
-    'pages_manage_metadata',
-    'pages_read_engagement'
-  ].join(',');
-  res.json({ appId, redirectUri, scope });
 });
 
 module.exports = app; 

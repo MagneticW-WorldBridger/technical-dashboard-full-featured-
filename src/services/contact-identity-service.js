@@ -260,7 +260,7 @@ class ContactIdentityService {
 
       if (signals.explicit_email) {
         matchQuery = `
-          SELECT DISTINCT c.conversation_id, c.user_identifier, c.platform_type,
+          SELECT DISTINCT c.conversation_id, c.user_identifier, c.platform_type, c.last_message_at,
                  'email' as match_type, 1.0 as confidence_score
           FROM chatbot_conversations c
           JOIN chatbot_messages m ON c.conversation_id = m.conversation_id
@@ -271,7 +271,7 @@ class ContactIdentityService {
         matchParams = [`%${signals.explicit_email}%`];
       } else if (signals.explicit_phone) {
         matchQuery = `
-          SELECT DISTINCT c.conversation_id, c.user_identifier, c.platform_type,
+          SELECT DISTINCT c.conversation_id, c.user_identifier, c.platform_type, c.last_message_at,
                  'phone' as match_type, 1.0 as confidence_score
           FROM chatbot_conversations c
           JOIN chatbot_messages m ON c.conversation_id = m.conversation_id
@@ -325,9 +325,10 @@ class ContactIdentityService {
   async updateProbabilisticScores(sessionId, signals) {
     try {
       // Get current session data
-      const session = await this.db.getOne(`
+      const _rows = await this.db.query(`
         SELECT * FROM webchat_sessions WHERE session_id = $1
       `, [sessionId]);
+      const session = Array.isArray(_rows) && _rows.length > 0 ? _rows[0] : null;
 
       if (!session) return null;
 
@@ -527,9 +528,10 @@ class ContactIdentityService {
 
   async generateMergeConfirmationPrompt(sessionId, potentialMatches) {
     try {
-      const session = await this.db.getOne(`
+      const _rows = await this.db.query(`
         SELECT * FROM webchat_sessions WHERE session_id = $1
       `, [sessionId]);
+      const session = Array.isArray(_rows) && _rows.length > 0 ? _rows[0] : null;
 
       if (!session || !potentialMatches.length) return null;
 

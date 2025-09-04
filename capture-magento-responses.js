@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 // Script to capture real Magento API responses for documentation
-const FunctionCallingSystem = require('./services/function-calling');
+const FunctionCallingSystem = require('./src/services/function-calling');
 const fs = require('fs');
 
 async function captureResponses() {

@@ -12,7 +12,7 @@ class AIAgent {
         
         this.openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
         this.functionCalling = new FunctionCallingSystem();
-        this.model = process.env.OPENAI_MODEL || 'gpt-4o-mini';
+        this.model = 'gpt-4o';
         
         console.log('✅ AIAgent initialized successfully');
     }
@@ -20,17 +20,7 @@ class AIAgent {
     async run(chatHistory) {
         console.log('🤖 Running AI agent with history length:', chatHistory.length);
         
-        // Build tools list; optionally restrict via env (LOFTONLY or TOOLS_ALLOW CSV)
-        const allFns = this.functionCalling.getAvailableFunctions();
-        let selected = allFns;
-        if (process.env.LOFTONLY === 'true') {
-            const loftSet = new Set(['getCustomerByPhone','getCustomerByEmail','getOrdersByCustomer','getDetailsByOrder','getCustomerJourney']);
-            selected = allFns.filter(f => loftSet.has(f.name));
-        } else if (process.env.TOOLS_ALLOW) {
-            const allow = new Set(String(process.env.TOOLS_ALLOW).split(',').map(s => s.trim()).filter(Boolean));
-            selected = allFns.filter(f => allow.has(f.name));
-        }
-        const tools = selected.map(f => ({ type: 'function', function: f }));
+        const tools = this.functionCalling.getAvailableFunctions().map(f => ({ type: 'function', function: f }));
         console.log('🔧 Available tools:', tools.length);
         // Inject system guidance to return minimal, semantic HTML for normal text outputs
         const htmlSystem = {

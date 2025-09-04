@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 // Test script for Magento functions
-const FunctionCallingSystem = require('./services/function-calling');
+const FunctionCallingSystem = require('./src/services/function-calling');
 
 async function testMagentoFunctions() {
   console.log('🚀 Testing Magento Functions...\n');

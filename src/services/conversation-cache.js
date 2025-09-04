@@ -82,7 +82,7 @@ class ConversationCacheService {
       const cachedData = await this.redis.get(cacheKey);
       
       if (!cachedData) {
-        console.log(`🔍 Cache miss for ${userIdentifier} on ${platformType}`);
+        // console.log(`🔍 Cache miss for ${userIdentifier} on ${platformType}`);
         return null;
       }
       

@@ -119,6 +119,67 @@
             backdrop-filter: blur(8px);
             border: 1px solid var(--glass-border);
         }
+        .message-system {
+            background: linear-gradient(135deg, #065f46, #047857);
+            border: 1px solid #059669;
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+            color: #d1fae5;
+        }
+        .message-dedup {
+            background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+            border: 1px solid #a855f7;
+            box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3);
+            color: #e9d5ff;
+            animation: pulse-dedup 2s infinite;
+        }
+        @keyframes pulse-dedup {
+            0%, 100% { box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3); }
+            50% { box-shadow: 0 4px 20px rgba(168, 85, 247, 0.5); }
+        }
+        
+        /* Voice call component */
+        .voice-call-component {
+            background: linear-gradient(135deg, #4c1d95, #5b21b6);
+            border: 1px solid #7c3aed;
+            border-radius: 16px;
+            padding: 16px;
+            margin: 8px 0;
+        }
+        .voice-call-player {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 12px;
+            margin: 8px 0;
+        }
+        .transcript-collapsed {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            padding: 0 12px;
+            margin: 0;
+            transition: all 0.3s ease-out;
+        }
+        .transcript-expanded {
+            max-height: 200px;
+            overflow-y: auto;
+            opacity: 1;
+            padding: 12px;
+            margin: 8px 0;
+            transition: all 0.3s ease-in;
+        }
+        .channel-badge {
+            display: inline-block;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .channel-webchat { background: #10b981; color: white; }
+        .channel-sms { background: #f59e0b; color: white; }
+        .channel-phone { background: #8b5cf6; color: white; }
+        .channel-instagram { background: #ec4899; color: white; }
+        .channel-facebook { background: #3b82f6; color: white; }
 
         /* Enhanced button styles */
         .btn-primary {
@@ -219,16 +280,36 @@
 
         <!-- Conversation Filters -->
         <div class="px-6 py-4 border-b border-gray-600/30">
-            <div class="flex items-center justify-between mb-4">
-                <div class="flex gap-2" id="platform-filters">
-                    <button class="filter-btn px-3 py-1.5 rounded-lg text-xs border border-gray-600/40 hover:bg-gray-700/40" data-filter="all">All <span id="count-platform-all" class="ml-1 text-gray-400"></span></button>
-                    <button class="filter-btn px-3 py-1.5 rounded-lg text-xs border border-gray-600/40 hover:bg-gray-700/40" data-filter="webchat">Webchat <span id="count-platform-webchat" class="ml-1 text-gray-400"></span></button>
-                    <button class="filter-btn px-3 py-1.5 rounded-lg text-xs border border-gray-600/40 hover:bg-gray-700/40" data-filter="instagram">Instagram <span id="count-platform-instagram" class="ml-1 text-gray-400"></span></button>
-                    <button class="filter-btn px-3 py-1.5 rounded-lg text-xs border border-gray-600/40 hover:bg-gray-700/40" data-filter="facebook">Facebook <span id="count-platform-facebook" class="ml-1 text-gray-400"></span></button>
+            <div class="mb-4">
+                <div class="text-xs text-gray-400 mb-2">Platform Filters</div>
+                <div class="flex flex-wrap gap-2" id="platform-filters">
+                    <button class="filter-btn px-2 py-1 rounded-lg text-xs border border-gray-600/40 hover:bg-gray-700/40 flex items-center gap-1" data-filter="all">
+                        <div class="w-2 h-2 bg-gray-400 rounded-full"></div>
+                        All <span id="count-platform-all" class="ml-1 text-gray-400"></span>
+                    </button>
+                    <button class="filter-btn px-2 py-1 rounded-lg text-xs border border-gray-600/40 hover:bg-gray-700/40 flex items-center gap-1" data-filter="webchat">
+                        <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                        Web <span id="count-platform-webchat" class="ml-1 text-gray-400"></span>
+                    </button>
+                    <button class="filter-btn px-2 py-1 rounded-lg text-xs border border-gray-600/40 hover:bg-gray-700/40 flex items-center gap-1" data-filter="instagram">
+                        <div class="w-2 h-2 bg-pink-400 rounded-full"></div>
+                        IG <span id="count-platform-instagram" class="ml-1 text-gray-400"></span>
+                    </button>
+                    <button class="filter-btn px-2 py-1 rounded-lg text-xs border border-gray-600/40 hover:bg-gray-700/40 flex items-center gap-1" data-filter="facebook">
+                        <div class="w-2 h-2 bg-blue-400 rounded-full"></div>
+                        FB <span id="count-platform-facebook" class="ml-1 text-gray-400"></span>
+                    </button>
+                    <button class="filter-btn px-2 py-1 rounded-lg text-xs border border-gray-600/40 hover:bg-gray-700/40 flex items-center gap-1" data-filter="sms">
+                        <div class="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                        SMS <span id="count-platform-sms" class="ml-1 text-gray-400"></span>
+                    </button>
+                    <button class="filter-btn px-2 py-1 rounded-lg text-xs border border-gray-600/40 hover:bg-gray-700/40 flex items-center gap-1" data-filter="phone">
+                        <div class="w-2 h-2 bg-purple-400 rounded-full"></div>
+                        Call <span id="count-platform-phone" class="ml-1 text-gray-400"></span>
+                    </button>
                 </div>
-                <div class="text-xs text-gray-400">Quick Filters</div>
             </div>
-            <div class="flex gap-2 text-xs">
+            <div class="flex gap-2 text-xs flex-wrap">
                 <button class="filter-btn active px-3 py-1.5 rounded-lg bg-blue-600/20 text-blue-400 border border-blue-600/30" data-filter="all">
                     All <span id="count-all" class="ml-1 opacity-75"></span>
                 </button>
@@ -369,6 +450,23 @@ const AppState = {
     customers: [
         {
             id: '1',
+            name: 'AiPRL DEMO unified',
+            email: 'demo@aiprl.com',
+            avatar: 'https://randomuser.me/api/portraits/men/10.jpg',
+            status: 'online',
+            phone: '+1 (555) 999-DEMO',
+            location: 'Unified Experience',
+            tags: ['🔗 UNIFIED', '🚀 DEMO', '✨ Multi-Channel'],
+            priority: 'high',
+            lastSeen: new Date(),
+            department: 'Demo Department',
+            customerSince: '2024-01-01',
+            totalOrders: 25,
+            lastOrderAmount: 5000,
+            lastMessagePreview: '🔗 This contact was UNIFIED across all channels! Check the conversation to see webchat → SMS → phone → Instagram → Facebook all merged!'
+        },
+        {
+            id: '2',
             name: 'Sarah Johnson',
             email: 'sarah.johnson@acme.com',
             avatar: 'https://randomuser.me/api/portraits/women/1.jpg',
@@ -384,7 +482,7 @@ const AppState = {
             lastOrderAmount: 2450
         },
         {
-            id: '2',
+            id: '3',
             name: 'Michael Chen',
             email: 'michael.chen@techcorp.com',
             avatar: 'https://randomuser.me/api/portraits/men/2.jpg',
@@ -400,7 +498,7 @@ const AppState = {
             lastOrderAmount: 1200
         },
         {
-            id: '3',
+            id: '4',
             name: 'Emma Wilson',
             email: 'emma.wilson@startup.io',
             avatar: 'https://randomuser.me/api/portraits/women/3.jpg',
@@ -416,7 +514,7 @@ const AppState = {
             lastOrderAmount: 450
         },
         {
-            id: '4',
+            id: '5',
             name: 'James Rodriguez',
             email: 'james.r@consulting.com',
             avatar: 'https://randomuser.me/api/portraits/men/4.jpg',
@@ -435,24 +533,42 @@ const AppState = {
 
     conversations: {
         '1': [
-            { id: '1a', content: 'Hi! I need urgent help with my order #12345. The delivery was supposed to arrive yesterday but I haven\'t received it yet.', timestamp: new Date(Date.now() - 1800000), isOwn: false, status: 'read' },
-            { id: '1b', content: 'I understand your concern about the delayed delivery. Let me check the tracking information for order #12345 right away.', timestamp: new Date(Date.now() - 1740000), isOwn: true, status: 'read' },
-            { id: '1c', content: 'Thank you! This order is very important for our upcoming product launch.', timestamp: new Date(Date.now() - 1680000), isOwn: false, status: 'read' },
-            { id: '1d', content: 'I can see that your order is currently at the local distribution center. It should be delivered within the next 2-3 hours. I\'ll also provide you with the direct tracking link.', timestamp: new Date(Date.now() - 1620000), isOwn: true, status: 'read' },
-            { id: '1e', content: 'That\'s great! Can you also ensure priority handling for future orders?', timestamp: new Date(Date.now() - 300000), isOwn: false }
+            { id: '1a', content: 'Hello! I\'m interested in your services. Can you tell me more about pricing?', timestamp: new Date(Date.now() - 7200000), isOwn: false, status: 'read', channel: 'webchat' },
+            { id: '1b', content: 'Hello! I\'d be happy to help you with pricing information. Let me get you the details right away.', timestamp: new Date(Date.now() - 7140000), isOwn: true, status: 'read' },
+            { id: '1c', content: 'Hi, this is the same person from the webchat. My name is Carlos and my phone is +1-555-999-DEMO. I needed to step out but wanted to continue our conversation via SMS.', timestamp: new Date(Date.now() - 3600000), isOwn: false, status: 'read', channel: 'sms' },
+            { id: '1d', content: '🔗 CONTACT DEDUPLICATION TRIGGERED: Phone number +1-555-999-DEMO matched with webchat session. Conversations merged automatically!', timestamp: new Date(Date.now() - 3580000), isOwn: true, status: 'read', system: true },
+            { id: '1e', content: 'Hi Carlos! I can see our previous webchat conversation. Perfect that the system linked you automatically via your phone number. Let me send you that pricing info.', timestamp: new Date(Date.now() - 3540000), isOwn: true, status: 'read' },
+            { id: '1f', content: 'Hey, I just called your support line. This is Carlos again - same guy from webchat and SMS. My email is demo@aiprl.com if that helps connect everything.', timestamp: new Date(Date.now() - 1800000), isOwn: false, status: 'read', channel: 'phone', isVoiceCall: true, callDuration: 180, transcript: 'Hey, I just called your support line. This is Carlos again - same guy from webchat and SMS. My email is demo@aiprl.com if that helps connect everything. I really appreciate how seamless this experience is becoming. Can you walk me through the enterprise pricing tiers? I\'m particularly interested in the API access and white-label options.' },
+            { id: '1g', content: '🔗 CONTACT DEDUPLICATION TRIGGERED: Email demo@aiprl.com matched with existing contact. Phone conversation merged into unified thread!', timestamp: new Date(Date.now() - 1780000), isOwn: true, status: 'read', system: true },
+            { id: '1h', content: 'Excellent Carlos! I can see your entire conversation history: webchat → SMS → phone call. All perfectly unified in one thread.', timestamp: new Date(Date.now() - 1740000), isOwn: true, status: 'read' },
+            { id: '1i', content: '@AiPRL_Official hey! found you on Instagram. I\'m @carlos_demo_user - same person from all the other channels 😅', timestamp: new Date(Date.now() - 900000), isOwn: false, status: 'read', channel: 'instagram' },
+            { id: '1j', content: '🔗 CONTACT DEDUPLICATION TRIGGERED: Instagram handle @carlos_demo_user matched via cross-platform identity matching. Instagram conversation merged!', timestamp: new Date(Date.now() - 880000), isOwn: true, status: 'read', system: true },
+            { id: '1k', content: 'Amazing Carlos! Now I can see: Webchat → SMS → Phone → Instagram all in one unified conversation!', timestamp: new Date(Date.now() - 840000), isOwn: true, status: 'read' },
+            { id: '1l', content: 'Messaging you from Facebook too! Same Carlos. Want to see if this gets unified as well 😄', timestamp: new Date(Date.now() - 600000), isOwn: false, status: 'read', channel: 'facebook' },
+            { id: '1m', content: '🔗 CONTACT DEDUPLICATION TRIGGERED: Facebook profile matched via email and phone cross-reference. All 5 channels now unified!', timestamp: new Date(Date.now() - 580000), isOwn: true, status: 'read', system: true },
+            { id: '1n', content: 'INCREDIBLE! Carlos, you now have the COMPLETE unified experience: Webchat → SMS → Phone Call → Instagram DM → Facebook Messenger ALL in ONE conversation thread!', timestamp: new Date(Date.now() - 540000), isOwn: true, status: 'read' },
+            { id: '1o', content: 'This is EXACTLY what we needed to see! The system automatically detected and merged all my identities across every platform. No duplicate conversations, no lost context. PERFECTO!', timestamp: new Date(Date.now() - 120000), isOwn: false },
+            { id: '1p', content: 'This demonstrates our contact deduplication in action: 5 different channels, 1 unified customer experience, ZERO data loss!', timestamp: new Date(Date.now() - 60000), isOwn: true }
         ],
         '2': [
-            { id: '2a', content: 'I have a technical question about the API integration. The authentication seems to be failing.', timestamp: new Date(Date.now() - 3600000), isOwn: false },
-            { id: '2b', content: 'I\'d be happy to help with the API integration. Can you share the error message you\'re seeing?', timestamp: new Date(Date.now() - 3540000), isOwn: true, status: 'delivered' }
+            { id: '2a', content: 'Hi! I need urgent help with my order #12345. The delivery was supposed to arrive yesterday but I haven\'t received it yet.', timestamp: new Date(Date.now() - 1800000), isOwn: false, status: 'read' },
+            { id: '2b', content: 'I understand your concern about the delayed delivery. Let me check the tracking information for order #12345 right away.', timestamp: new Date(Date.now() - 1740000), isOwn: true, status: 'read' },
+            { id: '2c', content: 'Thank you! This order is very important for our upcoming product launch.', timestamp: new Date(Date.now() - 1680000), isOwn: false, status: 'read' },
+            { id: '2d', content: 'I can see that your order is currently at the local distribution center. It should be delivered within the next 2-3 hours. I\'ll also provide you with the direct tracking link.', timestamp: new Date(Date.now() - 1620000), isOwn: true, status: 'read' },
+            { id: '2e', content: 'That\'s great! Can you also ensure priority handling for future orders?', timestamp: new Date(Date.now() - 300000), isOwn: false }
         ],
         '3': [
-            { id: '3a', content: 'Hello! I wanted to thank you for the excellent customer service. Your team has been incredibly helpful.', timestamp: new Date(Date.now() - 86400000), isOwn: false },
-            { id: '3b', content: 'Thank you so much for the kind words! We really appreciate customers like you. Is there anything else we can help you with?', timestamp: new Date(Date.now() - 86340000), isOwn: true, status: 'read' }
+            { id: '3a', content: 'I have a technical question about the API integration. The authentication seems to be failing.', timestamp: new Date(Date.now() - 3600000), isOwn: false },
+            { id: '3b', content: 'I\'d be happy to help with the API integration. Can you share the error message you\'re seeing?', timestamp: new Date(Date.now() - 3540000), isOwn: true, status: 'delivered' }
         ],
         '4': [
-            { id: '4a', content: 'I\'m interested in upgrading to your enterprise plan. Can you provide more details about the features?', timestamp: new Date(Date.now() - 7200000), isOwn: false },
-            { id: '4b', content: 'Absolutely! I\'d be happy to walk you through our enterprise features. Would you prefer a quick call or should I send you the detailed documentation?', timestamp: new Date(Date.now() - 7140000), isOwn: true, status: 'read' },
-            { id: '4c', content: 'A call would be perfect. When would be a good time?', timestamp: new Date(Date.now() - 7080000), isOwn: false }
+            { id: '4a', content: 'Hello! I wanted to thank you for the excellent customer service. Your team has been incredibly helpful.', timestamp: new Date(Date.now() - 86400000), isOwn: false },
+            { id: '4b', content: 'Thank you so much for the kind words! We really appreciate customers like you. Is there anything else we can help you with?', timestamp: new Date(Date.now() - 86340000), isOwn: true, status: 'read' }
+        ],
+        '5': [
+            { id: '5a', content: 'I\'m interested in upgrading to your enterprise plan. Can you provide more details about the features?', timestamp: new Date(Date.now() - 7200000), isOwn: false },
+            { id: '5b', content: 'Absolutely! I\'d be happy to walk you through our enterprise features. Would you prefer a quick call or should I send you the detailed documentation?', timestamp: new Date(Date.now() - 7140000), isOwn: true, status: 'read' },
+            { id: '5c', content: 'A call would be perfect. When would be a good time?', timestamp: new Date(Date.now() - 7080000), isOwn: false }
         ]
     }
 };
@@ -552,15 +668,19 @@ const DataLoader = {
         })));
       }
 
+      // ALWAYS keep the demo conversation first
+      const demoCustomer = AppState.customers[0]; // Save the demo
+      const demoConversation = AppState.conversations['1']; // Save demo conversation
+      
       if (convsAll.length === 0) {
         NotificationManager.show('No live conversations found, staying in demo mode', 'info');
         return;
       }
 
-      // Map conversations to customers
-      AppState.customers = convsAll.map((row, idx) => ({
+      // Map conversations to customers but KEEP demo first
+      const liveCustomers = convsAll.map((row, idx) => ({
         id: String(row.conversation_id),
-        name: String(row.display_name || row.username || row.user_identifier || `Visitor ${idx + 1}`),
+        name: String(row.display_name || row.username || row.user_identifier || `Visitor ${idx + 2}`), // +2 because demo is #1
         email: `${(row.username || row.user_identifier || 'visitor').toString().replace(/[^a-z0-9._-]/gi,'_')}@example.local`,
         avatar: row.avatar_url || `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(row.user_identifier || 'visitor_'+idx)}`,
         status: 'online',
@@ -577,8 +697,11 @@ const DataLoader = {
         platformUserId: row.user_identifier || ''
       }));
 
-      // Seed empty conversations map
-      AppState.conversations = Object.fromEntries(AppState.customers.map(c => [c.id, []]));
+      // COMBINE demo + live customers, DEMO ALWAYS FIRST!
+      AppState.customers = [demoCustomer, ...liveCustomers];
+      
+      // Seed conversations map keeping demo conversation
+      AppState.conversations = { '1': demoConversation, ...Object.fromEntries(liveCustomers.map(c => [c.id, []])) };
       AppState._msgLimit = 200;
 
       // Auto-select first and load messages
@@ -809,8 +932,19 @@ const ConversationManager = {
             const unreadCount = this.getUnreadCount(customer.id);
             const isActive = customer.id === AppState.selectedConversationId;
             const platform = (customer.tags[0] || '').toLowerCase();
-            const platformIcon = platform === 'instagram' ? 'fab fa-instagram text-pink-400' : platform === 'facebook' ? 'fab fa-facebook text-blue-500' : 'fas fa-globe text-green-400';
-            const platformBadge = `<span class="text-[10px] px-2 py-0.5 rounded-full bg-gray-700/60 border border-gray-600/40 flex items-center gap-1"><i class="${platformIcon}"></i>${platform}</span>`;
+            const getPlatformBadge = (plat) => {
+                const colors = {
+                    'webchat': { color: 'bg-green-500', text: 'text-green-100', name: 'Web' },
+                    'instagram': { color: 'bg-pink-500', text: 'text-pink-100', name: 'IG' },
+                    'facebook': { color: 'bg-blue-500', text: 'text-blue-100', name: 'FB' },
+                    'sms': { color: 'bg-yellow-500', text: 'text-yellow-100', name: 'SMS' },
+                    'phone': { color: 'bg-purple-500', text: 'text-purple-100', name: 'Call' },
+                    '🔗 unified': { color: 'bg-gradient-to-r from-purple-500 to-pink-500', text: 'text-white', name: 'UNIFIED' }
+                };
+                const config = colors[plat] || { color: 'bg-gray-500', text: 'text-gray-100', name: plat };
+                return `<span class="text-[10px] px-2 py-0.5 rounded-full ${config.color} ${config.text} font-semibold">${config.name}</span>`;
+            };
+            const platformBadge = getPlatformBadge(platform);
             
             return `
                 <div class="conversation-item p-4 rounded-xl cursor-pointer transition-all hover:bg-gray-700/30 animate-fade-in ${isActive ? 'bg-blue-600/20 border border-blue-600/30' : ''}" 
@@ -899,10 +1033,82 @@ const ConversationManager = {
                 `;
             }
 
+            // Special rendering for system messages
+            if (msg.system) {
+                return dateHeader + `
+                    <div class="flex justify-center animate-fade-in my-4">
+                        <div class="max-w-[90%] lg:max-w-[80%]">
+                            <div class="rounded-2xl px-6 py-4 text-sm ${msg.content.includes('DEDUPLICATION TRIGGERED') ? 'message-dedup' : 'message-system'} text-center">
+                                <p class="font-bold leading-relaxed">${msg.content}</p>
+                            </div>
+                            <div class="flex items-center justify-center gap-2 mt-1 text-xs text-gray-400">
+                                <i class="fas fa-cog"></i>
+                                <span>System • ${Utils.formatTime(msg.timestamp)}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Special voice call rendering
+            if (msg.isVoiceCall) {
+                return dateHeader + `
+                    <div class="flex gap-4 justify-start animate-fade-in">
+                        <img class="w-8 h-8 rounded-full object-cover flex-shrink-0 mt-1" src="${customer.avatar}" alt="${customer.name}">
+                        <div class="max-w-[80%] lg:max-w-[70%]">
+                            <div class="channel-badge channel-phone">PHONE CALL</div>
+                            <div class="voice-call-component">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+                                    <span class="text-white font-semibold">Voice Call - ${Math.floor(msg.callDuration / 60)}:${String(msg.callDuration % 60).padStart(2, '0')}</span>
+                                </div>
+                                <div class="voice-call-player">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <button onclick="this.querySelector('i').classList.toggle('fa-play'); this.querySelector('i').classList.toggle('fa-pause')" class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-all">
+                                            <i class="fas fa-play text-white text-xs"></i>
+                                        </button>
+                                        <div class="flex-1 bg-white/10 h-1 rounded-full">
+                                            <div class="bg-white h-1 rounded-full" style="width: 35%"></div>
+                                        </div>
+                                        <span class="text-white text-xs">1:03 / ${Math.floor(msg.callDuration / 60)}:${String(msg.callDuration % 60).padStart(2, '0')}</span>
+                                    </div>
+                                </div>
+                                <p class="text-white/90 text-sm mb-3">${msg.content}</p>
+                                <button onclick="toggleTranscript(this)" class="text-xs text-white/80 hover:text-white flex items-center gap-1">
+                                    <i class="fas fa-file-text"></i>
+                                    <span>Show Full Transcript</span>
+                                </button>
+                                <div class="transcript-collapsed bg-black/20 rounded-lg">
+                                    <div class="text-xs text-white/80 font-semibold mb-2">📝 FULL CALL TRANSCRIPT:</div>
+                                    <div class="text-sm text-white/90 leading-relaxed">${msg.transcript}</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2 mt-1 text-xs text-gray-500">
+                                <span>${Utils.formatTime(msg.timestamp)}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Get channel badge
+            const getChannelBadge = (channel) => {
+                if (!channel) return '';
+                const badges = {
+                    'webchat': '<div class="channel-badge channel-webchat">WEBCHAT</div>',
+                    'sms': '<div class="channel-badge channel-sms">SMS</div>',
+                    'phone': '<div class="channel-badge channel-phone">PHONE</div>',
+                    'instagram': '<div class="channel-badge channel-instagram">INSTAGRAM</div>',
+                    'facebook': '<div class="channel-badge channel-facebook">FACEBOOK</div>'
+                };
+                return badges[channel] || '';
+            };
+
             return dateHeader + `
                 <div class="flex gap-4 ${msg.isOwn ? 'justify-end' : 'justify-start'} animate-fade-in">
                     ${!msg.isOwn ? `<img class="w-8 h-8 rounded-full object-cover flex-shrink-0 mt-1" src="${customer.avatar}" alt="${customer.name}">` : ''}
                     <div class="max-w-[80%] lg:max-w-[70%]">
+                        ${!msg.isOwn ? getChannelBadge(msg.channel) : ''}
                         <div class="rounded-2xl px-4 py-3 text-sm ${msg.isOwn ? 'message-own text-white' : 'message-other text-gray-100'}">
                             <p class="leading-relaxed">${msg.content}</p>
                         </div>
@@ -943,7 +1149,7 @@ const ConversationManager = {
         const responseTime = Math.floor(Math.random() * 5) + 1;
 
         DOM.customerInfo.innerHTML = `
-            <div class="text-center pb-6 border-b border-gray-600/30">
+                            <div class="text-center pb-6 border-b border-gray-600/30">
                 <img class="w-20 h-20 rounded-full object-cover mx-auto mb-4" src="${customer.avatar}" alt="${customer.name}">
                 <h3 class="text-xl font-bold mb-1">${customer.name}</h3>
                 <p class="text-sm text-gray-400 mb-3">${customer.email}</p>
@@ -951,11 +1157,24 @@ const ConversationManager = {
                     <div class="w-2 h-2 rounded-full ${Utils.getStatusClasses(customer.status)}"></div>
                     <span class="text-sm capitalize">${customer.status}</span>
                 </div>
+                ${customer.id === '1' ? `
+                <div class="flex flex-wrap items-center justify-center gap-1 mb-2">
+                    <span class="text-[9px] px-2 py-0.5 rounded-full bg-green-500 text-white font-bold">WEB</span>
+                    <span class="text-[9px] px-2 py-0.5 rounded-full bg-yellow-500 text-white font-bold">SMS</span>
+                    <span class="text-[9px] px-2 py-0.5 rounded-full bg-purple-500 text-white font-bold">CALL</span>
+                    <span class="text-[9px] px-2 py-0.5 rounded-full bg-pink-500 text-white font-bold">IG</span>
+                    <span class="text-[9px] px-2 py-0.5 rounded-full bg-blue-500 text-white font-bold">FB</span>
+                </div>
+                <div class="text-xs text-center mb-2">
+                    <span class="px-2 py-1 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold">
+                        ✨ 5 CHANNELS UNIFIED ✨
+                    </span>
+                </div>` : `
                 <div class="flex items-center justify-center gap-2 mb-2">
                     <span class="text-[11px] px-2 py-0.5 rounded-full bg-gray-700/60 border border-gray-600/40">
-                        ${customer.tags && customer.tags[0] === 'Instagram' ? '<i class="fab fa-instagram text-pink-400 mr-1"></i>Instagram' : customer.tags && customer.tags[0] === 'Facebook' ? '<i class="fab fa-facebook text-blue-500 mr-1"></i>Facebook' : '<i class="fas fa-globe text-green-400 mr-1"></i>Webchat'}
+                        ${customer.tags && customer.tags[0] === 'Instagram' ? '<div class="w-2 h-2 bg-pink-400 rounded-full inline-block mr-1"></div>Instagram' : customer.tags && customer.tags[0] === 'Facebook' ? '<div class="w-2 h-2 bg-blue-400 rounded-full inline-block mr-1"></div>Facebook' : '<div class="w-2 h-2 bg-green-400 rounded-full inline-block mr-1"></div>Webchat'}
                     </span>
-                </div>
+                </div>`}
                 <div class="flex gap-2">
                     <button class="flex-1 px-3 py-2 text-xs rounded-lg bg-blue-600 hover:bg-blue-700 transition-all">
                         <i class="fas fa-phone mr-1"></i> Call
@@ -1523,6 +1742,22 @@ if (document.readyState === 'loading') {
 // Expose global functions
 window.ConversationManager = ConversationManager;
 window.NotificationManager = NotificationManager;
+
+// Global function for transcript toggle
+window.toggleTranscript = function(button) {
+    const transcript = button.nextElementSibling;
+    const span = button.querySelector('span');
+    
+    if (transcript.classList.contains('transcript-collapsed')) {
+        transcript.classList.remove('transcript-collapsed');
+        transcript.classList.add('transcript-expanded');
+        span.textContent = 'Hide Transcript';
+    } else {
+        transcript.classList.remove('transcript-expanded');
+        transcript.classList.add('transcript-collapsed');
+        span.textContent = 'Show Full Transcript';
+    }
+};
 
 </script>
 </body>

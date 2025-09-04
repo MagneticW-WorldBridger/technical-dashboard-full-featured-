@@ -635,7 +635,7 @@ class DatabaseService {
         messageData.function_execution_status
       ]);
       
-      console.log(`💬 Saved ${messageRole} message for ${userIdentifier} on ${platformType}`);
+      // Reduce noisy per-message logs
       return savedMessage;
       
     } catch (error) {
