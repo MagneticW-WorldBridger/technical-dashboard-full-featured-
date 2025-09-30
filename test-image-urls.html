@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🖼️ IMAGE URL TESTING - REAL MAGENTO DATA</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 2rem; background: #f5f5f5; }
+        .test-section { background: white; padding: 1.5rem; margin: 1rem 0; border-radius: 8px; }
+        .url-test { margin: 1rem 0; padding: 1rem; background: #f8f9fa; border-radius: 4px; }
+        .working { background: #d4edda; border-left: 4px solid #28a745; }
+        .broken { background: #f8d7da; border-left: 4px solid #dc3545; }
+        .test-btn { background: #007bff; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; margin: 0.25rem; }
+        img { max-width: 200px; max-height: 150px; margin: 0.5rem; border: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <h1>🖼️ MAGENTO IMAGE URL TESTING</h1>
+    
+    <div class="test-section">
+        <h2>🔍 ORIGINAL SYSTEM URL PATTERN</h2>
+        <p><strong>Pattern:</strong> <code>https://www.woodstockoutlet.com/media/catalog/product{file}</code></p>
+        <div id="original-test"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>🔍 PUB MEDIA URL PATTERN</h2>
+        <p><strong>Pattern:</strong> <code>https://woodstockoutlet.com/pub/media/catalog/product{file}</code></p>
+        <div id="pub-test"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>🔍 ALTERNATIVE PATTERNS</h2>
+        <div id="alt-test"></div>
+    </div>
+
+    <script>
+        // Real image paths from magento-api-responses.json
+        const realImagePaths = [
+            "/l/i/liberty-lindsey-farm-weathered-white-backless-bench-62WH-C9000B-right1.jpg",
+            "/l/e/legacy-belhaven-grey-9pc-dining-table-chairs-set-img1.jpg", 
+            "/k/i/kirkwood-black-5-piece-dining-set-table-and-4-chairs-5311-img1.jpg",
+            "/a/s/ashley-nelling-42-inch-two-tone-white-brown-dining-table-d287d2-tablewithchairs_1.jpg",
+            "/l/e/leather-italia-camel-leather-sofa-1669-6394-frnt.jpg",
+            "/L/e/Leather-italia-butler-brown-leather-sofa-1669-2239-1st.jpg",
+            "/a/s/ashley-benchcraft-rilynn-linen-sofa-3480938-img1.jpg",
+            "/a/r/art-vault-mink-round-chairside-table-285303-2354-img1.jpg"
+        ];
+
+        function testUrlPattern(baseUrl, containerId, patternName) {
+            const container = document.getElementById(containerId);
+            let html = `<h3>${patternName}</h3>`;
+            
+            realImagePaths.forEach((path, index) => {
+                const fullUrl = baseUrl + path;
+                html += `
+                    <div class="url-test" id="test-${containerId}-${index}">
+                        <strong>Test ${index + 1}:</strong><br>
+                        <a href="${fullUrl}" target="_blank">${fullUrl}</a><br>
+                        <img src="${fullUrl}" 
+                             onload="document.getElementById('test-${containerId}-${index}').classList.add('working')" 
+                             onerror="document.getElementById('test-${containerId}-${index}').classList.add('broken')">
+                        <button class="test-btn" onclick="window.open('${fullUrl}', '_blank')">Open</button>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function testAllPatterns() {
+            // Test original system pattern
+            testUrlPattern(
+                'https://www.woodstockoutlet.com/media/catalog/product',
+                'original-test',
+                'ORIGINAL SYSTEM PATTERN (www + /media/)'
+            );
+            
+            // Test pub media pattern
+            testUrlPattern(
+                'https://woodstockoutlet.com/pub/media/catalog/product',
+                'pub-test', 
+                'PUB MEDIA PATTERN (/pub/media/)'
+            );
+            
+            // Test alternative patterns
+            const altContainer = document.getElementById('alt-test');
+            const altPatterns = [
+                'https://woodstockfurniture.com/media/catalog/product',
+                'https://woodstockfurniture.net/media/catalog/product',
+                'https://woodstockoutlet.com/media/catalog/product',
+                'https://www.woodstockfurniture.com/media/catalog/product'
+            ];
+            
+            let altHtml = '<h3>ALTERNATIVE PATTERNS</h3>';
+            altPatterns.forEach((pattern, i) => {
+                const testPath = realImagePaths[0]; // Test first image only
+                const fullUrl = pattern + testPath;
+                altHtml += `
+                    <div class="url-test" id="alt-test-${i}">
+                        <strong>Alt ${i + 1}:</strong> ${pattern}<br>
+                        <a href="${fullUrl}" target="_blank">${fullUrl}</a><br>
+                        <img src="${fullUrl}" 
+                             onload="document.getElementById('alt-test-${i}').classList.add('working')" 
+                             onerror="document.getElementById('alt-test-${i}').classList.add('broken')">
+                        <button class="test-btn" onclick="window.open('${fullUrl}', '_blank')">Open</button>
+                    </div>
+                `;
+            });
+            
+            altContainer.innerHTML = altHtml;
+        }
+
+        function openAllWorkingUrls() {
+            const workingElements = document.querySelectorAll('.working a');
+            console.log(`Found ${workingElements.length} working URLs`);
+            
+            workingElements.forEach((link, index) => {
+                setTimeout(() => {
+                    console.log(`Opening: ${link.href}`);
+                    window.open(link.href, `_blank_${index}`);
+                }, index * 500);
+            });
+        }
+
+        // Auto-run tests
+        window.addEventListener('load', () => {
+            testAllPatterns();
+            
+            // Add button to open all working URLs
+            setTimeout(() => {
+                const button = document.createElement('button');
+                button.textContent = '🚀 OPEN ALL WORKING URLS';
+                button.className = 'test-btn';
+                button.style.cssText = 'font-size: 1.2rem; padding: 1rem 2rem; background: #28a745; margin: 2rem;';
+                button.onclick = openAllWorkingUrls;
+                document.body.appendChild(button);
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
+
