@@ -1,0 +1,17 @@
+Subject: Looking into demo site issues - ETA later today
+
+Hi Jessica,
+
+We're investigating the issues your team reported this morning. 
+
+**Demo Links:**
+• https://woodstock.demo.aiprlassist.com
+• https://woodstock.demo.aiprlassist.com/?mode=admin
+
+Apologies - a test version accidentally went live to these links. We're stabilizing now and will send confirmation later today once everything is verified working.
+
+Thanks for the detailed report!
+
+Best,
+Jean
+
