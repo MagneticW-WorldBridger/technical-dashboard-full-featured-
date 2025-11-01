@@ -1116,6 +1116,225 @@ LEARNED KNOWLEDGE (grows over time):
 
 I'm ready to fucking BUILD. No more planning - execution mode. What's first?
 ** #END OF UPDATE FROM CHAT WITH YOU OCTOBER 28**
+
+---
+
+## 🔬 MONOLITH ROOT CAUSE ANALYSIS - October 31, 2025
+
+**Total Lines:** 3930 lines for 19 functions = **207 lines PER function** (INSANE!)
+
+### 📊 FILE STRUCTURE BREAKDOWN:
+
+```
+Lines 1-110    (110 lines)   → Imports, FastAPI setup, CORS
+Lines 112-246  (134 lines)   → ProductContextManager class ✅ GOOD
+Lines 256-307  (51 lines)    → UserContext class ✅ GOOD  
+Lines 316-367  (51 lines)    → ChainState class ✅ GOOD
+Lines 372-396  (24 lines)    → Agent initialization code ✅ GOOD
+
+Lines 400-1022 (622 LINES)   → 🚨 PROMPT CONTENT - ROOT CAUSE OF ALL ISSUES
+                                 
+Lines 1025-1064 (39 lines)    → Agent kwargs setup ✅ GOOD
+Lines 1069-2890 (1821 lines)  → 19 @agent.tool functions (96 lines/function avg)
+Lines 2960-2999 (39 lines)    → Startup/shutdown events ✅ GOOD
+Lines 3002-3046 (44 lines)    → Health check endpoint ✅ GOOD
+Lines 3048-3126 (78 lines)    → Utility functions ✅ GOOD
+Lines 3128-3645 (517 lines)   → Main /v1/chat/completions endpoint
+Lines 3647-3890 (243 lines)   → Webhooks, phone endpoints ✅ GOOD
+Lines 3914-3930 (16 lines)    → Uvicorn runner ✅ GOOD
+```
+
+---
+
+### 🚨 ROOT CAUSE: THE PROMPT IS 622 LINES OF KEYWORD HELL
+
+**Current Prompt Structure (lines 400-1022):**
+
+```
+Lines 400-497   (97 lines)   → MANDATORY FUNCTION CALLING RULES (keyword lists)
+Lines 498-558   (60 lines)   → HTML formatting templates
+Lines 559-673   (114 lines)  → "Enhanced Semantic Intent Analysis" (still keywords!)
+Lines 674-788   (114 lines)  → Mode switching logic
+Lines 789-946   (157 lines)  → Business information (locations, policies, delivery)
+Lines 947-1022  (75 lines)   → Off-topic redirection, behavioral rules
+```
+
+**THE FUNDAMENTAL FLAW:**
+
+```python
+# Line 407-423: KEYWORD TRIGGERS (WRONG APPROACH)
+IF USER SAYS THIS → YOU MUST DO THIS (NO THINKING, JUST DO IT):
+📞 "call me" / "can you call"  → start_demo_call(phone_number)
+👤 "my phone is X" / "customer X" → get_customer_by_phone(phone)
+📈 "analyze spending patterns" / "analyze patterns" → analyze_customer_patterns(identifier)
+```
+
+**Why this fails:**
+- OpenAI sees 622 lines and ignores half of it
+- Keyword matching is BRITTLE ("customer 770-653-7383" doesn't match "my phone is X")
+- Function docstrings are WEAK (line 1070: "Look up customer by phone number" - not descriptive enough)
+- AI hallucinates "I'm unable to" instead of trying functions
+
+---
+
+### ✅ WHAT WORKS (and why):
+
+**Functions that WORK reliably:**
+1. `search_magento_products` - Line 2393, docstring: "CONVERSATIONAL PRODUCT DISCOVERY: Search products when customers want to BUY or VIEW products"
+   - ✅ Works because "show me sectionals" is natural language
+   - ✅ Docstring is SEMANTIC not keyword-based
+   
+2. `get_orders_by_customer` - Line 1183, triggered by fast-path or direct call
+   - ✅ Works when called from other functions
+   - ❌ Doesn't work from user query directly
+
+3. Store locations, return policy - Static content, no function needed
+   - ✅ Works because it's in the prompt knowledgebase
+
+**Functions that are BROKEN:**
+1. `get_customer_by_phone` - Line 1069
+   - ❌ Docstring: "Look up customer by phone number. Use ONLY when customer provides their phone for identification"
+   - ❌ Too restrictive "ONLY when" confuses OpenAI
+   - ❌ Keyword "customer X" doesn't trigger it
+   
+2. `analyze_customer_patterns` - Line 1415
+   - ❌ Docstring: "Analyze customer purchase patterns - provide phone, email, or customer ID"
+   - ❌ Too vague, no clear trigger words
+   - ❌ Keyword list in prompt (line 413) doesn't help
+
+3. `get_complete_customer_journey` - Line 1778
+   - ❌ Docstring too long, unclear when to use
+   - ❌ Chained function - OpenAI prefers simple functions
+
+---
+
+### 🔧 THE FIX: SEMANTIC FUNCTION CALLING
+
+**Instead of 622 lines of keywords, we need:**
+
+```python
+# ULTRA-SHORT PROMPT (100 lines max):
+"""
+You are AiPRL, Woodstock Furniture's AI assistant.
+
+CORE PRINCIPLE: You have 19 specialized functions at your disposal. 
+When a user asks for something, ANALYZE THEIR INTENT and call the 
+appropriate function. Trust your judgment - the function descriptions 
+tell you when to use them.
+
+BEHAVIORAL RULES:
+1. ALWAYS try a function before saying "I'm unable to"
+2. Use conversation history to understand context
+3. If a function fails, try an alternative or escalate to human
+4. Be helpful, friendly, and solution-oriented
+
+The rest is in your function descriptions - READ THEM and use them wisely.
+"""
+```
+
+**Then IMPROVE function docstrings to be SEMANTIC:**
+
+```python
+@agent.tool
+async def get_customer_by_phone(ctx: RunContext, phone: str) -> str:
+    """
+    Retrieve customer profile and information when a user provides their phone number.
+    
+    Use this when:
+    - User mentions a phone number and wants to be identified
+    - User says "customer [phone]", "my number is [phone]", "look me up"
+    - You need customer_id for other operations
+    
+    Returns: Customer name, ID, email, address for personalization
+    """
+```
+
+```python
+@agent.tool
+async def analyze_customer_patterns(ctx: RunContext, customer_identifier: str) -> str:
+    """
+    Analyze a customer's purchase history to identify spending patterns and preferences.
+    
+    Use this when:
+    - User asks about their "spending patterns", "purchase history analysis", "what I usually buy"
+    - Admin requests customer analytics or insights
+    - You need to understand customer preferences for recommendations
+    
+    Parameters:
+    - customer_identifier: phone number, email, or customer_id (auto-detected)
+    
+    Returns: Total spent, favorite categories, customer tier (high-value vs regular)
+    """
+```
+
+---
+
+### 📋 KNOWLEDGEBASE → RAG CONVERSION PLAN:
+
+**Move these sections OUT of prompt INTO vector DB:**
+
+1. **Store Locations** (lines 789-827) - 38 lines
+   - Function: `get_store_locations()` queries vector DB
+   
+2. **Policies** (lines 829-946) - 117 lines
+   - Return policy, delivery, shipping, privacy
+   - Function: `get_policy_info(policy_type)` queries vector DB
+
+3. **Business Info** (lines 829-946) - Various static content
+   - About us, financing, social media
+   - Function: `get_business_info(topic)` queries vector DB
+
+**TOTAL SAVINGS:** ~300 lines removed from prompt
+
+**NEW PROMPT SIZE:** 622 - 300 = 322 lines (still too much!)
+
+**FURTHER REDUCTION:**
+- Remove HTML templates (lines 498-558) - 60 lines → Generate dynamically
+- Remove mode switching logic (lines 674-788) - 114 lines → AI decides based on context
+- Remove off-topic redirection examples (lines 947-975) - 28 lines → One sentence rule
+
+**FINAL PROMPT:** ~120 lines (80% reduction!)
+
+---
+
+### 🎯 IMMEDIATE ACTION PLAN:
+
+**PHASE 1: Fix Function Docstrings (2 hours)**
+- Rewrite all 19 function docstrings to be SEMANTIC
+- Remove "ONLY when" restrictions
+- Add clear "Use this when" examples
+- Remove keyword dependencies
+
+**PHASE 2: Shrink Prompt (3 hours)**
+- Reduce to 100-150 lines
+- Remove keyword lists entirely
+- Move knowledgebase to RAG (or separate functions)
+- Focus on behavioral principles not rules
+
+**PHASE 3: Test & Iterate (2 hours)**
+- Re-run all 17 production tests
+- Verify functions trigger correctly
+- Adjust docstrings based on results
+
+**EXPECTED OUTCOME:**
+- Functions trigger reliably (90%+ success rate)
+- Faster responses (less prompt = less tokens = less latency)
+- Easier to maintain (change docstring vs 622-line prompt)
+- OpenAI can reason about WHEN to use functions semantically
+
+---
+
+### 🔥 CRITICAL INSIGHT:
+
+**You're 100% right** - keyword lists are FUNDAMENTALLY WRONG for LLM function calling.
+
+OpenAI GPT-4.1 is designed to:
+- ✅ Read function docstrings
+- ✅ Understand semantic intent
+- ✅ Match user query to function purpose
+- ❌ NOT follow 622 lines of keyword if-then rules
+
+**The system is fighting AGAINST how OpenAI works, not WITH it.**
 ## 🚀 **LIVE SYSTEM ARCHITECTURE (WORKING NOW)**
 
 **Server:** http://localhost:8001/frontend/  
